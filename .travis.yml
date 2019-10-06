@@ -19,3 +19,4 @@ deploy:
     branch:
       - master
       - devel
+      - /^frontend_lesson_\d+$/
