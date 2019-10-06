@@ -1,5 +1,14 @@
 {
-  "private": true,
+  "name": "web-components",
+  "homepage": "https://droidroot1995.github.io/track-mail-2019-droidroot/",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "dependencies": {},
+  "keywords": [],
+  "author": "Alexander Goryakin",
+  "license": "ISC",
+  "description": "Mail.Ru Group Frontend Track course, 2019"
+  ,
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
@@ -31,13 +40,4 @@
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.1"
   },
-  "name": "web-components",
-  "homepage": "https://droidroot1995.github.io/track-mail-2019-droidroot/",
-  "version": "1.0.0",
-  "main": "webpack.config.js",
-  "dependencies": {},
-  "keywords": [],
-  "author": "Alexander Goryakin",
-  "license": "ISC",
-  "description": "Mail.Ru Group Frontend Track course, 2019"
 }
