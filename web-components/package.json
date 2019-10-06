@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "scripts": {
+    "start": "webpack-dev-server --mode=development --hot",
+    "build": "webpack --mode=development",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "lint": "npm run lint:js",
+    "lint-fix": "eslint --fix",
+    "test": "CI=true npm run lint",
+    "test:sec": "npm audit || true",
+    "lint:js": "eslint src/**/*.js",
+    "ci": "npm run test && npm run build && npm run test:sec"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.2",
+    "@babel/preset-env": "^7.6.2",
+    "@fortawesome/fontawesome-free": "^5.11.2",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^3.2.0",
+    "eslint": "^6.5.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "style-loader": "^1.0.0",
+    "webpack": "^4.41.0",
+    "webpack-cli": "^3.3.9",
+    "webpack-dev-server": "^3.8.1"
+  },
+  "name": "web-components",
+  "homepage": "https://droidroot1995.github.io/track-mail-2019-droidroot/",
+  "version": "1.0.0",
+  "main": "webpack.config.js",
+  "dependencies": {},
+  "keywords": [],
+  "author": "Alexander Goryakin",
+  "license": "ISC",
+  "description": "Mail.Ru Group Frontend Track course, 2019"
+}
