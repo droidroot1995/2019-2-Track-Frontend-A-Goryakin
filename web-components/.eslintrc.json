@@ -7,6 +7,7 @@
   "plugins": [
     "import",
     "babel",
+    "react",
     "prettier"
   ],
   "parser": "babel-eslint",
