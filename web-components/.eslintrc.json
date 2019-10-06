@@ -7,6 +7,7 @@
   "plugins": [
     "import",
     "babel",
+    "react",
     "prettier"
   ],
   "parser": "babel-eslint",
@@ -42,6 +43,15 @@
       "never"
     ],
     "import/no-named-as-default": 0,
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
     "import/no-extraneous-dependencies": 0,
     "import/no-unresolved": 0,
     "import/extensions": 0,
