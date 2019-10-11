@@ -18,5 +18,6 @@ deploy:
   on:
     branch:
       - master
+      - devel
       - frontend_lesson_2
       - /^frontend_lesson_\d+$/
