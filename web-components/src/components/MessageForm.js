@@ -29,14 +29,14 @@ template.innerHTML = `
         }
 
         .header {
-        	flex: 1 1 5%;
-        	-webkit-flex: 1 1 5%;
+        	flex: 1 1 8%;
+        	-webkit-flex: 1 1 8%;
         	background: #8E24AA; 
 
         	display: flex;
         	display: -webkit-flex;
 
-          flex-direction: row;
+            flex-direction: row;
         	-webkit-flex-direction: row;
         }
 
@@ -161,8 +161,8 @@ template.innerHTML = `
             flex-flow: column wrap;
             -webkit-flex-flow: column wrap;
 
-            flex: 1 1 90%;
-            -webkit-flex: 1 1 90%;
+            flex: 1 1 87%;
+            -webkit-flex: 1 1 87%;
 
             flex-wrap: nowrap;
             -webkit-flex-wrap: nowrap;
@@ -309,6 +309,8 @@ class MessageForm extends HTMLElement {
 
         const serialized = JSON.stringify(this.messages)
         localStorage.setItem('messages', serialized)
+
+        this.$input.placeholder = "Введите сообщение"
 
     }
 

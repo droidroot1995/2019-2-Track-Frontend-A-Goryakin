@@ -6,7 +6,7 @@ template.innerHTML = `
 			align-self: -webkit-flex-start;
 
 			border-radius: 10px;
-			width: 250px;
+			min-width: 250px;
 			height: auto;
 			
 			max-width: 50vw;
