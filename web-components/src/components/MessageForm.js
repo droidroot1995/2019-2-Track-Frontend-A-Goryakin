@@ -309,9 +309,6 @@ class MessageForm extends HTMLElement {
 
         const serialized = JSON.stringify(this.messages)
         localStorage.setItem('messages', serialized)
-
-        this.$input.placeholder = "Введите сообщение"
-
     }
 
     onKeyPress (event) {

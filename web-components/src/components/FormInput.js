@@ -58,7 +58,7 @@ class FormInput extends HTMLElement {
     onKeyPress (event) {
         if (event.keyCode === 13) {
             event.preventDefault()
-            return
+            this.$input.value = this.$input.value
         }
     }
 }
