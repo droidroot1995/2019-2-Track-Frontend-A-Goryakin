@@ -22,7 +22,7 @@ template.innerHTML = `
             display: flex;
 
             flex: 1 1 5%;
-            -webki-flex: 1 1 5%;
+            -webkit-flex: 1 1 5%;
 
             flex-direction: row;
             -webkit-flex-direction: row;
