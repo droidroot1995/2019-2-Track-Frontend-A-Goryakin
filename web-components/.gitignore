@@ -2,3 +2,7 @@ node_modules/
 build/
 false/
 package-lock.json
+src/components/ChatList.js
+src/components/ChatListHeader.js
+src/components/ChatListItem.js
+src/components/NewChatButton.js
