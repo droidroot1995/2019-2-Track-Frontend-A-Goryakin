@@ -29,8 +29,8 @@ template.innerHTML = `
         }
 
         .header {
-        	flex: 1 1 8%;
-        	-webkit-flex: 1 1 8%;
+        	flex: 1 1 10%;
+        	-webkit-flex: 1 1 10%;
         	background: #8E24AA; 
 
         	display: flex;
@@ -161,8 +161,8 @@ template.innerHTML = `
             flex-flow: column wrap;
             -webkit-flex-flow: column wrap;
 
-            flex: 1 1 87%;
-            -webkit-flex: 1 1 87%;
+            flex: 1 1 85%;
+            -webkit-flex: 1 1 85%;
 
             flex-wrap: nowrap;
             -webkit-flex-wrap: nowrap;
