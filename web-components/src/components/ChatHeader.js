@@ -37,6 +37,7 @@ template.innerHTML = `
         	-webkit-flex: 1 1 2%;
 
         	border-radius: 60%;
+        	padding: 3px;
         	margin: 4px 10px 4px;
         }
 
