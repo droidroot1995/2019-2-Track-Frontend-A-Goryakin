@@ -36,7 +36,7 @@ template.innerHTML = `
         	flex: 1 1 2%;
         	-webkit-flex: 1 1 2%;
 
-        	border-radius: 40%;
+        	border-radius: 60%;
         	margin: 4px 10px 4px;
         }
 
@@ -58,11 +58,6 @@ template.innerHTML = `
         	font-size: 14px;
         	font-weight: 300;
         	margin: 0 0 4px;
-        }
-
-        .space{
-        	flex: 1 1 2%;
-        	-webkit-flex: 1 1 2%;
         }
 
         .menu_button {
@@ -128,7 +123,14 @@ class ChatHeader extends HTMLElement {
 		super()
 		this.shadowRoot = this.attachShadow({mode: 'open'})
 		this.shadowRoot.appendChild(template.content.cloneNode(true))
+
 		this.$avatar = this.shadowRoot.querySelector('.avatar')
+		this.$search = this.shadowRoot.querySelector('.search')
+		this.$return = this.shadowRoot.querySelector('.return')
+
+		this.$contact_name = this.shadowRoot.querySelector('.contact_name')
+		this.$contact_last_online = this.shadowRoot.querySelector('.contact_last_online')
+
 		this.$menu_button = this.shadowRoot.querySelector('.menu_button')
         this.$menu = this.shadowRoot.querySelector('.menu')
 
