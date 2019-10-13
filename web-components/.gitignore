@@ -6,4 +6,3 @@ src/components/ChatList.js
 src/components/ChatListHeader.js
 src/components/ChatListItem.js
 src/components/NewChatButton.js
-src/index.css
