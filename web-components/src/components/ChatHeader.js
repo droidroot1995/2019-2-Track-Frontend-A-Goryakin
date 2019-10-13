@@ -6,8 +6,9 @@ template.innerHTML = `
         	-webkit-flex: 1 1 5%;
 
         	fill: white;
-        	padding 20px;
-        	margin: 20px;
+        	margin: 2%;
+          height: 50%;
+          align-self: center;
         }
 
         .search {
@@ -15,41 +16,34 @@ template.innerHTML = `
         	-webkit-flex: 1 1 5%;
 
         	fill: white;
-        	padding: 26px;
-        	margin 30px;
+        	margin 2%;
+          height: 50%;
+          align-self: center;
         }
 
         .contact_info{
         	flex: 1 1 85%;
         	-webkit-flex: 1 1 85%;
-
-        	display: -webkit-flex;
-        	display: flex;
-
-        	flex-direction: row;
-        	-webkit-flex-direction: row;
-
-        	padding: 0.1%;
+          height: fit-content;
         }
 
         .avatar {
-        	flex: 1 1 2%;
-        	-webkit-flex: 1 1 2%;
-
         	border-radius: 60%;
-        	margin: 4px 10px 4px;
+        	margin: 2%;
+          display: inline-block;
+          vertical-align: middle;
         }
 
         .info {
-        	flex: 1 1 90%;
-        	-webkit-flex: 1 1 90%;
-        	padding: 0% 0.1%;
+        	margin: 2%;
+        	display: inline-block;
+        	vertical-align: middle;
         }
 
         .contact_name {
         	font-size: 18px;
         	font-weight: 600;
-        	margin: 10px 0 4px;
+        	margin: 0%;
         	color: #FFFFFF;
         }
 
@@ -57,7 +51,7 @@ template.innerHTML = `
         	color: #d1a7dd;
         	font-size: 14px;
         	font-weight: 300;
-        	margin: 0 0 4px;
+        	margin: 0%;
         }
 
         .menu_button {
@@ -65,8 +59,8 @@ template.innerHTML = `
         	-webkit-flex: 1 1 5%;
 
         	fill: white;
-        	padding: 20px;
-        	margin: 5px;
+        	height: 50%;
+        	align-self: center;
         }
 
         .menu {
@@ -78,7 +72,7 @@ template.innerHTML = `
         	min-height: 30px;
         	position: absolute;
         	right: 5%;
-        	top: 10%;
+        	top: 13vh;
         	width: 10vw;
 
         	z-index: 2;
