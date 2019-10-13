@@ -29,23 +29,25 @@ template.innerHTML = `
         }
 
         .header {
-        	flex: 1 1 10%;
-        	-webkit-flex: 1 1 10%;
+        	flex: 1 1 auto;
+        	-webkit-flex: 1 1 auto;
         	background: #8E24AA; 
+
+          height: 13vh;
 
         	display: flex;
         	display: -webkit-flex;
 
-            flex-direction: row;
+          flex-direction: row;
         	-webkit-flex-direction: row;
+
+          justify-content: space-between;
         }
 
         form-input {
-            
-            padding: 5px;
-
             display: flex;
             display: -webkit-flex;
+            height: 5vh;
 
             flex: 1 1 5%;
             -webkit-flex: 1 1 5%;
@@ -64,8 +66,8 @@ template.innerHTML = `
             flex-flow: column wrap;
             -webkit-flex-flow: column wrap;
 
-            flex: 1 1 85%;
-            -webkit-flex: 1 1 85%;
+            flex: 1 1 90%;
+            -webkit-flex: 1 1 90%;
 
             flex-wrap: nowrap;
             -webkit-flex-wrap: nowrap;
@@ -76,6 +78,7 @@ template.innerHTML = `
 
             flex-grow: 1;
             -webkit-flex-grow: 1;
+            height: 82vh;
         }
 
         input[type=submit] {
