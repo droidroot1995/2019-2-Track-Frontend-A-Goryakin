@@ -155,7 +155,7 @@ class ChatList extends HTMLElement {
 	onChatItemClick(event){
     	event.preventDefault()
 
-    	this.$chat_list.className = this.$chat_list.className
+    	this.smth = ''
 
     	const info = event.target.chatInfo
 
