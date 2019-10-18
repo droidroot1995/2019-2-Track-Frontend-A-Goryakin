@@ -2,42 +2,50 @@ const template = document.createElement("template")
 template.innerHTML = `
 	<style>
 		.return{
-        	flex: 1 1 5%;
-        	-webkit-flex: 1 1 5%;
+        	flex: 1 1 2%%;
+        	-webkit-flex: 1 1 2%;
 
         	fill: white;
         	margin: 2%;
-          height: 50%;
-          align-self: center;
+            height: 50%;
+            align-self: center;
+            position: relative;
         }
 
         .search {
-        	flex: 1 1 5%;
-        	-webkit-flex: 1 1 5%;
+        	flex: 1 1 2%;
+        	-webkit-flex: 1 1 2%;
 
         	fill: white;
-        	margin 2%;
-          height: 50%;
-          align-self: center;
+        	margin: 2%;
+            height: 50%;
+            align-self: center;
+
+            position: relative;
         }
 
         .contact_info{
-        	flex: 1 1 85%;
-        	-webkit-flex: 1 1 85%;
-          height: fit-content;
+        	flex: 1 1 94%;
+        	-webkit-flex: 1 1 94%;
+            height: fit-content;
+            align-self: center;
+            position: relative;
         }
 
         .avatar {
         	border-radius: 60%;
         	margin: 2%;
-          display: inline-block;
-          vertical-align: middle;
+            display: inline-block;
+            vertical-align: middle;
+
+            position: relative;
         }
 
         .info {
         	margin: 2%;
         	display: inline-block;
         	vertical-align: middle;
+            position: relative;
         }
 
         .contact_name {
@@ -45,6 +53,7 @@ template.innerHTML = `
         	font-weight: 600;
         	margin: 0%;
         	color: #FFFFFF;
+            position: relative;
         }
 
         .contact_last_online {
@@ -52,15 +61,19 @@ template.innerHTML = `
         	font-size: 14px;
         	font-weight: 300;
         	margin: 0%;
+            position: relative;
         }
 
         .menu_button {
-        	flex: 1 1 5%;
-        	-webkit-flex: 1 1 5%;
+        	flex: 1 1 2%;
+        	-webkit-flex: 1 1 2%;
 
         	fill: white;
-        	height: 50%;
+            margin: 2%;
+        	height: 30%;
         	align-self: center;
+
+            position:relative;
         }
 
         .menu {
@@ -129,6 +142,15 @@ class ChatHeader extends HTMLElement {
         this.$menu = this.shadowRoot.querySelector('.menu')
 
         this.$menu_button.addEventListener('click', this.onMenuClick.bind(this))
+        this.$return.addEventListener('click', this.onReturnClick.bind(this))
+	}
+
+	set contactAvatar(avatar) {
+		this.$avatar.src = avatar
+	}
+
+	set contactName(name) {
+		this.$contact_name.textContent = name
 	}
 
 	onMenuClick(event){
@@ -139,6 +161,12 @@ class ChatHeader extends HTMLElement {
     	else {
     		this.$menu.className = "menu"
     	}
+    }
+
+    onReturnClick(event){
+    	event.preventDefault()
+    	document.querySelector('message-form').style.display = 'none'
+    	document.querySelector('chat-list').style.display = 'inline'
     }
 }
 

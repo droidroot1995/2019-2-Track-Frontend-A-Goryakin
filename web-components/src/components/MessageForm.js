@@ -116,6 +116,7 @@ class MessageForm extends HTMLElement {
         this.$form = this.shadowRoot.querySelector('form')
         this.$input = this.shadowRoot.querySelector('form-input')
         this.$message = this.shadowRoot.querySelector('.result')
+        this.$header = this.shadowRoot.querySelector('.header')
 
         this.$form.addEventListener('submit', this.onSubmit.bind(this))
         this.$form.addEventListener('keypress', this.onKeyPress.bind(this))
@@ -141,6 +142,11 @@ class MessageForm extends HTMLElement {
                 message.setTime(msg.time)
             }
         }
+    }
+
+    set chatInfo(info) {
+        this.$header.contactAvatar = info['avatar']
+        this.$header.contactName = info['name']
     }
 
     onSubmit (event) {

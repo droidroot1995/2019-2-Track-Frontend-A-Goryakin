@@ -11,6 +11,14 @@ html {
     border: 0;
 }
 
+message-form {
+    display: none;
+}
+
+chat-list {
+    display: inline;
+}
+
 body {
     margin: 0;
     background-color: #fff;
