@@ -135,7 +135,7 @@ template.innerHTML = `
 
 class ChatListItem extends HTMLElement {
 	constructor(){
-		super();
+		super()
 		this.shadowRoot = this.attachShadow({mode: 'open'})
 		this.shadowRoot.appendChild(template.content.cloneNode(true))
 		this.$avatar = this.shadowRoot.querySelector('.avatar')
@@ -151,12 +151,12 @@ class ChatListItem extends HTMLElement {
 
 	set contactName(name){
 		this.$contact.textContent = name
-		this.info['name']  = name
+		this.info.name  = name
 	}
 
 	set contactAvatar(avatar) {
 		this.$avatar.src = avatar
-		this.info['avatar'] = avatar
+		this.info.avatar = avatar
 	}
 
 	set lastMessageTime(time){
@@ -166,23 +166,21 @@ class ChatListItem extends HTMLElement {
 
 	set lastMessage(msg){
 		this.$message.textContent = msg
-		this.info['msg'] = msg
+		this.info.msg = msg
 	}
 
 	set chatType(cType){
 		this.cType = cType
-		console.log(this.cType)
 	}
 
 	set messageCheck(check){
-		console.log(check)
 
-		if (check == 'sent'){
+		if (check === 'sent'){
 			this.$sent_read.className = "sent_read"
 			this.$msg_check.className = "msg_check"
 			this.$sent.classList.add("set")
 		}
-		else if (check == 'sent_read') {
+		else if (check === 'sent_read') {
 			this.$sent_read.classList.add("set")
 			this.$msg_check.className = "msg_check"
 			this.$sent.className = "sent"
@@ -193,11 +191,11 @@ class ChatListItem extends HTMLElement {
 			this.$msg_check.className += ` ${this.cType}`
 			this.$sent.className = "sent"
 
-			if(this.cType == 'single'){
+			if(this.cType === 'single'){
 				this.$msg_check.textContent = check
 			}
 
-			if(this.cType == 'group') {
+			if(this.cType === 'group') {
 				this.$msg_check.textContent = check
 			}
 		}

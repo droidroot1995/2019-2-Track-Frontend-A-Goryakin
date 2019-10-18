@@ -48,7 +48,7 @@ template.innerHTML = `
 
 class ChatListHeader extends HTMLElement {
 	constructor(){
-		super();
+		super()
 		this.shadowRoot = this.attachShadow({mode: 'open'})
 		this.shadowRoot.appendChild(template.content.cloneNode(true))
 		this.$menu = this.shadowRoot.querySelector('.menu')

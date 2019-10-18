@@ -145,8 +145,8 @@ class MessageForm extends HTMLElement {
     }
 
     set chatInfo(info) {
-        this.$header.contactAvatar = info['avatar']
-        this.$header.contactName = info['name']
+        this.$header.contactAvatar = info.avatar
+        this.$header.contactName = info.name
     }
 
     onSubmit (event) {

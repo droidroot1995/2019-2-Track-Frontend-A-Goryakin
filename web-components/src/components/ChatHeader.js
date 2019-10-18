@@ -165,6 +165,8 @@ class ChatHeader extends HTMLElement {
 
     onReturnClick(event){
     	event.preventDefault()
+
+        this.$return.className = this.$return.className
     	document.querySelector('message-form').style.display = 'none'
     	document.querySelector('chat-list').style.display = 'inline'
     }

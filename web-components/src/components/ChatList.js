@@ -101,7 +101,7 @@ template.innerHTML = `
 
 class ChatList extends HTMLElement {
 	constructor(){
-		super();
+		super()
 		this.shadowRoot = this.attachShadow({mode: 'open'})
 		this.shadowRoot.appendChild(template.content.cloneNode(true))
 		this.$header = this.shadowRoot.querySelector('.header')
@@ -111,7 +111,7 @@ class ChatList extends HTMLElement {
 	}
 
 	generateChats(){
-		var chat1 = document.createElement('chat-list-item')
+		const chat1 = document.createElement('chat-list-item')
 		this.$chats_list.appendChild(chat1)
 		chat1.contactName = 'Alexey'
 		chat1.contactAvatar = 'http://pikchyriki.net/avatar/krutye/64/30.jpg'
@@ -121,7 +121,7 @@ class ChatList extends HTMLElement {
 		chat1.messageCheck = '99'
 		chat1.addEventListener('click', this.onChatItemClick.bind(this))
 
-		var chat2 = document.createElement('chat-list-item')
+		const chat2 = document.createElement('chat-list-item')
 		this.$chats_list.appendChild(chat2)
 		chat2.contactName = 'Planet 42'
 		chat2.contactAvatar = 'http://pikchyriki.net/avatar/krutye/64/19.jpg'
@@ -131,7 +131,7 @@ class ChatList extends HTMLElement {
 		chat2.messageCheck = '999'
 		chat2.addEventListener('click', this.onChatItemClick.bind(this))
 
-		var chat3 = document.createElement('chat-list-item')
+		const chat3 = document.createElement('chat-list-item')
 		this.$chats_list.appendChild(chat3)
 		chat3.contactName = 'Martin'
 		chat3.contactAvatar = 'http://pikchyriki.net/avatar/krutye/64/21.jpg'
@@ -141,7 +141,7 @@ class ChatList extends HTMLElement {
 		chat3.messageCheck = 'sent'
 		chat3.addEventListener('click', this.onChatItemClick.bind(this))
 
-		var chat4 = document.createElement('chat-list-item')
+		const chat4 = document.createElement('chat-list-item')
 		this.$chats_list.appendChild(chat4)
 		chat4.contactName = 'Mikhail'
 		chat4.contactAvatar = 'http://pikchyriki.net/avatar/krutye/64/24.jpg'
@@ -155,12 +155,13 @@ class ChatList extends HTMLElement {
 	onChatItemClick(event){
     	event.preventDefault()
 
-    	//let chat_id = event.target.id.split('_')[1] -1
+    	this.$chat_list.className = this.$chat_list.className
+
     	const info = event.target.chatInfo
-    	console.log(info)
-    	message_form = document.querySelector('message-form')
-    	message_form.chatInfo = info
-    	message_form.style.display = 'inline'
+
+    	const messageForm = document.querySelector('message-form')
+    	messageForm.chatInfo = info
+    	messageForm.style.display = 'inline'
     	document.querySelector('chat-list').style.display = 'none'
     }
 }

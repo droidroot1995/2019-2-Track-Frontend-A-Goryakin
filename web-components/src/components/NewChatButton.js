@@ -13,15 +13,16 @@ template.innerHTML = `
 
 class NewChatButton extends HTMLElement {
 	constructor(){
-		super();
+		super()
 		this.shadowRoot = this.attachShadow({mode: 'open'})
 		this.shadowRoot.appendChild(template.content.cloneNode(true))
 		this.$new_chat = this.shadowRoot.querySelector('.new_chat')
 
-		this.$new_chat.addEventListener('click', this.onNewChatClick.bind(this));
+		this.$new_chat.addEventListener('click', this.onNewChatClick.bind(this))
 	}
 
 	onNewChatClick(event) {
+		event.preventDefault()
 		this.$new_chat.className = this.$new_chat.className
 	}
 }
