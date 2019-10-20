@@ -1,40 +1,37 @@
-const template = document.createElement("template")
+const template = document.createElement('template')
 template.innerHTML = `
 	<style>
-		.return{
-        	flex: 1 1 2%%;
-        	-webkit-flex: 1 1 2%;
+		.return {
+            flex: 1 1 2%;
 
-        	fill: white;
-        	margin: 2%;
+            fill: white;
+            margin: 2%;
             height: 50%;
             align-self: center;
             position: relative;
         }
 
         .search {
-        	flex: 1 1 2%;
-        	-webkit-flex: 1 1 2%;
+            flex: 1 1 2%;
 
-        	fill: white;
-        	margin: 2%;
+            fill: white;
+            margin: 2%;
             height: 50%;
             align-self: center;
-
             position: relative;
         }
 
-        .contact_info{
-        	flex: 1 1 94%;
-        	-webkit-flex: 1 1 94%;
+        .contact_info {
+            flex: 1 1 94%;
+            
             height: fit-content;
             align-self: center;
             position: relative;
         }
 
         .avatar {
-        	border-radius: 60%;
-        	margin: 2%;
+            border-radius: 60%;
+            margin: 2%;
             display: inline-block;
             vertical-align: middle;
 
@@ -42,68 +39,67 @@ template.innerHTML = `
         }
 
         .info {
-        	margin: 2%;
-        	display: inline-block;
-        	vertical-align: middle;
+            margin: 2%;
+            display: inline-block;
+            vertical-align: middle;
             position: relative;
         }
 
         .contact_name {
-        	font-size: 18px;
-        	font-weight: 600;
-        	margin: 0%;
-        	color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0%;
+            color: #FFFFFF;
             position: relative;
         }
 
         .contact_last_online {
-        	color: #d1a7dd;
-        	font-size: 14px;
-        	font-weight: 300;
-        	margin: 0%;
+            color: #d1a7dd;
+            font-size: 14px;
+            font-weight: 300;
+            margin: 0%;
             position: relative;
         }
 
         .menu_button {
-        	flex: 1 1 2%;
-        	-webkit-flex: 1 1 2%;
+            flex: 1 1 2%;
 
-        	fill: white;
+            fill: white;
             margin: 2%;
-        	height: 30%;
-        	align-self: center;
+            height: 30%;
+            align-self: center;
 
             position:relative;
         }
 
         .menu {
-        	display: none;
-        	list-style: none;
-        	background: #F6F6F6;
-        	margin: 0px;
-        	padding: 2px;
-        	min-height: 30px;
-        	position: absolute;
-        	right: 5%;
-        	top: 13vh;
-        	width: 10vw;
+            display: none;
+            list-style: none;
+            background: #F6F6F6;
+            margin: 0px;
+            padding: 2px;
+            min-height: 30px;
+            position: absolute;
+            right: 5%;
+            top: 13vh;
+            width: 10vw;
 
-        	z-index: 2;
-        	border: 1px solid #999;
-        	border-radius: 5px;
+            z-index: 2;
+            border: 1px solid #999;
+            border-radius: 5px;
         }
 
         .menu.open {
-        	display: block;
+            display: block;
         }
 
         .menu_item {
-        	font-size: 16px;
-        	font-weight: 600;
-        	height: 30px;
-        	margin: 0px;
-        	padding: 10px;
-        	width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            height: 30px;
+            margin: 0px;
+            padding: 10px;
+            width: 100%;
         }
 
 
@@ -155,11 +151,11 @@ class ChatHeader extends HTMLElement {
 
 	onMenuClick(event){
     	event.preventDefault()
-    	if(this.$menu.className === "menu"){
-    		this.$menu.className += " open"
+    	if(this.$menu.className === 'menu'){
+    		this.$menu.className += ' open'
     	}
     	else {
-    		this.$menu.className = "menu"
+    		this.$menu.className = 'menu'
     	}
     }
 

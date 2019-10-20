@@ -1,37 +1,34 @@
-const template = document.createElement("template")
+const template = document.createElement('template')
 template.innerHTML = `
 	<style>
 		.menu {
 			flex: 1 1 2%;
-        	-webkit-flex: 1 1 2%;
 
-        	fill: white;
-        	margin: 2%;
-        	height: 50%;
+			fill: white;
+			margin: 2%;
+			height: 50%;
 
-        	align-self: center;
+			align-self: center;
 		}
 
 		.soft_name {
 			flex: 1 1 96%;
-        	-webkit-flex: 1 1 96%;
 
-        	font-size: 22px;
-        	font-weight: 600;
+			font-size: 22px;
+			font-weight: 600;
 
-        	fill: white;
-        	padding: 20px;
-        	align-self: center;
+			fill: white;
+			padding: 20px;
+			align-self: center;
 		}
 
 		.search {
 			flex: 1 1 2%;
-        	-webkit-flex: 1 1 2%;
 
-        	fill: white;
-        	margin: 2%;
-        	height: 50%;
-        	align-self: center;
+			fill: white;
+			margin: 2%;
+			height: 50%;
+			align-self: center;
 
 		}
 

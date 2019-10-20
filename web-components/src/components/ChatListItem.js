@@ -1,10 +1,9 @@
-const template = document.createElement("template")
+const template = document.createElement('template')
 template.innerHTML = `
 	<style>
 
 		.item {
 			flex: 1 1 10%;
-			-webkit-flex: 1 1 10%;
 
 			height: 10vh;
 			border-bottom: 1px solid grey;
@@ -14,7 +13,7 @@ template.innerHTML = `
 		.avatar {
 			position: relative;
 			display: inline-block;
-        	border-radius: 50px;
+			border-radius: 50px;
         	border: 1px solid black;
         	align-self: center;
         	height: 90%;
@@ -173,23 +172,30 @@ class ChatListItem extends HTMLElement {
 		this.cType = cType
 	}
 
+	set chatId(cId){
+		this.cId = cId
+		this.info.chatId = cId
+	}
+
 	set messageCheck(check){
 
+		this.info.msg_check = check
+
 		if (check === 'sent'){
-			this.$sent_read.className = "sent_read"
-			this.$msg_check.className = "msg_check"
-			this.$sent.classList.add("set")
+			this.$sent_read.className = 'sent_read'
+			this.$msg_check.className = 'msg_check'
+			this.$sent.classList.add('set')
 		}
 		else if (check === 'sent_read') {
-			this.$sent_read.classList.add("set")
-			this.$msg_check.className = "msg_check"
-			this.$sent.className = "sent"
+			this.$sent_read.classList.add('set')
+			this.$msg_check.className = 'msg_check'
+			this.$sent.className = 'sent'
 		}
 		else {
 
-			this.$sent_read.className = "sent_read"
+			this.$sent_read.className = 'sent_read'
 			this.$msg_check.className += ` ${this.cType}`
-			this.$sent.className = "sent"
+			this.$sent.className = 'sent'
 
 			if(this.cType === 'single'){
 				this.$msg_check.textContent = check

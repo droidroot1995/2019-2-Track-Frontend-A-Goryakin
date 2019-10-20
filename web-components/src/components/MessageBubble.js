@@ -3,12 +3,11 @@ template.innerHTML = `
 	<style>
 		.message-bubble {
 			align-self: flex-start;
-			align-self: -webkit-flex-start;
 
 			border-radius: 10px;
 			min-width: 250px;
 			height: auto;
-			
+
 			max-width: 50vw;
 			position: relative;
 			margin: 0 0 25px;
@@ -40,7 +39,7 @@ template.innerHTML = `
 			word-wrap: break-word;
 		}
 
-		.txt > .time {
+		.message-bubble.them > .txt > .message_info > .time {
 			display: inline-block;
 			font-size: 11px;
 			position: absolute;
@@ -50,12 +49,49 @@ template.innerHTML = `
 			color: #666666;
 		}
 
+		.message-bubble.me > .txt > .message_info > .time {
+			display: inline-block;
+			font-size: 11px;
+			position: absolute;
+			bottom: 3px;
+			right: 30px;
+			text-transform: uppercase;
+			color: #666666;
+		}
+
+		.message_info > .sent {
+			display: none;
+			fill: #8E24AA;
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			height: 10px;
+			width: 10px;
+		}
+
+		.message_info > .sent.set {
+			display: inline-block;
+		}
+
+		.message_info > .sent_read {
+			display: none;
+			fill: #8E24AA;
+			position: absolute;
+			right: 10px;
+			bottom: 10px;
+			height: 10px;
+			width: 10px;
+		}
+
+		.message_info > .sent_read.set {
+			display: inline-block;
+		}
+
 		.message-bubble.me {
 			background: #f3e5f5;
 			order: -1;
 			margin-right: 1em;
 			align-self: flex-end;
-			align-self: -webkit-flex-end;
 			align: right;
 		}
 
@@ -78,7 +114,6 @@ template.innerHTML = `
 			background: #f6e6e6;
 			margin-left: 1em;
 			align-self: flex-start;
-			align-self: -webkit-flex-start;
 			align: left;
 		}
 
@@ -94,7 +129,15 @@ template.innerHTML = `
 	<div class="txt">
 		<p class="name alt"></p>
 		<p class="message"></p>
-		<span class="time"></span>
+		<p class="message_info">
+			<span class="time"></span>
+			<svg xmlns="http://www.w3.org/2000/svg" class="sent" viewBox="0 0 512 512">
+				<path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/>
+			</svg>
+			<svg xmlns="http://www.w3.org/2000/svg" class="sent_read" viewBox="0 0 512 512">
+				<path d="M505 174.8l-39.6-39.6c-9.4-9.4-24.6-9.4-33.9 0L192 374.7 80.6 263.2c-9.4-9.4-24.6-9.4-33.9 0L7 302.9c-9.4 9.4-9.4 24.6 0 34L175 505c9.4 9.4 24.6 9.4 33.9 0l296-296.2c9.4-9.5 9.4-24.7.1-34zm-324.3 106c6.2 6.3 16.4 6.3 22.6 0l208-208.2c6.2-6.3 6.2-16.4 0-22.6L366.1 4.7c-6.2-6.3-16.4-6.3-22.6 0L192 156.2l-55.4-55.5c-6.2-6.3-16.4-6.3-22.6 0L68.7 146c-6.2 6.3-6.2 16.4 0 22.6l112 112.2z"/>
+			</svg>
+		<p>
 	</div>
 	<div class="bubble-arrow"></div>
 	</div>
@@ -111,21 +154,38 @@ class MessageBubble extends HTMLElement{
         this.$name = this.shadowRoot.querySelector('.name')
         this.$message = this.shadowRoot.querySelector('.message')
         this.$time = this.shadowRoot.querySelector('.time')
+
+        this.$sent = this.shadowRoot.querySelector('.sent')
+        this.$sent_read = this.shadowRoot.querySelector('.sent_read')
 	}
 
-	setTime(time){
+	set Time(time){
 		this.$time.textContent = time
 	}
 
-	setMessage(message){
+	set Message(message){
 		this.$message.textContent = message
 	}
 
-	setName(name){
+	set Name(name){
 		this.$name.textContent = name
 	}
 
-	setClassname(name){
+	set Status(status) {
+		if(status === 'sent'){
+			this.$sent.classList.add('set')
+		}
+		else if (status === 'sent_read'){
+			this.$sent.className = 'sent'
+			this.$sent_read.classList.add('set')
+		}
+		else {
+			this.$sent.className = 'sent'
+			this.$sent_read = 'sent_read'
+		}
+	}
+
+	set Classname(name){
 		const newName = `  ${name}`
 		this.$bubble.className += newName
 		this.$name.className += newName
