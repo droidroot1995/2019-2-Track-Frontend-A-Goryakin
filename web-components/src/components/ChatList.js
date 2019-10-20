@@ -99,7 +99,7 @@ class ChatList extends HTMLElement {
 		chat1.lastMessageTime = '10:54'
 		chat1.lastMessage = '1111'
 		chat1.chatType = 'single'
-		chat1.messageCheck = '99'
+		chat1.messageCheck = '1'
 		chat1.chatId = 1
 		chat1.addEventListener('click', this.onChatItemClick.bind(this))
 
@@ -110,7 +110,7 @@ class ChatList extends HTMLElement {
 		chat2.lastMessageTime = '22:05'
 		chat2.lastMessage = 'Hello'
 		chat2.chatType = 'group'
-		chat2.messageCheck = '999'
+		chat2.messageCheck = '1'
 		chat2.chatId = 2
 		chat2.addEventListener('click', this.onChatItemClick.bind(this))
 
@@ -158,7 +158,7 @@ class ChatList extends HTMLElement {
     	const chat = document.createElement('chat-list-item')
     	this.$chats_list.appendChild(chat)
     	chat.contactName = 'New contact'
-    	chat.contactAvatar = ''
+    	chat.contactAvatar = 'http://pikchyriki.net/avatar/krutye/64/76.jpg'
     	chat.lastMessageTime = ''
     	chat.lastMessage = ''
     	chat.chatType = 'single'

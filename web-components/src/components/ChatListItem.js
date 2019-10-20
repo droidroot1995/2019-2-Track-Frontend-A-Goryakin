@@ -6,6 +6,7 @@ template.innerHTML = `
 			flex: 1 1 10%;
 
 			height: 10vh;
+
 			border-bottom: 1px solid grey;
 			margin: 10px 1px 1px;
 		}
@@ -14,9 +15,9 @@ template.innerHTML = `
 			position: relative;
 			display: inline-block;
 			border-radius: 50px;
-        	border: 1px solid black;
-        	align-self: center;
-        	height: 90%;
+			border: 1px solid black;
+			align-self: center;
+			height: 90%;
 		}
 
 		.message_info {
@@ -69,7 +70,10 @@ template.innerHTML = `
 			position: fixed;
 			right: 2%;
 			padding: 5px;
-			border-radius: 50px;
+			border-radius: 1.6em;
+			width: 1.6em;
+			height: 1.6em;
+			text-align: center;
 		}
 
 		.msg_check.group {
