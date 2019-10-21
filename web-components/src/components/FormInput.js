@@ -6,15 +6,14 @@ template.innerHTML = `
             outline: none;
             width: calc(100% - 2px);
             flex: 1 1 98%;
-            -webkit-flex: 1 1 98%;
 
             resize: none;
         }
 
         svg {
             flex: 1 1 2%;
-            -webkit-flex: 1 1 2%;
             transform: rotate(45deg);
+
             fill: grey;
             padding: 10px;
         }

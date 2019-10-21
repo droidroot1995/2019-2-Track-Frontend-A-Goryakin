@@ -1,96 +1,105 @@
-const template = document.createElement("template")
+const template = document.createElement('template')
 template.innerHTML = `
 	<style>
-		.return{
-        	flex: 1 1 5%;
-        	-webkit-flex: 1 1 5%;
+		.return {
+            flex: 1 1 2%;
 
-        	fill: white;
-        	margin: 2%;
-          height: 50%;
-          align-self: center;
+            fill: white;
+            margin: 2%;
+            height: 50%;
+            align-self: center;
+            position: relative;
         }
 
         .search {
-        	flex: 1 1 5%;
-        	-webkit-flex: 1 1 5%;
+            flex: 1 1 2%;
 
-        	fill: white;
-        	margin 2%;
-          height: 50%;
-          align-self: center;
+            fill: white;
+            margin: 2%;
+            height: 50%;
+            align-self: center;
+            position: relative;
         }
 
-        .contact_info{
-        	flex: 1 1 85%;
-        	-webkit-flex: 1 1 85%;
-          height: fit-content;
+        .contact_info {
+            flex: 1 1 94%;
+            
+            height: fit-content;
+            align-self: center;
+            position: relative;
         }
 
         .avatar {
-        	border-radius: 60%;
-        	margin: 2%;
-          display: inline-block;
-          vertical-align: middle;
+            border-radius: 60%;
+            margin: 2%;
+            display: inline-block;
+            vertical-align: middle;
+
+            position: relative;
         }
 
         .info {
-        	margin: 2%;
-        	display: inline-block;
-        	vertical-align: middle;
+            margin: 2%;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative;
         }
 
         .contact_name {
-        	font-size: 18px;
-        	font-weight: 600;
-        	margin: 0%;
-        	color: #FFFFFF;
+            font-size: 18px;
+            font-weight: 600;
+            margin: 0%;
+            color: #FFFFFF;
+            position: relative;
         }
 
         .contact_last_online {
-        	color: #d1a7dd;
-        	font-size: 14px;
-        	font-weight: 300;
-        	margin: 0%;
+            color: #d1a7dd;
+            font-size: 14px;
+            font-weight: 300;
+            margin: 0%;
+            position: relative;
         }
 
         .menu_button {
-        	flex: 1 1 5%;
-        	-webkit-flex: 1 1 5%;
+            flex: 1 1 2%;
 
-        	fill: white;
-        	height: 50%;
-        	align-self: center;
+            fill: white;
+            margin: 2%;
+            height: 30%;
+            align-self: center;
+
+            position:relative;
         }
 
         .menu {
-        	display: none;
-        	list-style: none;
-        	background: #F6F6F6;
-        	margin: 0px;
-        	padding: 2px;
-        	min-height: 30px;
-        	position: absolute;
-        	right: 5%;
-        	top: 13vh;
-        	width: 10vw;
+            display: none;
+            list-style: none;
+            background: #F6F6F6;
+            margin: 0px;
+            padding: 2px;
+            min-height: 30px;
+            position: absolute;
+            right: 5%;
+            top: 13vh;
+            width: 10vw;
 
-        	z-index: 2;
-        	border: 1px solid #999;
-        	border-radius: 5px;
+            z-index: 2;
+            border: 1px solid #999;
+            border-radius: 5px;
         }
 
         .menu.open {
-        	display: block;
+            display: block;
         }
 
         .menu_item {
-        	font-size: 16px;
-        	font-weight: 600;
-        	height: 30px;
-        	margin: 0px;
-        	padding: 10px;
-        	width: 100%;
+            font-size: 16px;
+            font-weight: 600;
+            height: 30px;
+            margin: 0px;
+            padding: 10px;
+            width: 100%;
         }
 
 
@@ -129,16 +138,33 @@ class ChatHeader extends HTMLElement {
         this.$menu = this.shadowRoot.querySelector('.menu')
 
         this.$menu_button.addEventListener('click', this.onMenuClick.bind(this))
+        this.$return.addEventListener('click', this.onReturnClick.bind(this))
+	}
+
+	set contactAvatar(avatar) {
+		this.$avatar.src = avatar
+	}
+
+	set contactName(name) {
+		this.$contact_name.textContent = name
 	}
 
 	onMenuClick(event){
     	event.preventDefault()
-    	if(this.$menu.className === "menu"){
-    		this.$menu.className += " open"
+    	if(this.$menu.className === 'menu'){
+    		this.$menu.className += ' open'
     	}
     	else {
-    		this.$menu.className = "menu"
+    		this.$menu.className = 'menu'
     	}
+    }
+
+    onReturnClick(event){
+    	event.preventDefault()
+
+        this.smth = ''
+    	document.querySelector('message-form').style.display = 'none'
+    	document.querySelector('chat-list').style.display = 'inline'
     }
 }
 
