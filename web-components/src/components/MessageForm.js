@@ -138,6 +138,7 @@ template.innerHTML = `
 
             .header {
                 min-height: 90px;
+                max-height: 90px;
             }
 
             form-input {
@@ -148,6 +149,7 @@ template.innerHTML = `
         @media screen and (min-width: 992px) and (max-width: 1199px) {
             .header {
                 min-height: 90px;
+                max-height: 90px;
             }
 
             form-input {
@@ -158,6 +160,7 @@ template.innerHTML = `
         @media screen and (min-width: 1200px) {
             .header {
                 min-height: 100px;
+                max-height: 100px;
             }
 
             form-input {
