@@ -6,10 +6,17 @@ template.innerHTML = `
 
 			fill: white;
 			margin: 2%;
+			
 			height: 50%;
-
 			align-self: center;
 		}
+
+		
+
+		.menu:active {
+        	background: #c23ee5;
+        	transition: all 0.2s ease-out;
+        }
 
 		.soft_name {
 			flex: 1 1 96%;
@@ -31,6 +38,106 @@ template.innerHTML = `
 			align-self: center;
 
 		}
+
+		.search:active {
+        	background: #c23ee5;
+        	transition: all 0.2s ease-out;
+        }
+
+        @media screen and (max-width: 389px) {
+        	.menu {
+            	flex: 1 1 25%;
+            }
+
+            .soft_name {
+            	flex: 1 1 50%;
+            }
+
+            .search {
+            	flex: 1 1 25%;
+            }
+        }
+
+		
+
+		@media screen and (min-width: 390px) and (max-width: 480px) {
+            .menu {
+            	flex: 1 1 10%;
+            }
+
+            .soft_name {
+            	flex: 1 1 80%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+        }
+
+        @media screen and (min-width: 481px) and (max-width: 767px) {
+            .menu {
+            	flex: 1 1 10%;
+            }
+
+            .soft_name {
+            	flex: 1 1 80%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+
+            .menu {
+            	flex: 1 1 10%;
+            }
+
+            .soft_name {
+            	flex: 1 1 80%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+        }
+
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .menu {
+            	flex: 1 1 10%;
+            }
+
+            .soft_name {
+            	flex: 1 1 80%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+        }
+
+        @media screen and (min-width: 1200px){
+        	.search:hover {
+        		fill: #D3D3D3;
+        		transition: all 0.1s ease-out;
+        	}
+
+        	.search {
+        		padding: 10px;
+        		border-radius: 20px;
+        	}
+
+        	.menu:hover {
+        		fill: #D3D3D3;
+        		transition: all 0.1s ease-out;
+        	}
+
+        	.menu {
+        		padding: 10px;
+        		border-radius: 20px;
+        	}
+        }
 
 		.
 	</style>

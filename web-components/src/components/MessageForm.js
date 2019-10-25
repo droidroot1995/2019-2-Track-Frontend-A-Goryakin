@@ -24,6 +24,8 @@ template.innerHTML = `
             background: #8E24AA; 
             height: 13vh;
 
+            min-height: 100px;
+
             display: flex;
             flex-direction: row;
             justify-content: space-between;
@@ -46,7 +48,8 @@ template.innerHTML = `
             flex: 1 1 90%;
             flex-wrap: nowrap;
 
-            overflow: auto;
+            overflow-y: auto;
+            overflow-x: hidden;
 
             justify-content: flex-start;
             flex-grow: 1;
@@ -64,10 +67,102 @@ template.innerHTML = `
 
         message-bubble.them {
             align-self: flex-start;
+            animation-duration: 0.5s;
+            animation-name: mb_them;
         }
 
         message-bubble.me {
             align-self: flex-end;
+            animation-duration: 0.5s; 
+            animation-name: mb_me;
+        }
+
+        @keyframes mb_me {
+            from {
+                margin-right: -300px;
+                width: 300%;
+            }
+
+            to {
+                margin-right: 0px;
+                width: auto;
+            }
+        }
+
+        @keyframes mb_them {
+            0% {
+                margin-left: -300px;
+                width: 0%;
+            }
+
+            100% {
+                margin-left: 0px;
+                width: auto;
+            }
+        }
+
+        @media screen and (max-width: 389px) {
+            .header {
+                min-height: 90px;
+                max-height: 90px;
+            }
+
+            form-input {
+                min-height: 50px;
+            }
+        }
+
+        @media screen and (min-width: 390px) and (max-width: 480px) {
+            .header {
+                min-height: 90px;
+                max-height: 90px;
+            }
+
+            form-input {
+                min-height: 50px;
+            }
+        }
+
+        @media screen and (min-width: 481px) and (max-width: 767px) {
+            .header {
+                min-height: 90px;
+                max-height: 90px;
+            }
+
+            form-input {
+                min-height: 50px;
+            }
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+
+            .header {
+                min-height: 90px;
+            }
+
+            form-input {
+                min-height: 50px;
+            }
+        }
+
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .header {
+                min-height: 90px;
+            }
+
+            form-input {
+                min-height: 50px;
+            }
+        }
+
+        @media screen and (min-width: 1200px) {
+            .header {
+                min-height: 100px;
+            }
+
+            form-input {
+                min-height: 50px;
+            }
         }
 
     </style>
@@ -170,42 +265,45 @@ class MessageForm extends HTMLElement {
     onSubmit (event) {
         event.preventDefault()
 
-        const currentDate = new Date()
-        const message = document.createElement('message-bubble')
-        // message object for serialization
-        const msg = {}
+        if(this.$input.value !== ''){
 
-        message.className += ' me'
-        message.Classname = 'me'
-        message.Name = 'Alexander'
-        message.Status = 'sent'
-        msg.name = 'Alexander'
-        msg.className = 'me'
-        msg.status = 'sent'
-        
-        this.$message.appendChild(message)
+            const currentDate = new Date()
+            const message = document.createElement('message-bubble')
+            // message object for serialization
+            const msg = {}
 
-        // set message parameters
+            message.className += ' me'
+            message.Classname = 'me'
+            message.Name = 'Alexander'
+            message.Status = 'sent'
+            msg.name = 'Alexander'
+            msg.className = 'me'
+            msg.status = 'sent'
+            
+            this.$message.appendChild(message)
 
-        message.Message = this.$input.value
-        msg.message = this.$input.value
-        const hours = currentDate.getHours()
-        const minutes = currentDate.getMinutes()
-        const msgTime = `${hours}:${((minutes  < 10) ? '0' : '')}${minutes}`
+            // set message parameters
 
-        msg.time = msgTime
-        message.Time = msgTime
+            message.Message = this.$input.value
+            msg.message = this.$input.value
+            const hours = currentDate.getHours()
+            const minutes = currentDate.getMinutes()
+            const msgTime = `${hours}:${((minutes  < 10) ? '0' : '')}${minutes}`
 
-        // Clear input. Updating messages list
-        this.$input.clear()
-        this.messages.push(msg)
+            msg.time = msgTime
+            message.Time = msgTime
 
-        message.scrollIntoView()
+            // Clear input. Updating messages list
+            this.$input.clear()
+            this.messages.push(msg)
 
-        // Message serialization. Put messages to localStorage 
+            message.scrollIntoView()
 
-        const serialized = JSON.stringify(this.messages)
-        localStorage.setItem(this.lsChatId, serialized)
+            // Message serialization. Put messages to localStorage 
+
+            const serialized = JSON.stringify(this.messages)
+            localStorage.setItem(this.lsChatId, serialized)
+        }
     }
 
     onKeyPress (event) {

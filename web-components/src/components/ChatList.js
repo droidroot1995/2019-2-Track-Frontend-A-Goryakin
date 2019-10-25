@@ -1,74 +1,226 @@
 const template = document.createElement('template')
 template.innerHTML = `
 	<style>
-	.chat_list {
-		display: flex;
-		flex: 1 1 auto;
-		flex-direction: column;
+		.chat_list {
+			display: flex;
+			flex: 1 1 auto;
+			flex-direction: column;
 
-		height: 100%;
-		background: #FFFFFF;
-		overflow-x: hidden;
-		overflow-y: hidden;
-	}
+			position: relative;
 
-	.header {
-		flex: 1 1 8%;
-		background: #8E24AA;
+			height: 100%;
+			background: #FFFFFF;
+			overflow-x: hidden;
+			overflow-y: hidden;
+		}
 
-		color: white;
-		height: 13vh;
+		.header {
+			flex: 1 1 8%;
+			background: #8E24AA;
 
-		display: flex;
-        flex-direction: row;
-	}
+			color: white;
+			height: 13vh;
 
-	.chats_list {
+			display: flex;
+			flex-direction: row;
+		}
 
-		padding: .5em;
+		.chats_list {
 
-		flex: 1 1 92%;
-		background: #FFFFFF; 
+			padding: .5em;
 
-		display: flex;
+			flex: 1 1 92%;
+			background: #FFFFFF; 
 
-		flex-direction: column;
+			display: flex;
 
-		flex-flow: column wrap;
-		flex-wrap: nowrap;
+			flex-direction: column;
 
-		overflow: auto;
-		justify-content: flex-start;
+			flex-flow: column wrap;
+			flex-wrap: nowrap;
 
-		flex-grow: 1;
-		height: 87vh;
-	}
+			overflow: auto;
+			justify-content: flex-start;
 
-	.chat_item {
-		display: flex;
+			flex-grow: 1;
+			height: 87vh;
+		}
 
-		flex-direction: row;
+		.chat_item {
+			display: flex;
 
-		max-height: 10vh;
-		width: 100%;
-	}
+			flex-direction: row;
 
-	.new_chat {
+			max-height: 10vh;
+			width: 100%;
+		}
 
-		position: fixed;
+		chat-list-item:active {
+			background: #A9A9A9;
+			transition: all 0.5s ease-out;
+		}
 
-		width: 50px;
-		height: 50px;
-		border-radius: 50px;
+		.new_chat {
 
-		background: #ffd54f;
+			position: absolute;
 
-		bottom: 3em;
-		right: 3em;
+			width: 50px;
+			height: 50px;
+			border-radius: 50px;
 
-		padding: 20px;
-		z-index: 2;
-	}
+			background: #ffd54f;
+
+			bottom: 3em;
+			right: 3em;
+
+			padding: 20px;
+			z-index: 1;
+		}
+
+		.new_chat:active {
+			animation: pulse 1s infinite;
+		}
+
+		@keyframes pulse {
+			0% {
+				box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+			}
+
+			70% {
+				box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+			}
+
+			100% {
+				box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+			}
+		}
+
+		@media screen and (max-width: 389px) {
+
+			.header {
+				min-height: 90px;
+				max-height: 90px;
+			}
+
+			.new_chat {
+				bottom: 0.5em;
+				right: 0.5em;
+				width: 2em;
+				height: 2em;
+			}
+
+		}
+
+		@media screen and (min-width: 390px) and (max-width: 480px) {
+
+			.header {
+				min-height: 90px;
+				max-height: 90px;
+			}
+
+			.new_chat {
+				bottom: 0.5em;
+				right: 0.5em;
+				width: 2em;
+				height: 2em;
+			}
+
+		}
+
+		@media screen and (min-width: 481px) and (max-width: 767px) {
+			.header {
+				min-height: 90px;
+				max-height: 90px;
+			}
+
+			.new_chat {
+				bottom: 0.5em;
+				right: 0.5em;
+				width: 2em;
+				height: 2em;
+			}
+
+		}
+
+		@media screen and (min-width: 768px) and (max-width: 991px) {
+
+			.header {
+				min-height: 90px;
+			}
+
+			.new_chat {
+				bottom: 0.5em;
+				right: 0.5em;
+				width: 2em;
+				height: 2em;
+			}
+
+		}
+
+		@media screen and (min-width: 992px) and (max-width: 1199px) {
+			.header {
+				min-height: 90px;
+			}
+
+			.new_chat {
+				bottom: 0.5em;
+				right: 0.5em;
+				width: 2em;
+				height: 2em;
+			}
+
+		}
+
+		@media screen and (min-width: 1200px) {
+			.header {
+				min-height: 100px;
+			}
+
+			chat-list-item:hover {
+				background: #F5F5F5;
+				transition: all 0.1s ease-out;
+			}
+
+			.new_chat:hover {
+				animation: 0.5s flip ease-out;
+			}
+
+			@keyframes flip {
+				0%, 25% {
+					transform: rotate(90deg);
+				}
+
+				25%, 50% {
+					transform: rotate(180deg);
+				}
+
+				50%, 75% {
+					transform: rotate(270deg);
+				}
+
+				75%, 100% {
+					transform: rotate(360deg);
+				}
+			}	
+
+			.new_chat:active {
+				animation: pulse 1s infinite;
+			}
+
+			@keyframes pulse {
+				0% {
+					box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+				}
+
+				70% {
+					box-shadow: 0 0 0 20px rgba(204,169,44, 0);
+				}
+
+				100% {
+					box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+				}
+			}
+		}
 
 	</style>
 	<div class="chat_list">
@@ -144,10 +296,13 @@ class ChatList extends HTMLElement {
 
     	const info = event.target.chatInfo
 
-    	const messageForm = document.querySelector('message-form')
-    	messageForm.chatInfo = info
-    	messageForm.style.display = 'inline'
-    	document.querySelector('chat-list').style.display = 'none'
+    	const container = document.querySelector('chat-container')
+
+    	container.MessageForm.chatInfo = info
+
+
+        container.MessageForm.classList.remove('hide')
+    	container.MessageForm.classList.add('show')
     }
 
     onNewChatClick(event) {

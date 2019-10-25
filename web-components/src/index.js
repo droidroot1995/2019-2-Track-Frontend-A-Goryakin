@@ -9,3 +9,4 @@ import './components/NewChatButton';
 import './components/ChatListItem';
 import './components/ChatListHeader';
 import './components/ChatList';
+import './components/ChatContainer';
