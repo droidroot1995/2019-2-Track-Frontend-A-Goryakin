@@ -11,6 +11,11 @@ template.innerHTML = `
             position: relative;
         }
 
+        .return:active {
+        	background: #c23ee5;
+        	transition: all 0.2s ease-out;
+        }
+
         .search {
             flex: 1 1 2%;
 
@@ -20,6 +25,13 @@ template.innerHTML = `
             align-self: center;
             position: relative;
         }
+
+        .search:active {
+        	background: #c23ee5;
+        	transition: all 0.2s ease-out;
+        }
+
+        
 
         .contact_info {
             flex: 1 1 94%;
@@ -69,7 +81,12 @@ template.innerHTML = `
             height: 30%;
             align-self: center;
 
-            position:relative;
+            position: relative;
+        }
+
+        .menu_button:active {
+        	background: #c23ee5;
+        	transition: all 0.2s ease-out;
         }
 
         .menu {
@@ -98,8 +115,196 @@ template.innerHTML = `
             font-weight: 600;
             height: 30px;
             margin: 0px;
-            padding: 10px;
             width: 100%;
+        }
+
+        .menu_item:active {
+        	background: #C0C0C0;
+            transition: all 0.1s ease-out;
+        }
+
+        @media screen and (max-width: 320px) {
+            .return {
+            	flex: 1 1 7%;
+            }
+
+            .contact_info {
+            	flex: 1 1 100%;
+            }
+
+            .search {
+            	flex: 1 1 7%;
+            }
+
+            .menu_button {
+            	flex: 1 1 7%;
+            }
+
+            .menu {
+            	top: 100px;
+            	min-width: 50px;
+            }
+        }
+
+        @media screen and (min-width: 321px) and (max-width: 389px) {
+            .return {
+            	flex: 1 1 10%;
+            }
+
+            .contact_info {
+            	flex: 1 1 95%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+
+            .menu_button {
+            	flex: 1 1 15%;
+            }
+
+            .menu {
+            	top: 100px;
+            	min-width: 50px;
+            }
+        }
+
+        @media screen and (min-width: 390px) and (max-width: 480px) {
+            .return {
+            	flex: 1 1 10%;
+            }
+
+            .contact_info {
+            	flex: 1 1 90%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+
+            .menu_button {
+            	flex: 1 1 15%;
+            }
+
+            .menu {
+            	top: 100px;
+            	min-width: 50px;
+            }
+        }
+
+        @media screen and (min-width: 481px) and (max-width: 767px) {
+            .return {
+            	flex: 1 1 10%;
+            }
+
+            .contact_info {
+            	flex: 1 1 90%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+
+            .menu_button {
+            	flex: 1 1 10%;
+            	min-height: 45%;
+
+            }
+
+            .menu {
+            	top: 100px;
+            	min-width: 50px;
+            }
+        }
+
+        @media screen and (min-width: 768px) and (max-width: 991px) {
+
+            .return {
+            	flex: 1 1 10%;
+            }
+
+            .contact_info {
+            	flex: 1 1 70%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+
+            .menu_button {
+            	flex: 1 1 10%;
+            	min-height: 50%;
+            }
+
+            .menu {
+            	top: 100px;
+            	min-width: 50px;
+            }
+        }
+
+        @media screen and (min-width: 992px) and (max-width: 1199px) {
+            .return {
+            	flex: 1 1 10%;
+            }
+
+            .contact_info {
+            	flex: 1 1 80%;
+            }
+
+            .search {
+            	flex: 1 1 10%;
+            }
+
+            .menu_button {
+            	flex: 1 1 10%;
+            	min-height: 50%;
+            }
+
+            .menu {
+            	top: 100px;
+            	min-width: 50px;
+            }
+        }
+
+        @media screen and (min-width: 1200px){
+        	.return {
+        		padding: 5px;
+	            border-radius: 10px;
+        	}
+
+        	.search {
+        		padding: 5px;
+	            border-radius: 10px;
+        	}
+
+        	.menu_button {
+        		padding: 5px;
+	            border-radius: 10px;
+        	}
+        	.search:hover {
+        		fill: #D3D3D3;
+        		transition: all 0.1s ease-out;
+        	}
+
+        	.return:hover {
+        		fill: #D3D3D3;
+        		transition: all 0.1s ease-out;
+        	}
+
+        	.menu_button:hover {
+        		fill: #D3D3D3;
+        		transition: all 0.1s ease-out;
+        	}
+
+        	.menu_item:hover {
+        		background: #D3D3D3;
+        		transition: all 0.1s ease-out;
+        	}
+
+        	.menu_item:active {
+        		background: #C0C0C0;
+        		transition: all 0.1s ease-out;
+        	}
         }
 
 
@@ -162,9 +367,10 @@ class ChatHeader extends HTMLElement {
     onReturnClick(event){
     	event.preventDefault()
 
-        this.smth = ''
-    	document.querySelector('message-form').style.display = 'none'
-    	document.querySelector('chat-list').style.display = 'inline'
+        this.$menu.className = 'menu'
+        const container = document.querySelector('chat-container')
+        container.MessageForm.classList.remove('show')
+        container.MessageForm.classList.add('hide')
     }
 }
 

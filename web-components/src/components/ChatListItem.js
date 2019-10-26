@@ -7,22 +7,25 @@ template.innerHTML = `
 
 			height: 10vh;
 
+			min-height: 100px;
+
 			border-bottom: 1px solid grey;
 			margin: 10px 1px 1px;
 		}
 
 		.avatar {
 			position: relative;
-			display: inline-block;
+			display: block;
 			border-radius: 50px;
 			border: 1px solid black;
 			align-self: center;
 			height: 90%;
+			float: left;
 		}
 
 		.message_info {
 			position: relative;
-			display: inline-block;
+			display: block;
 			vertical-align: top;
 			height: 90%;
 		}
@@ -37,7 +40,6 @@ template.innerHTML = `
 		.message {
 			position: relative;
 			display: block;
-			margin: 1px;
 			width: 100%;
 			margin: 20px 1px 1px;
 		}
@@ -53,8 +55,8 @@ template.innerHTML = `
 			font-size: 14px;
 			text-transform: uppercase;
 			color: #666666;
-			position: fixed;
-			right: 2%;
+			position: absolute;
+			right: 0;
 		}
 
 		.msg {
@@ -67,8 +69,8 @@ template.innerHTML = `
 
 		.msg_check {
 			display: none;
-			position: fixed;
-			right: 2%;
+			position: absolute;
+			right: 0;
 			padding: 5px;
 			border-radius: 1.6em;
 			width: 1.6em;
@@ -91,8 +93,8 @@ template.innerHTML = `
 		.sent {
 			display: none;
 			fill: #8E24AA;
-			position: fixed;
-			right: 2%;
+			position: absolute;
+			right: 0;
 			height: 30px;
 			width: 30px;
 		}
@@ -104,8 +106,8 @@ template.innerHTML = `
 		.sent_read {
 			display: none;
 			fill: #8E24AA;
-			position: fixed;
-			right: 2%;
+			position: absolute;
+			right: 0;
 			height: 30px;
 			width: 30px;
 		}
@@ -114,6 +116,39 @@ template.innerHTML = `
 			display: inline-block;
 		}
 
+		@media screen and (max-width: 389px) {
+			.item {
+				height: 100px;
+			}
+		}
+
+		@media screen and (min-width: 390px) and (max-width: 480px) {
+
+			.item {
+				height: 100px;
+			}
+		}
+
+		@media screen and (min-width: 481px) and (max-width: 767px) {
+
+			.item {
+				height: 100px;
+			}
+		}
+
+		@media screen and (min-width: 768px) and (max-width: 991px) {
+
+			.item {
+				height: 100px;
+			}
+		}
+
+		@media screen and (min-width: 992px) and (max-width: 1199px) {
+
+			.item {
+				height: 100px;
+			}
+		}
 
 	</style>
 	<div class="item">

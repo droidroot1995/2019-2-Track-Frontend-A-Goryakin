@@ -5,7 +5,7 @@ template.innerHTML = `
 			align-self: flex-start;
 
 			border-radius: 10px;
-			min-width: 250px;
+			min-width: 90px;
 			height: auto;
 
 			max-width: 50vw;
