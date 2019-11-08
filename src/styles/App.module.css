@@ -1,0 +1,52 @@
+.container {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    overflow: hidden;
+}
+
+.container * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    z-index: 0;
+}
+
+/*.msform {
+    top: 0;
+    z-index: 1;
+    animation-duration: 0.3s;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+}*/
+
+/*.msform_show {
+    animation-name: showMessageForm;
+}
+
+.msform_hide {
+    animation-name: hideMessageForm;
+}*/
+
+@keyframes showMessageForm {
+    from {
+        top: -100%;
+    }
+
+    to {
+        top: 0;
+    }
+
+}
+
+@keyframes hideMessageForm {
+    from {
+        top: 0;
+    }
+
+    to {
+        top: -100%;
+    }
+}
