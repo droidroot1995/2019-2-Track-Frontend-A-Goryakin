@@ -1,177 +1,172 @@
 .header {
-    flex: 1 1 8%;
-    background: #8E24AA;
+  flex: 1 1 8%;
+  background: #8e24aa;
 
-    color: white;
-    height: 13vh;
+  color: #fff;
+  height: 13vh;
 
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .menu {
-    flex: 1 1 5%;
+  flex: 1 1 5%;
 
-    fill: white;
-    margin: 2%;
-    
-    height: 50%;
-    align-self: center;
+  fill: #fff;
+  margin: 2%;
+
+  height: 50%;
+  align-self: center;
 }
 
-
-
 .menu:active {
-    background: #c23ee5;
-    transition: all 0.2s ease-out;
+  background: #c23ee5;
+  transition: all 0.2s ease-out;
 }
 
 .soft_name {
-    flex: 1 1 90%;
+  flex: 1 1 90%;
 
-    font-size: 22px;
-    font-weight: 600;
+  font-size: 22px;
+  font-weight: 600;
 
-    fill: white;
-    padding: 20px;
-    align-self: center;
+  fill: #fff;
+  padding: 20px;
+  align-self: center;
 }
 
 .search {
-    flex: 1 1 5%;
+  flex: 1 1 5%;
 
-    fill: white;
-    margin: 2%;
-    height: 50%;
-    align-self: center;
-
+  fill: #fff;
+  margin: 2%;
+  height: 50%;
+  align-self: center;
 }
 
 .search:active {
-    background: #c23ee5;
-    transition: all 0.2s ease-out;
+  background: #c23ee5;
+  transition: all 0.2s ease-out;
 }
 
 @media screen and (max-width: 389px) {
-    .header {
-        min-height: 90px;
-        max-height: 90px;
-    }
-    
-    .menu {
-        flex: 1 1 25%;
-    }
+  .header {
+    min-height: 90px;
+    max-height: 90px;
+  }
 
-    .soft_name {
-        flex: 1 1 50%;
-    }
+  .menu {
+    flex: 1 1 25%;
+  }
 
-    .search {
-        flex: 1 1 25%;
-    }
+  .soft_name {
+    flex: 1 1 50%;
+  }
+
+  .search {
+    flex: 1 1 25%;
+  }
 }
 
-
-
 @media screen and (min-width: 390px) and (max-width: 480px) {
-    .header {
-        min-height: 90px;
-        max-height: 90px;
-    }
+  .header {
+    min-height: 90px;
+    max-height: 90px;
+  }
 
-    .menu {
-        flex: 1 1 10%;
-    }
+  .menu {
+    flex: 1 1 10%;
+  }
 
-    .soft_name {
-        flex: 1 1 80%;
-    }
+  .soft_name {
+    flex: 1 1 80%;
+  }
 
-    .search {
-        flex: 1 1 10%;
-    }
+  .search {
+    flex: 1 1 10%;
+  }
 }
 
 @media screen and (min-width: 481px) and (max-width: 767px) {
-    .header {
-        min-height: 90px;
-        max-height: 90px;
-    }
+  .header {
+    min-height: 90px;
+    max-height: 90px;
+  }
 
-    .menu {
-        flex: 1 1 10%;
-    }
+  .menu {
+    flex: 1 1 10%;
+  }
 
-    .soft_name {
-        flex: 1 1 80%;
-    }
+  .soft_name {
+    flex: 1 1 80%;
+  }
 
-    .search {
-        flex: 1 1 10%;
-    }
+  .search {
+    flex: 1 1 10%;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
-    .header {
-        min-height: 90px;
-        max-height: 90px;
-    }
+  .header {
+    min-height: 90px;
+    max-height: 90px;
+  }
 
-    .menu {
-        flex: 1 1 10%;
-    }
+  .menu {
+    flex: 1 1 10%;
+  }
 
-    .soft_name {
-        flex: 1 1 80%;
-    }
+  .soft_name {
+    flex: 1 1 80%;
+  }
 
-    .search {
-        flex: 1 1 10%;
-    }
+  .search {
+    flex: 1 1 10%;
+  }
 }
 
 @media screen and (min-width: 992px) and (max-width: 1199px) {
-    .header {
-        min-height: 90px;
-        max-height: 90px;
-    }
+  .header {
+    min-height: 90px;
+    max-height: 90px;
+  }
 
-    .menu {
-        flex: 1 1 10%;
-    }
+  .menu {
+    flex: 1 1 10%;
+  }
 
-    .soft_name {
-        flex: 1 1 80%;
-    }
+  .soft_name {
+    flex: 1 1 80%;
+  }
 
-    .search {
-        flex: 1 1 10%;
-    }
+  .search {
+    flex: 1 1 10%;
+  }
 }
 
-@media screen and (min-width: 1200px){
-    .header {
-        min-height: 100px;
-        max-height: 100px;
-    }
+@media screen and (min-width: 1200px) {
+  .header {
+    min-height: 100px;
+    max-height: 100px;
+  }
 
-    .search:hover {
-        fill: #D3D3D3;
-        transition: all 0.1s ease-out;
-    }
+  .search:hover {
+    fill: #d3d3d3;
+    transition: all 0.1s ease-out;
+  }
 
-    .search {
-        padding: 10px;
-        border-radius: 20px;
-    }
+  .search {
+    padding: 10px;
+    border-radius: 20px;
+  }
 
-    .menu:hover {
-        fill: #D3D3D3;
-        transition: all 0.1s ease-out;
-    }
+  .menu:hover {
+    fill: #d3d3d3;
+    transition: all 0.1s ease-out;
+  }
 
-    .menu {
-        padding: 10px;
-        border-radius: 20px;
-    }
+  .menu {
+    padding: 10px;
+    border-radius: 20px;
+  }
 }

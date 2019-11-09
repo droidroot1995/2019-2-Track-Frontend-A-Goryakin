@@ -1,36 +1,34 @@
 .chat_list {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 0;
 
-    position: absolute;
-    height: 100%;
-    width: 100%;
-    z-index: 0;
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
 
-    display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-
-    background: #FFFFFF;
-    overflow-x: hidden;
-    overflow-y: hidden;
+  background: #fff;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 .chats_list {
+  padding: 0.5em;
 
-    padding: .5em;
+  flex: 1 1 auto;
+  background: #fff;
 
-    flex: 1 1 auto;
-    background: #FFFFFF; 
+  display: flex;
 
-    display: flex;
+  flex-direction: column;
 
-    flex-direction: column;
+  flex-flow: column wrap;
+  flex-wrap: nowrap;
 
-    flex-flow: column wrap;
-    flex-wrap: nowrap;
+  overflow: auto;
+  justify-content: flex-start;
 
-    overflow: auto;
-    justify-content: flex-start;
-
-    flex-grow: 1;
-    height: 87vh;
+  flex-grow: 1;
+  height: 87vh;
 }
