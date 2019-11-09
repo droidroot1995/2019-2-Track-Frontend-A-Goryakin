@@ -2,24 +2,22 @@
 // See: https://stylelint.io/user-guide/configuration/
 
 module.exports = {
-  'extends': [
-    '@wemake-services/stylelint-config-scss',
+  extends: [
+    /* '@wemake-services/stylelint-config-scss', */
     'stylelint-config-css-modules',
-    'stylelint-a11y/recommended',
+    /* 'stylelint-a11y/recommended', */
   ],
-  'plugins': [
-    'stylelint-no-unsupported-browser-features',
-    'stylelint-a11y',
-  ],
+  plugins: ['stylelint-no-unsupported-browser-features', 'stylelint-a11y'],
 
-  'rules': {
+  rules: {
     // ignore special `var-` css variables for `:export`
     'property-no-unknown': [
-      true, {
-        'ignoreProperties': ['/^var-/'],
+      true,
+      {
+        ignoreProperties: ['/^var-/'],
       },
     ],
-
+    /*
     // custom plugins to work with
     'plugin/no-unsupported-browser-features': [
       true, {
@@ -27,6 +25,7 @@ module.exports = {
         'ignore': ['flexbox'],
       },
     ],
+    */
 
     // a11y
     'a11y/content-property-no-static-value': true,
