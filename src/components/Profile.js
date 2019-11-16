@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/alt-text */
@@ -10,12 +11,13 @@ const Profile = (props) => {
   const { style, userInfo } = props
   const { avatar, name, username, bio } = userInfo
 
+  const [userAvatar, setUserAvatar] = useState(avatar)
   const [userFullName, setUserFullName] = useState(name)
   const [userUsername, setUserUsername] = useState(username)
   const [userBio, setUserBio] = useState(bio)
 
   const info = {
-    avatar: avatar,
+    avatar: userAvatar,
     name: userFullName,
     username: userUsername,
     bio: userBio,
