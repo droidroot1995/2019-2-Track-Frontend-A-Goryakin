@@ -9,27 +9,22 @@
   flex-direction: row;
 }
 
-.open_profile {
-  flex: 1 1 auto;
+.return {
+  flex: 1 1 5%;
+
+  fill: #fff;
   margin: 2%;
+
   height: 50%;
   align-self: center;
-  align-content: center;
 }
 
-.menu {
-  margin-left: 25%;
-  fill: #fff;
-  height: 100%;
-  align-self: center;
-}
-
-.menu:active {
+.return:active {
   background: #c23ee5;
   transition: all 0.2s ease-out;
 }
 
-.soft_name {
+.header_text {
   flex: 1 1 90%;
 
   font-size: 22px;
@@ -40,7 +35,7 @@
   align-self: center;
 }
 
-.search {
+.save {
   flex: 1 1 5%;
 
   fill: #fff;
@@ -49,7 +44,7 @@
   align-self: center;
 }
 
-.search:active {
+.save:active {
   background: #c23ee5;
   transition: all 0.2s ease-out;
 }
@@ -60,15 +55,15 @@
     max-height: 90px;
   }
 
-  .open_profile {
+  .return {
     flex: 1 1 25%;
   }
 
-  .soft_name {
+  .header_text {
     flex: 1 1 50%;
   }
 
-  .search {
+  .save {
     flex: 1 1 25%;
   }
 }
@@ -79,15 +74,15 @@
     max-height: 90px;
   }
 
-  .open_profile {
+  .return {
     flex: 1 1 10%;
   }
 
-  .soft_name {
+  .header_text {
     flex: 1 1 80%;
   }
 
-  .search {
+  .save {
     flex: 1 1 10%;
   }
 }
@@ -98,15 +93,15 @@
     max-height: 90px;
   }
 
-  .open_profile {
+  .return {
     flex: 1 1 10%;
   }
 
-  .soft_name {
+  .header_text {
     flex: 1 1 80%;
   }
 
-  .search {
+  .save {
     flex: 1 1 10%;
   }
 }
@@ -117,15 +112,15 @@
     max-height: 90px;
   }
 
-  .open_profile {
+  .return {
     flex: 1 1 10%;
   }
 
-  .soft_name {
+  .header_text {
     flex: 1 1 80%;
   }
 
-  .search {
+  .save {
     flex: 1 1 10%;
   }
 }
@@ -136,15 +131,15 @@
     max-height: 90px;
   }
 
-  .open_profile {
+  .return {
     flex: 1 1 10%;
   }
 
-  .soft_name {
+  .header_text {
     flex: 1 1 80%;
   }
 
-  .search {
+  .save {
     flex: 1 1 10%;
   }
 }
@@ -155,22 +150,22 @@
     max-height: 100px;
   }
 
-  .search:hover {
+  .save:hover {
     fill: #d3d3d3;
     transition: all 0.1s ease-out;
   }
 
-  .search {
+  .save {
     padding: 10px;
     border-radius: 20px;
   }
 
-  .menu:hover {
+  .return:hover {
     fill: #d3d3d3;
     transition: all 0.1s ease-out;
   }
 
-  .open_profile {
+  .return {
     padding: 10px;
     border-radius: 20px;
   }
