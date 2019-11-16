@@ -21,7 +21,7 @@ class App extends React.Component {
       userInfo: userInfo.userInfo,
       selected: null,
       message_form_animation: null,
-      chats_list_animation: null,
+      chats_list_animation: { animationName: styles.showChatsList },
       profile_page_animation: null,
       isRoot: false,
     }
@@ -92,7 +92,7 @@ class App extends React.Component {
     }
 
     state.chats_list_animation = {
-      bottom: '-100%',
+      bottom: '0',
     }
 
     state.isRoot = false
@@ -113,7 +113,7 @@ class App extends React.Component {
     }
 
     state.chats_list_animation = {
-      bottom: '-100%',
+      bottom: '0',
     }
 
     state.isRoot = false
@@ -135,6 +135,7 @@ class App extends React.Component {
     }
 
     state.chats_list_animation = {
+      bottom: '-100%',
       animationName: styles.showChatsList,
     }
 
