@@ -11,7 +11,7 @@
   overflow-y: hidden;
 
   top: -100%;
-  z-index: 1;
+  z-index: 0;
   animation-duration: 0.5s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;

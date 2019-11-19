@@ -10,14 +10,17 @@
   justify-content: space-between;
 }
 
+.return_link {
+  fill: white;
+}
+
 .return {
   flex: 1 1 5%;
-
   fill: white;
-  margin: 2%;
   height: 50%;
-  align-self: center;
+  margin: 2%;
   position: relative;
+  align-self: center;
 }
 
 .return:active {

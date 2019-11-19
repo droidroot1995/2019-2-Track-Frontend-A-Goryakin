@@ -18,4 +18,4 @@ deploy:
     branch:
       - master
       - devel
-      - frontend_lesson_5
+      - frontend_lesson_6

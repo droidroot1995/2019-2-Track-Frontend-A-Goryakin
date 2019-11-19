@@ -7,10 +7,15 @@
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
+  bottom: 0;
 
   background: #fff;
   overflow-x: hidden;
   overflow-y: hidden;
+
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
 }
 
 .chats_list {
