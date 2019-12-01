@@ -1,3 +1,5 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
 import React from 'react'
 import styles from '../styles/MessageBubble.module.css'
@@ -32,7 +34,7 @@ const MessageBubble = (props) => {
       <div className={`${styles.message_bubble} ${messageClass}`}>
         <div className={styles.txt}>
           <p className={`${styles.name} ${messageClass}`}>{name}</p>
-          <p className={styles.message}>{msg}</p>
+          <p className={styles.message} dangerouslySetInnerHTML={{ __html: msg }}></p>
           <p className={styles.message_info}>
             <span className={`${styles.time}`}>{time}</span>
             {msgStatus}
