@@ -129,7 +129,9 @@ const FormInput = (props) => {
 
   const handleRecordClick = () => {
     if (hState.isRecording < 0) {
-      recorder.start()
+      if (recorder !== null) {
+        recorder.start()
+      }
       record = (
         <svg
           className={styles.stop_record}
@@ -153,7 +155,9 @@ const FormInput = (props) => {
         filesDrag: undefined,
       })
     } else {
-      recorder.stop()
+      if (recorder !== null) {
+        recorder.stop()
+      }
       record = (
         <svg
           className={styles.record}
