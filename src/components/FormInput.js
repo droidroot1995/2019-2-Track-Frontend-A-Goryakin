@@ -62,25 +62,44 @@ const FormInput = (props) => {
 
   if (stream === null && recorder === null) {
     if ('mediaDevices' in navigator) {
-      navigator.mediaDevices.getUserMedia({ audio: true }).then((rstream) => {
-        stream = rstream
-        recorder = new MediaRecorder(stream)
+      navigator.mediaDevices
+        .getUserMedia({ audio: true })
+        .then((rstream) => {
+          stream = rstream
+          recorder = new MediaRecorder(stream)
 
-        recorder.addEventListener('stop', (event) => {
-          const tmp = {}
-          tmp.type = 'audio'
-          tmp.src = new Blob(chunks, { type: recorder.mimeType })
-          chunks = []
-          tmp.url = URL.createObjectURL(tmp.src)
+          recorder.addEventListener('stop', (event) => {
+            const tmp = {}
+            tmp.type = 'audio'
+            tmp.src = new Blob(chunks, { type: recorder.mimeType })
+            chunks = []
+            tmp.url = URL.createObjectURL(tmp.src)
 
-          audios.push(tmp)
+            audios.push(tmp)
 
-          audiosNum = <div className={styles.audio_num}>{audios.length}</div>
-          attachNum = hState.attachNum
+            audiosNum = <div className={styles.audio_num}>{audios.length}</div>
+            attachNum = hState.attachNum
+            setHState({
+              isRecording: isRecording,
+              isFUOpened: isFUOpened,
+              attachments: hState.attachments,
+              audios: audios,
+              attachNum: attachNum,
+              audiosNum: audiosNum,
+              stream: stream,
+              recorder: recorder,
+              filesDrag: undefined,
+            })
+          })
+
+          recorder.addEventListener('dataavailable', (event) => {
+            chunks.push(event.data)
+          })
+
           setHState({
             isRecording: isRecording,
             isFUOpened: isFUOpened,
-            attachments: hState.attachments,
+            attachments: attachments,
             audios: audios,
             attachNum: attachNum,
             audiosNum: audiosNum,
@@ -89,23 +108,21 @@ const FormInput = (props) => {
             filesDrag: undefined,
           })
         })
-
-        recorder.addEventListener('dataavailable', (event) => {
-          chunks.push(event.data)
+        .catch((err) => {
+          stream = null
+          recorder = null
+          setHState({
+            isRecording: isRecording,
+            isFUOpened: isFUOpened,
+            attachments: attachments,
+            audios: audios,
+            attachNum: attachNum,
+            audiosNum: audiosNum,
+            stream: stream,
+            recorder: recorder,
+            filesDrag: undefined,
+          })
         })
-
-        setHState({
-          isRecording: isRecording,
-          isFUOpened: isFUOpened,
-          attachments: attachments,
-          audios: audios,
-          attachNum: attachNum,
-          audiosNum: audiosNum,
-          stream: stream,
-          recorder: recorder,
-          filesDrag: undefined,
-        })
-      })
     }
   }
 
