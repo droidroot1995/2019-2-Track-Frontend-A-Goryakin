@@ -184,6 +184,8 @@ class App extends React.Component {
     for (let i = 0; i < value.attachments.length; i += 1) {
       const data = new FormData()
 
+      console.log(value.attachments[i].src)
+
       if (value.attachments[i].type === 'image') {
         msg += `<a href="${value.attachments[i].url}" style="margin-left: 30%;"><img src="${value.attachments[i].url}" width="70px" height="70px"></a><br>`
       } else if (value.attachments[i].type === 'file') {
@@ -196,11 +198,13 @@ class App extends React.Component {
           </svg></a><br>`
       }
 
-      data.append(value.attachments[i].type, value.attachments[i].src)
-      fetch('https://tt-front.now.sh/upload', {
-        method: 'POST',
-        body: data,
-      }).then((resp) => resp.json())
+      if (value.attachments[i].src !== undefined && value.attachments[i].src.size <= 6291456) {
+        data.append(value.attachments[i].type, value.attachments[i].src)
+        fetch('https://tt-front.now.sh/upload', {
+          method: 'POST',
+          body: data,
+        }).then((resp) => resp.json())
+      }
     }
 
     for (let i = 0; i < value.audios.length; i += 1) {
@@ -208,11 +212,13 @@ class App extends React.Component {
 
       const data = new FormData()
 
-      data.append('audio', value.audios[i].src)
-      fetch('https://tt-front.now.sh/upload', {
-        method: 'POST',
-        body: data,
-      }).then((resp) => resp.json())
+      if (value.audios[i].src.size <= 6291456) {
+        data.append('audio', value.audios[i].src)
+        fetch('https://tt-front.now.sh/upload', {
+          method: 'POST',
+          body: data,
+        }).then((resp) => resp.json())
+      }
     }
 
     messages[`${selected}`].push({

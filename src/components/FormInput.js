@@ -61,25 +61,43 @@ const FormInput = (props) => {
   let record = null
 
   if (stream === null && recorder === null) {
-    navigator.mediaDevices.getUserMedia({ audio: true }).then((rstream) => {
-      stream = rstream
-      recorder = new MediaRecorder(stream)
+    if ('mediaDevices' in navigator) {
+      navigator.mediaDevices.getUserMedia({ audio: true }).then((rstream) => {
+        stream = rstream
+        recorder = new MediaRecorder(stream)
 
-      recorder.addEventListener('stop', (event) => {
-        const tmp = {}
-        tmp.type = 'audio'
-        tmp.src = new Blob(chunks, { type: recorder.mimeType })
-        chunks = []
-        tmp.url = URL.createObjectURL(tmp.src)
+        recorder.addEventListener('stop', (event) => {
+          const tmp = {}
+          tmp.type = 'audio'
+          tmp.src = new Blob(chunks, { type: recorder.mimeType })
+          chunks = []
+          tmp.url = URL.createObjectURL(tmp.src)
 
-        audios.push(tmp)
+          audios.push(tmp)
 
-        audiosNum = <div className={styles.audio_num}>{audios.length}</div>
-        attachNum = hState.attachNum
+          audiosNum = <div className={styles.audio_num}>{audios.length}</div>
+          attachNum = hState.attachNum
+          setHState({
+            isRecording: isRecording,
+            isFUOpened: isFUOpened,
+            attachments: hState.attachments,
+            audios: audios,
+            attachNum: attachNum,
+            audiosNum: audiosNum,
+            stream: stream,
+            recorder: recorder,
+            filesDrag: undefined,
+          })
+        })
+
+        recorder.addEventListener('dataavailable', (event) => {
+          chunks.push(event.data)
+        })
+
         setHState({
           isRecording: isRecording,
           isFUOpened: isFUOpened,
-          attachments: hState.attachments,
+          attachments: attachments,
           audios: audios,
           attachNum: attachNum,
           audiosNum: audiosNum,
@@ -88,23 +106,23 @@ const FormInput = (props) => {
           filesDrag: undefined,
         })
       })
+    }
+  }
 
-      recorder.addEventListener('dataavailable', (event) => {
-        chunks.push(event.data)
-      })
+  const dataUriToBlob = (dataURI) => {
+    const byteString = atob(dataURI.split(',')[1])
+    const mimeString = dataURI
+      .split(',')[0]
+      .split(':')[1]
+      .split(';')[0]
+    const buffer = new ArrayBuffer(byteString.length)
+    const intArr = new Uint8Array(buffer)
+    for (let i = 0; i < byteString.length; i += 1) {
+      intArr[i] = byteString.charCodeAt(i)
+    }
 
-      setHState({
-        isRecording: isRecording,
-        isFUOpened: isFUOpened,
-        attachments: attachments,
-        audios: audios,
-        attachNum: attachNum,
-        audiosNum: audiosNum,
-        stream: stream,
-        recorder: recorder,
-        filesDrag: undefined,
-      })
-    })
+    const blob = new Blob([buffer], { type: mimeString })
+    return blob
   }
 
   const textarea = React.useRef(null)
@@ -262,7 +280,7 @@ const FormInput = (props) => {
 
       const reader = new FileReader()
       reader.addEventListener('load', (event) => {
-        tmp.src = event.target.result
+        tmp.src = dataUriToBlob(event.target.result)
       })
 
       reader.readAsDataURL(file)
