@@ -184,8 +184,6 @@ class App extends React.Component {
     for (let i = 0; i < value.attachments.length; i += 1) {
       const data = new FormData()
 
-      console.log(value.attachments[i].src)
-
       if (value.attachments[i].type === 'image') {
         msg += `<a href="${value.attachments[i].url}" style="margin-left: 30%;"><img src="${value.attachments[i].url}" width="70px" height="70px"></a><br>`
       } else if (value.attachments[i].type === 'file') {
