@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
@@ -16,6 +16,8 @@ const MessageForm = (props) => {
 
   const msgList = []
 
+  const resultEnd = React.useRef(null)
+
   if (typeof messages !== 'undefined' && messages !== null && messages.length > 0) {
     let i = 0
     messages.forEach((msg) => {
@@ -28,6 +30,13 @@ const MessageForm = (props) => {
       msgList.push(bubble)
     })
   }
+
+  useEffect(() => {
+    const scrollInto = (target) => {
+      target.current.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' })
+    }
+    scrollInto(resultEnd)
+  })
 
   const handleDragOver = (e) => {
     e.stopPropagation()
@@ -73,7 +82,10 @@ const MessageForm = (props) => {
           />
         )}
       </Messenger.Consumer>
-      <div className={styles.result}>{msgList}</div>
+      <div className={styles.result}>
+        {msgList}
+        <div ref={resultEnd} />
+      </div>
       <Messenger.Consumer>
         {(val) => (
           <FormInput
