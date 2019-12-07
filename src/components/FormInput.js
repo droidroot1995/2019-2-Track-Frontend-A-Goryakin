@@ -415,7 +415,7 @@ const FormInput = (props) => {
 
       const reader = new FileReader()
       reader.addEventListener('load', (event) => {
-        tmp.src = event.target.result
+        tmp.src = dataUriToBlob(event.target.result)
       })
 
       reader.readAsDataURL(file)
