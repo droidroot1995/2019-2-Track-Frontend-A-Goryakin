@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-alert */
 /* eslint-disable class-methods-use-this */
@@ -19,6 +20,7 @@ class App extends React.Component {
     this.ls_messages = userInfo.messagesList
 
     this.state = {
+      userId: 0,
       chats: userInfo.chatsList,
       messages: userInfo.messagesList,
       userInfo: userInfo.userInfo,
@@ -27,6 +29,58 @@ class App extends React.Component {
       chats_list_animation: { animationName: styles.showChatsList },
       profile_page_animation: null,
       isRoot: false,
+    }
+  }
+
+  componentDidMount() {
+    const { state } = this
+    const userId = prompt('Enter your id', 0)
+
+    if (userId !== null && userId > 0) {
+      setInterval(() => this.getChats(), 500)
+      state.userId = userId
+      this.setState(state)
+      this.getChats()
+    }
+  }
+
+  getChats() {
+    const { state } = this
+    if (state.userId > 0) {
+      fetch(`/chats/list_chats?user_id=${state.userId}`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          const dat = data['chats']
+          const chats = []
+          const messages = {}
+          for (let i = 0; i < dat.length; i += 1) {
+            let msgTime = ''
+            fetch(`/chats/chat_msg_list?chat_id=${dat[i].id}`)
+              .then((respMsg) => respMsg.json())
+              .then((msgData) => {
+                const msgs = msgData['messages'].reverse()
+                if (msgs.length !== 0) {
+                  const date = new Date(msgs[0].added_at)
+                  msgTime = `${date.getHours()}:${date.getMinutes()}`
+                }
+              })
+
+            const chat = {
+              id: dat[i].id,
+              avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
+              name: dat[i].topic,
+              time: msgTime,
+              message: dat[i].last_message,
+              isGroup: dat[i].is_group,
+              status: '',
+            }
+            chats.push(chat)
+          }
+
+          state.chats = chats
+          state.messages = messages
+          this.setState(state)
+        })
     }
   }
 
@@ -57,7 +111,18 @@ class App extends React.Component {
   }
 
   addNewChat() {
-    const { chats, messages } = this.state
+    const { userId } = this.state
+
+    const contactId = prompt('Введите id контакта', 0)
+
+    if (contactId > 0 && contactId !== userId) {
+      const data = new FormData()
+      data.append('user_id', userId)
+      data.append('target_user_id', contactId)
+
+      fetch(`/chats/create_pers_chat`, { method: 'POST', body: data }).then((resp) => resp.json())
+    }
+    /* const { chats, messages } = this.state
 
     const cId = chats.length
 
@@ -78,7 +143,7 @@ class App extends React.Component {
     localStorage.setItem('chats', JSON.stringify(chats))
     localStorage.setItem('messages', JSON.stringify(messages))
 
-    this.setState({ chats })
+    this.setState({ chats }) */
   }
 
   openMessageForm(selectedChatId) {
@@ -147,7 +212,52 @@ class App extends React.Component {
   }
 
   messageEntered(value) {
-    const { selected, messages, chats } = this.state
+    const { selected, userId } = this.state
+
+    const currentDate = new Date()
+    const hours = currentDate.getHours()
+    const minutes = currentDate.getMinutes()
+    const msgTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`
+
+    const msg = {}
+    msg.user = userId
+    msg.chat = selected
+    msg.content = value.msg
+    msg.added_at = msgTime
+
+    const data = new FormData()
+    data.append('user', userId)
+    data.append('chat', selected)
+    data.append('content', value.msg)
+    data.append('added_at', msgTime)
+
+    fetch(`/chats/send_msg`, { method: 'POST', body: data })
+      .then((resp) => resp.json())
+      .then((dat) => {
+        for (let i = 0; i < value.attachments.length; i += 1) {
+          if (value.attachments[i].type !== 'location') {
+            const attData = new FormData()
+            attData.append('chat', selected)
+            attData.append('user', userId)
+            attData.append('message', dat['message']['id'])
+            attData.append('att_type', value.attachments[i].type)
+            attData.append('url', value.attachments[i].src)
+            fetch('/chats/upload', { method: 'POST', body: attData }).then((resp) => resp.json())
+          }
+        }
+
+        for (let i = 0; i < value.audios.length; i += 1) {
+          const audioData = new FormData()
+          audioData.append('chat', selected)
+          audioData.append('user', userId)
+          audioData.append('message', dat['message']['id'])
+          audioData.append('att_type', value.attachments[i].type)
+          audioData.append('url', value.attachments[i].src)
+          fetch('/chats/upload', { method: 'POST', body: audioData }).then((resp) => resp.json())
+        }
+      })
+
+    /* const { selected, messages, chats } = this.state
 
     const currentDate = new Date()
     const hours = currentDate.getHours()
@@ -223,7 +333,7 @@ class App extends React.Component {
       time: msgTime,
     })
 
-    this.setState({ messages })
+    this.setState({ messages }) */
   }
 
   saveUserInfo(value) {
@@ -246,11 +356,12 @@ class App extends React.Component {
         <div className={styles.container}>
           <Switch>
             <Route path="/profile">
-              <Profile style={state.profile_page_animation} userInfo={state.userInfo} />
+              <Profile style={state.profile_page_animation} userId={state.userId} />
             </Route>
             <Route path="/chat">
               <MessageForm
                 style={state.message_form_animation}
+                userId={state.userId}
                 chatInfo={state.chats.filter((val) => val.id === state.selected)[0]}
                 messages={state.messages[`${state.selected}`]}
               />
