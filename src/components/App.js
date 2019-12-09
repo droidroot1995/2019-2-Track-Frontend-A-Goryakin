@@ -180,9 +180,13 @@ class App extends React.Component {
       localStorage.setItem('chats', JSON.stringify(chats))
     }
 
-    const msg = []
+    const msg = {
+      msg: value.msg,
+      attachments: value.attachments,
+      audios: value.audios,
+    }
 
-    const linkStl = {
+    /* const linkStl = {
       display: 'block',
       marginLeft: '30%',
     }
@@ -191,17 +195,17 @@ class App extends React.Component {
       fill: 'rgb(128, 128, 128)',
       background: '#fff',
       padding: '10px',
-    }
+    } */
 
-    let key = 0
+    /* let key = 0
 
     let tmp = value.msg
-    msg.push(tmp)
+    msg.push(tmp) */
 
     for (let i = 0; i < value.attachments.length; i += 1) {
       const data = new FormData()
 
-      key += 1
+      /* key += 1
 
       if (value.attachments[i].type === 'image') {
         tmp = (
@@ -227,7 +231,7 @@ class App extends React.Component {
         )
       }
 
-      msg.push(tmp)
+      msg.push(tmp) */
 
       if (value.attachments[i].src !== undefined && value.attachments[i].src.size <= 6291456) {
         data.append(value.attachments[i].type, value.attachments[i].src)
@@ -239,10 +243,10 @@ class App extends React.Component {
     }
 
     for (let i = 0; i < value.audios.length; i += 1) {
-      key += 1
+      /* key += 1
       tmp = <audio key={key} controls src={value.audios[i].url} />
 
-      msg.push(tmp)
+      msg.push(tmp) */
 
       const data = new FormData()
 
