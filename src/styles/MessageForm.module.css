@@ -3,7 +3,7 @@
   height: calc(100% - 160px);
   position: absolute;
   top: 100px;
-  z-index: 0;
+  z-index: -1;
   opacity: 0;
   background-color: rgb(160, 157, 157);
   transition-duration: 0.2s;
@@ -95,15 +95,13 @@
   padding: 0.5em;
   display: flex;
 
-  flex-direction: column;
-  flex-flow: column wrap;
   flex: 1 1 auto;
   flex-wrap: nowrap;
+  flex-direction: column;
+  align-content: flex-end;
 
   overflow-y: auto;
   overflow-x: hidden;
-
-  justify-content: flex-end;
   flex-grow: 1;
 
   height: 82vh;
