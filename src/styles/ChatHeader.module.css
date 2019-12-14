@@ -23,6 +23,13 @@
   align-self: center;
 }
 
+.return_button {
+  height: 100%;
+  width: 80%;
+  margin-top: 0;
+  margin-left: 10%;
+}
+
 .return:active {
   background: #c23ee5;
   transition: all 0.2s ease-out;

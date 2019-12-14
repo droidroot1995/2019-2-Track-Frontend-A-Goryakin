@@ -6,7 +6,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import styles from '../styles/ChatListItem.module.css'
-import Messenger from './Messenger.Context'
 
 const ChatListItem = (props) => {
   const { chatInfo } = props
@@ -14,7 +13,7 @@ const ChatListItem = (props) => {
 
   let msg = message
 
-  if (message.length > 20) {
+  if (message !== undefined && message.length > 20) {
     msg = message.slice(0, 20)
     msg += '...'
   }
@@ -44,23 +43,19 @@ const ChatListItem = (props) => {
   }
 
   return (
-    <Messenger.Consumer>
-      {(val) => (
-        <div className={styles.item} onClick={val.openMessageForm.bind(val, chatInfo.id)}>
-          <img className={styles.avatar} src={avatar} />
-          <div className={styles.message_info}>
-            <div className={styles.info}>
-              <p className={styles.contact_name}>{name}</p>
-              <span className={styles.time}>{time}</span>
-            </div>
-            <div className={styles.message}>
-              <p className={styles.msg}>{msg}</p>
-            </div>
-            {msgStatus}
-          </div>
+    <div className={styles.item}>
+      <img className={styles.avatar} src={avatar} />
+      <div className={styles.message_info}>
+        <div className={styles.info}>
+          <p className={styles.contact_name}>{name}</p>
+          <span className={styles.time}>{time}</span>
         </div>
-      )}
-    </Messenger.Consumer>
+        <div className={styles.message}>
+          <p className={styles.msg}>{msg}</p>
+        </div>
+        {msgStatus}
+      </div>
+    </div>
   )
 }
 

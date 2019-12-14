@@ -6,10 +6,12 @@
 /* eslint-disable react/no-deprecated */
 /* eslint-disable react/require-default-props */
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { sendMessage } from '../actions/messageInput'
 import styles from '../styles/FormInput.module.css'
 
 const FormInput = (props) => {
-  const { placeholder, messageEntered, filesDragAndDrop } = props
+  const { placeholder, userId, selected, sendMsg, filesDragAndDrop } = props
 
   const [filesDrag, setFilesDrag] = filesDragAndDrop
 
@@ -460,7 +462,7 @@ const FormInput = (props) => {
         })
 
         textarea.current.value = ''
-        messageEntered({ attachments: attachments, audios: audios, msg: msg })
+        sendMsg(userId, selected, msg, attachments, audios)
       }
     }
   }
@@ -498,4 +500,17 @@ const FormInput = (props) => {
   )
 }
 
-export default FormInput
+const mapStateToProps = (state) => ({
+  userId: state.global.userId,
+  selected: state.global.selected,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  sendMsg: (userId, chatId, msg, attachments, audios) =>
+    dispatch(sendMessage(userId, chatId, msg, attachments, audios)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(FormInput)
