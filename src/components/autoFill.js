@@ -47,7 +47,11 @@ export default function autoFill() {
       0: [
         {
           name: 'Александр',
-          msg: 'Добрый вечер!',
+          msg: {
+            msg: 'Добрый вечер!',
+            attachments: [],
+            audios: [],
+          },
           status: 'sent',
           self: true,
           time: '22:30',
@@ -56,7 +60,11 @@ export default function autoFill() {
       1: [
         {
           name: 'Planet 42',
-          msg: 'Привет',
+          msg: {
+            msg: 'Привет',
+            attachments: [],
+            audios: [],
+          },
           status: 'sent',
           self: false,
           time: '9:00',
@@ -65,7 +73,11 @@ export default function autoFill() {
       2: [
         {
           name: 'Александр',
-          msg: 'Доброе утро!',
+          msg: {
+            msg: 'Доброе утро!',
+            attachments: [],
+            audios: [],
+          },
           status: 'sent',
           self: true,
           time: '10:00',
@@ -74,7 +86,11 @@ export default function autoFill() {
       3: [
         {
           name: 'Михаил',
-          msg: 'Добрый день!',
+          msg: {
+            msg: 'Добрый день!',
+            attachments: [],
+            audios: [],
+          },
           status: 'sent',
           self: false,
           time: '14:00',

@@ -16,11 +16,123 @@
   align-items: center;
 }
 
+.attach_num {
+  flex: 1 1 auto;
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #8e24aa;
+  text-align: center;
+  color: #fff;
+}
+
+.audio_num {
+  flex: 1 1 auto;
+  position: absolute;
+  right: 5%;
+  top: 5%;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  border-radius: 20px;
+  background: #8e24aa;
+  text-align: center;
+  color: #fff;
+}
+
+.file_input {
+  display: none;
+}
+
+.file_upload_container {
+  flex: 1 1 5%;
+  display: flex;
+  position: relative;
+}
+
+.audio_upload_container {
+  flex: 1 1 5%;
+  display: flex;
+  position: relative;
+}
+
 .file_upload {
+  z-index: 0;
+  flex: 1 1 5%;
+  fill: rgb(128, 128, 128);
+  padding: 10px;
+}
+
+.menu {
+  display: block;
+  list-style: none;
+  background: #f6f6f6;
+  margin: 0px;
+  padding: 2px;
+  min-height: 30px;
+  position: absolute;
+  width: fit-content;
+
+  z-index: 2;
+  border: 1px solid #999;
+  border-radius: 5px;
+}
+
+.menu_item {
+  display: flex;
+  font-size: 16px;
+  font-weight: 600;
+  height: 40px;
+  padding: 3px;
+  margin: 0px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.menu_item:active {
+  background: #c0c0c0;
+  transition: all 0.1s ease-out;
+}
+
+.file_upload_image {
+  height: 30px;
+  width: 30px;
+  margin: 2px;
+  fill: rgb(128, 128, 128);
+}
+
+.file_upload_text {
+  margin: 10px;
+}
+
+.record {
+  z-index: 0;
   flex: 1 1 5%;
 
   fill: rgb(128, 128, 128);
   padding: 10px;
+}
+
+.record:active {
+  background: #c0c0c0;
+  transition: all 0.1s ease-out;
+}
+
+.stop_record {
+  z-index: 0;
+  flex: 1 1 5%;
+
+  fill: rgb(196, 58, 58);
+  padding: 10px;
+}
+
+.stop_record:active {
+  background: #c0c0c0;
+  transition: all 0.1s ease-out;
 }
 
 .path {
@@ -43,7 +155,28 @@
     flex: 1 1 80%;
   }
 
+  .file_upload_container {
+    flex: 1 1 20%;
+  }
+
   .file_upload {
+    flex: 1 1 20%;
+  }
+
+  .audio_upload_container {
+    flex: 1 1 20%;
+  }
+
+  .menu {
+    right: 2%;
+    bottom: 60px;
+  }
+
+  .record {
+    flex: 1 1 20%;
+  }
+
+  .stop_record {
     flex: 1 1 20%;
   }
 
@@ -57,7 +190,28 @@
     flex: 1 1 85%;
   }
 
+  .file_upload_container {
+    flex: 1 1 15%;
+  }
+
   .file_upload {
+    flex: 1 1 15%;
+  }
+
+  .audio_upload_container {
+    flex: 1 1 15%;
+  }
+
+  .menu {
+    right: 2%;
+    bottom: 60px;
+  }
+
+  .record {
+    flex: 1 1 15%;
+  }
+
+  .stop_record {
     flex: 1 1 15%;
   }
 
@@ -71,7 +225,23 @@
     flex: 1 1 85%;
   }
 
+  .file_upload_container {
+    flex: 1 1 15%;
+  }
+
   .file_upload {
+    flex: 1 1 15%;
+  }
+
+  .audio_upload_container {
+    flex: 1 1 15%;
+  }
+
+  .record {
+    flex: 1 1 15%;
+  }
+
+  .stop_record {
     flex: 1 1 15%;
   }
 
@@ -85,8 +255,29 @@
     flex: 1 1 90%;
   }
 
+  .file_upload_container {
+    flex: 1 1 15%;
+  }
+
   .file_upload {
-    flex: 1 1 10%;
+    flex: 1 1 15%;
+  }
+
+  .audio_upload_container {
+    flex: 1 1 15%;
+  }
+
+  .menu {
+    right: 2%;
+    bottom: 78px;
+  }
+
+  .record {
+    flex: 1 1 15%;
+  }
+
+  .stop_record {
+    flex: 1 1 15%;
   }
 
   .form_input {
@@ -99,7 +290,28 @@
     flex: 1 1 85%;
   }
 
+  .file_upload_container {
+    flex: 1 1 15%;
+  }
+
   .file_upload {
+    flex: 1 1 15%;
+  }
+
+  .audio_upload_container {
+    flex: 1 1 15%;
+  }
+
+  .menu {
+    right: 2%;
+    bottom: 85px;
+  }
+
+  .record {
+    flex: 1 1 15%;
+  }
+
+  .stop_record {
     flex: 1 1 15%;
   }
 
@@ -112,6 +324,46 @@
 @media screen and (min-width: 1200px) {
   .file_upload:hover {
     background: #d3d3d3;
+    transition: all 0.1s ease-out;
+  }
+
+  .file_upload:active {
+    background: #c0c0c0;
+    transition: all 0.1s ease-out;
+  }
+
+  .menu {
+    right: 2%;
+    bottom: 65px;
+  }
+
+  .menu_item:hover {
+    background: #d3d3d3;
+    transition: all 0.1s ease-out;
+  }
+
+  .menu_item:active {
+    background: #c0c0c0;
+    transition: all 0.1s ease-out;
+  }
+
+  .record:hover {
+    background: #d3d3d3;
+    transition: all 0.1s ease-out;
+  }
+
+  .record:active {
+    background: #c0c0c0;
+    transition: all 0.1s ease-out;
+  }
+
+  .stop_record:hover {
+    background: #d3d3d3;
+    transition: all 0.1s ease-out;
+  }
+
+  .stop_record:active {
+    background: #c0c0c0;
     transition: all 0.1s ease-out;
   }
 
