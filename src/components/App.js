@@ -1,3 +1,4 @@
+/* eslint-disable dot-notation */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/control-has-associated-label */
@@ -22,6 +23,7 @@ class App extends React.Component {
     this.ls_messages = userInfo.messagesList
 
     this.state = {
+      userId: 0,
       chats: userInfo.chatsList,
       messages: userInfo.messagesList,
       userInfo: userInfo.userInfo,
@@ -30,6 +32,58 @@ class App extends React.Component {
       chats_list_animation: { animationName: styles.showChatsList },
       profile_page_animation: null,
       isRoot: false,
+    }
+  }
+
+  componentDidMount() {
+    const { state } = this
+    const userId = prompt('Enter your id', 0)
+
+    if (userId !== null && userId > 0) {
+      setInterval(() => this.getChats(), 500)
+      state.userId = userId
+      this.setState(state)
+      this.getChats()
+    }
+  }
+
+  getChats() {
+    const { state } = this
+    if (state.userId > 0) {
+      fetch(`/chats/list_chats?user_id=${state.userId}`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          const dat = data['chats']
+          const chats = []
+          const messages = {}
+          for (let i = 0; i < dat.length; i += 1) {
+            let msgTime = ''
+            fetch(`/chats/chat_msg_list?chat_id=${dat[i].id}`)
+              .then((respMsg) => respMsg.json())
+              .then((msgData) => {
+                const msgs = msgData['messages'].reverse()
+                if (msgs.length !== 0) {
+                  const date = new Date(msgs[0].added_at)
+                  msgTime = `${date.getHours()}:${date.getMinutes()}`
+                }
+              })
+
+            const chat = {
+              id: dat[i].id,
+              avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
+              name: dat[i].topic,
+              time: msgTime,
+              message: dat[i].last_message,
+              isGroup: dat[i].is_group,
+              status: '',
+            }
+            chats.push(chat)
+          }
+
+          state.chats = chats
+          state.messages = messages
+          this.setState(state)
+        })
     }
   }
 
@@ -60,28 +114,17 @@ class App extends React.Component {
   }
 
   addNewChat() {
-    const { chats, messages } = this.state
+    const { userId } = this.state
 
-    const cId = chats.length
+    const contactId = prompt('Введите id контакта', 0)
 
-    const contactName = prompt('Введите имя контакта', 'Новый контакт')
+    if (contactId > 0 && contactId !== userId) {
+      const data = new FormData()
+      data.append('user_id', userId)
+      data.append('target_user_id', contactId)
 
-    chats.unshift({
-      id: cId,
-      avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
-      name: contactName,
-      time: '',
-      message: '',
-      isGroup: false,
-      status: '',
-    })
-
-    messages[`${cId}`] = []
-
-    localStorage.setItem('chats', JSON.stringify(chats))
-    localStorage.setItem('messages', JSON.stringify(messages))
-
-    this.setState({ chats })
+      fetch(`/chats/create_pers_chat`, { method: 'POST', body: data }).then((resp) => resp.json())
+    }
   }
 
   openMessageForm(selectedChatId) {
@@ -150,124 +193,50 @@ class App extends React.Component {
   }
 
   messageEntered(value) {
-    const { selected, messages, chats } = this.state
+    const { selected, userId } = this.state
 
     const currentDate = new Date()
     const hours = currentDate.getHours()
     const minutes = currentDate.getMinutes()
     const msgTime = `${hours}:${minutes < 10 ? '0' : ''}${minutes}`
 
-    const chat = chats.filter((val) => val.id === selected)[0]
-    const index = chats.indexOf(chat)
-    chats.splice(index, 1)
+    const msg = {}
+    msg.user = userId
+    msg.chat = selected
+    msg.content = value.msg
+    msg.added_at = msgTime
 
-    chat.time = msgTime
-    chat.message = value.msg
-    chat.status = 'sent'
+    const data = new FormData()
+    data.append('user', userId)
+    data.append('chat', selected)
+    data.append('content', value.msg)
+    data.append('added_at', msgTime)
 
-    chats.unshift(chat)
+    fetch(`/chats/send_msg`, { method: 'POST', body: data })
+      .then((resp) => resp.json())
+      .then((dat) => {
+        for (let i = 0; i < value.attachments.length; i += 1) {
+          if (value.attachments[i].type !== 'location') {
+            const attData = new FormData()
+            attData.append('chat', selected)
+            attData.append('user', userId)
+            attData.append('message', dat['message']['id'])
+            attData.append('att_type', value.attachments[i].type)
+            attData.append('url', value.attachments[i].src)
+            fetch('/chats/upload', { method: 'POST', body: attData }).then((resp) => resp.json())
+          }
+        }
 
-    if (value.msg !== '' && (value.attachments === [] || value.audios === [])) {
-      this.ls_messages[`${selected}`].push({
-        name: 'Alexander',
-        msg: value.msg,
-        status: 'sent',
-        self: true,
-        time: msgTime,
+        for (let i = 0; i < value.audios.length; i += 1) {
+          const audioData = new FormData()
+          audioData.append('chat', selected)
+          audioData.append('user', userId)
+          audioData.append('message', dat['message']['id'])
+          audioData.append('att_type', value.attachments[i].type)
+          audioData.append('url', value.attachments[i].src)
+          fetch('/chats/upload', { method: 'POST', body: audioData }).then((resp) => resp.json())
+        }
       })
-
-      localStorage.setItem('messages', JSON.stringify(this.ls_messages))
-      localStorage.setItem('chats', JSON.stringify(chats))
-    }
-
-    const msg = {
-      msg: value.msg,
-      attachments: value.attachments,
-      audios: value.audios,
-    }
-
-    /* const linkStl = {
-      display: 'block',
-      marginLeft: '30%',
-    }
-
-    const svgStl = {
-      fill: 'rgb(128, 128, 128)',
-      background: '#fff',
-      padding: '10px',
-    } */
-
-    /* let key = 0
-
-    let tmp = value.msg
-    msg.push(tmp) */
-
-    for (let i = 0; i < value.attachments.length; i += 1) {
-      const data = new FormData()
-
-      /* key += 1
-
-      if (value.attachments[i].type === 'image') {
-        tmp = (
-          <a key={key} href={value.attachments[i].url} style={linkStl}>
-            <img src={value.attachments[i].url} width="70px" height="70px" />
-          </a>
-        )
-      } else if (value.attachments[i].type === 'file') {
-        tmp = (
-          <a key={key} href={value.attachments[i].url} style={linkStl}>
-            <svg style={svgStl} width="70px" height="70px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-              <path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z" />
-            </svg>
-          </a>
-        )
-      } else if (value.attachments[i].type === 'location') {
-        tmp = (
-          <a key={key} href={value.attachments[i].url} style={linkStl}>
-            <svg style={svgStl} width="70px" height="70px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
-              <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z" />
-            </svg>
-          </a>
-        )
-      }
-
-      msg.push(tmp) */
-
-      if (value.attachments[i].src !== undefined && value.attachments[i].src.size <= 6291456) {
-        data.append(value.attachments[i].type, value.attachments[i].src)
-        fetch('https://tt-front.now.sh/upload', {
-          method: 'POST',
-          body: data,
-        }).then((resp) => resp.json())
-      }
-    }
-
-    for (let i = 0; i < value.audios.length; i += 1) {
-      /* key += 1
-      tmp = <audio key={key} controls src={value.audios[i].url} />
-
-      msg.push(tmp) */
-
-      const data = new FormData()
-
-      if (value.audios[i].src.size <= 6291456) {
-        data.append('audio', value.audios[i].src)
-        fetch('https://tt-front.now.sh/upload', {
-          method: 'POST',
-          body: data,
-        }).then((resp) => resp.json())
-      }
-    }
-
-    messages[`${selected}`].push({
-      name: 'Alexander',
-      msg: msg,
-      status: 'sent',
-      self: true,
-      time: msgTime,
-    })
-
-    this.setState({ messages })
   }
 
   saveUserInfo(value) {
@@ -290,11 +259,12 @@ class App extends React.Component {
         <div className={styles.container}>
           <Switch>
             <Route path="/profile">
-              <Profile style={state.profile_page_animation} userInfo={state.userInfo} />
+              <Profile style={state.profile_page_animation} userId={state.userId} />
             </Route>
             <Route path="/chat">
               <MessageForm
                 style={state.message_form_animation}
+                userId={state.userId}
                 chatInfo={state.chats.filter((val) => val.id === state.selected)[0]}
                 messages={state.messages[`${state.selected}`]}
               />

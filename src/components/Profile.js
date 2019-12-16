@@ -1,27 +1,52 @@
+/* eslint-disable dot-notation */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/alt-text */
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import ProfileHeader from './ProfileHeader'
 import Messenger from './Messenger.Context'
 import styles from '../styles/Profile.module.css'
 
 const Profile = (props) => {
-  const { style, userInfo } = props
-  const { avatar, name, username, bio } = userInfo
+  const { style, userId } = props
+  // const { avatar, name, username, bio } = userInfo
 
-  const [userAvatar, setUserAvatar] = useState(avatar)
-  const [userFullName, setUserFullName] = useState(name)
-  const [userUsername, setUserUsername] = useState(username)
-  const [userBio, setUserBio] = useState(bio)
+  const [userAvatar, setUserAvatar] = useState('')
+  const [userFullName, setUserFullName] = useState('')
+  const [userUsername, setUserUsername] = useState('')
+  const [userBio, setUserBio] = useState('')
 
-  const info = {
+  /* const info = {
     avatar: userAvatar,
     name: userFullName,
     username: userUsername,
     bio: userBio,
-  }
+  } */
+
+  const [userInfo, setUserInfo] = useState({})
+
+  const info = userInfo
+
+  useEffect(() => {
+    const getUserInfo = () => {
+      fetch(`/users/profile?user_id=${userId}`)
+        .then((resp) => resp.json())
+        .then((data) => {
+          const uinfo = data['profile']
+          const user = {
+            avatar: uinfo.avatar,
+            fullname: uinfo.first_name,
+            username: uinfo.username,
+            bio: '',
+          }
+
+          setUserInfo(user)
+        })
+    }
+
+    setTimeout(() => getUserInfo(), 100)
+  }, [setUserInfo, userId])
 
   return (
     <div style={style} className={styles.profile}>
@@ -35,13 +60,13 @@ const Profile = (props) => {
         )}
       </Messenger.Consumer>
       <div className={styles.profile_info}>
-        <img className={styles.avatar} src={avatar} />
+        <img className={styles.avatar} src={info.avatar} />
         <div className={styles.name_info}>
           <h6>Полное имя</h6>
           <input
             className={styles.name_input}
             placeholder="Имя и Фамилия"
-            value={userFullName}
+            value={info.fullname}
             onChange={(event) => setUserFullName(event.target.value)}
           />
         </div>
@@ -51,7 +76,7 @@ const Profile = (props) => {
             <input
               className={styles.username_input}
               placeholder="Имя пользователя"
-              value={userUsername}
+              value={info.username}
               onChange={(event) => setUserUsername(event.target.value)}
             />
           </div>
@@ -63,7 +88,7 @@ const Profile = (props) => {
             <textarea
               className={styles.bio_input}
               placeholder="Информация о себе"
-              value={userBio}
+              value={info.bio}
               onChange={(event) => setUserBio(event.target.value)}
             />
           </div>

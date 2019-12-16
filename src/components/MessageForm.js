@@ -1,3 +1,6 @@
+/* eslint-disable eqeqeq */
+/* eslint-disable consistent-return */
+/* eslint-disable dot-notation */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
@@ -9,18 +12,57 @@ import MessageBubble from './MessageBubble'
 import Messenger from './Messenger.Context'
 
 const MessageForm = (props) => {
-  const { style, chatInfo, messages } = props
+  const { style, userId, chatInfo } = props
 
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
+  const [chatMessages, setChatMessages] = useState([])
+
+  const chatMsgss = chatMessages
+
+  useEffect(() => {
+    if (chatInfo !== undefined) {
+      const getChatMessages = () => {
+        fetch(`/chats/chat_msg_list?chat_id=${chatInfo.id}`)
+          .then((respMsg) => respMsg.json())
+          .then((msgData) => {
+            const msgDat = msgData['messages'].reverse()
+            const chatMsgs = []
+            for (let j = 0; j < msgDat.length; j += 1) {
+              const date = new Date(msgDat[j].added_at)
+              const msg = {
+                name: userId == msgDat[j].user_id ? '' : chatInfo.topic,
+                msg: {
+                  attachments: [],
+                  msg: msgDat[j].content,
+                  audios: [],
+                },
+                status: 'sent',
+                self: userId == msgDat[j].user_id,
+                time: `${date.getHours()}:${date.getMinutes()}`,
+              }
+
+              chatMsgs.push(msg)
+            }
+            setChatMessages(chatMsgs)
+          })
+      }
+      getChatMessages()
+      const interval = setInterval(() => getChatMessages(), 500)
+
+      return () => {
+        clearInterval(interval)
+      }
+    }
+  }, [setChatMessages, chatInfo, userId])
 
   const msgList = []
 
   const resultEnd = React.useRef(null)
 
-  if (typeof messages !== 'undefined' && messages !== null && messages.length > 0) {
+  if (typeof chatMsgss !== 'undefined' && chatMsgss !== null && chatMsgss.length > 0) {
     let i = 0
-    messages.forEach((msg) => {
+    chatMsgss.forEach((msg) => {
       let bubble = <MessageBubble className={styles.message_bubble.them} key={i} msgInfo={msg} />
       if (msg.self) {
         bubble = <MessageBubble className={styles.message_bubble.me} key={i} msgInfo={msg} />
