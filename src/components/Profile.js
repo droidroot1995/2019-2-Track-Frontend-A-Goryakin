@@ -1,15 +1,17 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable dot-notation */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { getProfileInfo } from '../actions/profile'
 import ProfileHeader from './ProfileHeader'
-import Messenger from './Messenger.Context'
 import styles from '../styles/Profile.module.css'
 
 const Profile = (props) => {
-  const { style, userId } = props
+  const { userId, userInfo, getInfo } = props
   // const { avatar, name, username, bio } = userInfo
 
   const [userAvatar, setUserAvatar] = useState('')
@@ -24,49 +26,27 @@ const Profile = (props) => {
     bio: userBio,
   } */
 
-  const [userInfo, setUserInfo] = useState({})
-
-  const info = userInfo
-
   useEffect(() => {
-    const getUserInfo = () => {
-      fetch(`/users/profile?user_id=${userId}`)
-        .then((resp) => resp.json())
-        .then((data) => {
-          const uinfo = data['profile']
-          const user = {
-            avatar: uinfo.avatar,
-            fullname: uinfo.first_name,
-            username: uinfo.username,
-            bio: '',
-          }
+    const abortController = new AbortController()
 
-          setUserInfo(user)
-        })
+    setTimeout(() => getInfo(userId), 100)
+
+    return () => {
+      abortController.abort()
     }
-
-    setTimeout(() => getUserInfo(), 100)
-  }, [setUserInfo, userId])
+  }, [userId, getInfo])
 
   return (
-    <div style={style} className={styles.profile}>
-      <Messenger.Consumer>
-        {(val) => (
-          <ProfileHeader
-            returnToChatsList={val.returnToChatsList.bind(val)}
-            saveUserInfo={val.saveUserInfo.bind(val)}
-            userInfo={info}
-          />
-        )}
-      </Messenger.Consumer>
+    <div className={styles.profile}>
+      <ProfileHeader userInfo={userInfo} />
       <div className={styles.profile_info}>
-        <img className={styles.avatar} src={info.avatar} />
+        <img className={styles.avatar} src={userInfo.avatar} />
         <div className={styles.name_info}>
           <h6>Полное имя</h6>
           <input
             className={styles.name_input}
             placeholder="Имя и Фамилия"
-            value={info.fullname}
+            value={userInfo.fullname}
             onChange={(event) => setUserFullName(event.target.value)}
           />
         </div>
@@ -76,7 +56,7 @@ const Profile = (props) => {
             <input
               className={styles.username_input}
               placeholder="Имя пользователя"
-              value={info.username}
+              value={userInfo.username}
               onChange={(event) => setUserUsername(event.target.value)}
             />
           </div>
@@ -88,7 +68,7 @@ const Profile = (props) => {
             <textarea
               className={styles.bio_input}
               placeholder="Информация о себе"
-              value={info.bio}
+              value={userInfo.bio}
               onChange={(event) => setUserBio(event.target.value)}
             />
           </div>
@@ -99,4 +79,16 @@ const Profile = (props) => {
   )
 }
 
-export default Profile
+const mapStateToProps = (state) => ({
+  userId: state.global.userId,
+  userInfo: state.profile.profile,
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getInfo: (uid) => dispatch(getProfileInfo(uid)),
+})
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Profile)

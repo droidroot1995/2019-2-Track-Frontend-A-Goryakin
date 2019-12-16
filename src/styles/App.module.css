@@ -5,6 +5,12 @@
   position: relative;
 
   overflow: hidden;
+  overflow-y: hidden;
+  animation-duration: 0.5s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: forwards;
+
+  z-index: 0;
 }
 
 @keyframes showMessageForm {

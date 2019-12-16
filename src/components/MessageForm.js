@@ -5,6 +5,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
+import { getChatMessages } from '../actions/messages'
 import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
@@ -12,57 +14,30 @@ import MessageBubble from './MessageBubble'
 import Messenger from './Messenger.Context'
 
 const MessageForm = (props) => {
-  const { style, userId, chatInfo } = props
+  const { userId, selected, messages, chatInfo } = props
 
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
 
-  const chatMsgss = chatMessages
-
   useEffect(() => {
-    if (chatInfo !== undefined) {
-      const getChatMessages = () => {
-        fetch(`/chats/chat_msg_list?chat_id=${chatInfo.id}`)
-          .then((respMsg) => respMsg.json())
-          .then((msgData) => {
-            const msgDat = msgData['messages'].reverse()
-            const chatMsgs = []
-            for (let j = 0; j < msgDat.length; j += 1) {
-              const date = new Date(msgDat[j].added_at)
-              const msg = {
-                name: userId == msgDat[j].user_id ? '' : chatInfo.topic,
-                msg: {
-                  attachments: [],
-                  msg: msgDat[j].content,
-                  audios: [],
-                },
-                status: 'sent',
-                self: userId == msgDat[j].user_id,
-                time: `${date.getHours()}:${date.getMinutes()}`,
-              }
+    const abortController = new AbortController()
+    setTimeout(() => props.getChatMessages(userId, selected), 400)
+    const interval = setInterval(() => props.getChatMessages(userId, selected), 500)
 
-              chatMsgs.push(msg)
-            }
-            setChatMessages(chatMsgs)
-          })
-      }
-      getChatMessages()
-      const interval = setInterval(() => getChatMessages(), 500)
-
-      return () => {
-        clearInterval(interval)
-      }
+    return () => {
+      abortController.abort()
+      clearInterval(interval)
     }
-  }, [setChatMessages, chatInfo, userId])
+  }, [props, userId, selected])
 
   const msgList = []
 
   const resultEnd = React.useRef(null)
 
-  if (typeof chatMsgss !== 'undefined' && chatMsgss !== null && chatMsgss.length > 0) {
+  if (typeof messages !== 'undefined' && messages !== null && messages.length > 0) {
     let i = 0
-    chatMsgss.forEach((msg) => {
+    messages.forEach((msg) => {
       let bubble = <MessageBubble className={styles.message_bubble.them} key={i} msgInfo={msg} />
       if (msg.self) {
         bubble = <MessageBubble className={styles.message_bubble.me} key={i} msgInfo={msg} />
@@ -100,13 +75,7 @@ const MessageForm = (props) => {
   }
 
   return (
-    <form
-      style={style}
-      className={styles.msform}
-      onDragOver={handleDragOver}
-      onDragLeave={handleDragLeave}
-      onDrop={handleDrop}
-    >
+    <form className={styles.msform} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
       <div className={`${styles.drag_n_drop_wrapper} ${dragActiveState && styles.drag_n_drop_active}`}>
         <div className={styles.drag_n_drop}>
           <svg className={styles.file_upload_image} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -115,30 +84,22 @@ const MessageForm = (props) => {
           <span className={styles.drag_n_drop_text}>Переместите изображение для загрузки</span>
         </div>
       </div>
-      <Messenger.Consumer>
-        {(val) => (
-          <ChatHeader
-            className={styles.header}
-            returnToChatsList={val.returnToChatsList.bind(val)}
-            chatInfo={chatInfo}
-          />
-        )}
-      </Messenger.Consumer>
+      <ChatHeader className={styles.header} chatInfo={chatInfo} />
       <div className={styles.result}>
         {msgList}
         <div ref={resultEnd} />
       </div>
-      <Messenger.Consumer>
-        {(val) => (
-          <FormInput
-            placeholder="Введите сообщение"
-            filesDragAndDrop={[filesDrag, setFilesDrag]}
-            messageEntered={val.messageEntered.bind(val)}
-          />
-        )}
-      </Messenger.Consumer>
+      <FormInput placeholder="Введите сообщение" filesDragAndDrop={[filesDrag, setFilesDrag]} />
     </form>
   )
 }
 
-export default MessageForm
+const mapStateToProps = (state) => ({
+  userId: state.global.userId,
+  selected: state.global.selected,
+  messages: state.messages.messages,
+})
+export default connect(
+  mapStateToProps,
+  { getChatMessages },
+)(MessageForm)
