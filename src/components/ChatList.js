@@ -13,17 +13,17 @@ import ChatListItem from './ChatListItem'
 import NewChatButton from './NewChatButton'
 
 const ChatList = (props) => {
-  const { userId, chatsList, getChatsList, setGState } = props
+  const { chatsList, getChatsList, setGState } = props
 
   const chats = []
 
   useEffect(() => {
-    const interval = setInterval(() => getChatsList(userId), 500)
+    const interval = setInterval(() => getChatsList(), 500)
 
     return () => {
       clearInterval(interval)
     }
-  }, [userId, getChatsList])
+  }, [getChatsList])
 
   let list = (
     <div className={styles.chats_list}>
@@ -35,7 +35,7 @@ const ChatList = (props) => {
     let i = 0
     chatsList.forEach((chatInfo) => {
       const chat = (
-        <Link to={`/chat?id=${chatInfo.id}`} key={i} onClick={() => setGState(userId, chatInfo.id)}>
+        <Link to={`/chat?id=${chatInfo.id}`} key={i} onClick={() => setGState(chatInfo.id)}>
           <ChatListItem chatInfo={chatInfo} />
         </Link>
       )
@@ -56,13 +56,12 @@ const ChatList = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  userId: state.global.userId,
   chatsList: state.chats.chats,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getChatsList: (uid) => dispatch(getChats(uid)),
-  setGState: (uid, chatId) => dispatch(getGlobal(uid, chatId)),
+  getChatsList: () => dispatch(getChats()),
+  setGState: (chatId) => dispatch(getGlobal(chatId)),
 })
 
 export default connect(

@@ -11,7 +11,7 @@ import ProfileHeader from './ProfileHeader'
 import styles from '../styles/Profile.module.css'
 
 const Profile = (props) => {
-  const { userId, userInfo, getInfo } = props
+  const { userInfo, getInfo } = props
   // const { avatar, name, username, bio } = userInfo
 
   const [userAvatar, setUserAvatar] = useState('')
@@ -29,12 +29,12 @@ const Profile = (props) => {
   useEffect(() => {
     const abortController = new AbortController()
 
-    setTimeout(() => getInfo(userId), 100)
+    setTimeout(() => getInfo(), 100)
 
     return () => {
       abortController.abort()
     }
-  }, [userId, getInfo])
+  }, [getInfo])
 
   return (
     <div className={styles.profile}>
@@ -80,12 +80,11 @@ const Profile = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  userId: state.global.userId,
   userInfo: state.profile.profile,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getInfo: (uid) => dispatch(getProfileInfo(uid)),
+  getInfo: () => dispatch(getProfileInfo()),
 })
 
 export default connect(

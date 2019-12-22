@@ -14,7 +14,7 @@ import MessageBubble from './MessageBubble'
 import Messenger from './Messenger.Context'
 
 const MessageForm = (props) => {
-  const { userId, selected, messages, chatInfo } = props
+  const { selected, messages, chatInfo } = props
 
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
@@ -22,14 +22,14 @@ const MessageForm = (props) => {
 
   useEffect(() => {
     const abortController = new AbortController()
-    setTimeout(() => props.getChatMessages(userId, selected), 400)
-    const interval = setInterval(() => props.getChatMessages(userId, selected), 500)
+    setTimeout(() => props.getChatMessages(selected), 400)
+    const interval = setInterval(() => props.getChatMessages(selected), 500)
 
     return () => {
       abortController.abort()
       clearInterval(interval)
     }
-  }, [props, userId, selected])
+  }, [props, selected])
 
   const msgList = []
 
@@ -95,7 +95,6 @@ const MessageForm = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  userId: state.global.userId,
   selected: state.global.selected,
   messages: state.messages.messages,
 })

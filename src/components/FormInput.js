@@ -11,7 +11,7 @@ import { sendMessage } from '../actions/messageInput'
 import styles from '../styles/FormInput.module.css'
 
 const FormInput = (props) => {
-  const { placeholder, userId, selected, sendMsg, filesDragAndDrop } = props
+  const { placeholder, selected, sendMsg, filesDragAndDrop } = props
 
   const [filesDrag, setFilesDrag] = filesDragAndDrop
 
@@ -37,6 +37,9 @@ const FormInput = (props) => {
   let audiosNum = hState.audiosNum
   let stream = hState.stream
   let recorder = hState.recorder
+
+  const imagesInput = React.useRef(null)
+  const filesInput = React.useRef(null)
 
   if (hState.attachNum === null && attachments.length > 0) {
     attachNum = <div className={styles.attach_num}>{attachments.length}</div>
@@ -286,7 +289,7 @@ const FormInput = (props) => {
   }
 
   const handleFilesSelect = (e) => {
-    const fileSelect = document.getElementById('fileSelect')
+    const fileSelect = filesInput.current
 
     if (fileSelect) {
       fileSelect.click()
@@ -332,7 +335,7 @@ const FormInput = (props) => {
   }
 
   const handleImagesSelect = (e) => {
-    const fileSelect = document.getElementById('imageSelect')
+    const fileSelect = imagesInput.current
     if (fileSelect) {
       fileSelect.click()
     }
@@ -350,11 +353,11 @@ const FormInput = (props) => {
           <span className={styles.file_upload_text}>Изображение</span>
           <input
             className={styles.file_input}
-            id="imageSelect"
             type="file"
             multiple
             accept="image/*"
             onChange={handleFiles}
+            ref={imagesInput}
           />
         </li>
         <li className={styles.menu_item} onClick={handleFilesSelect}>
@@ -362,7 +365,7 @@ const FormInput = (props) => {
             <path d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm160-14.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z" />
           </svg>
           <span className={styles.file_upload_text}>Файл</span>
-          <input className={styles.file_input} id="fileSelect" type="file" multiple onChange={handleFiles} />
+          <input className={styles.file_input} type="file" multiple onChange={handleFiles} ref={filesInput} />
         </li>
         <li className={styles.menu_item} onClick={handleCurrentGeolocation}>
           <svg className={styles.file_upload_image} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
@@ -462,7 +465,7 @@ const FormInput = (props) => {
         })
 
         textarea.current.value = ''
-        sendMsg(userId, selected, msg, attachments, audios)
+        sendMsg(selected, msg, attachments, audios)
       }
     }
   }
@@ -501,13 +504,11 @@ const FormInput = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  userId: state.global.userId,
   selected: state.global.selected,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  sendMsg: (userId, chatId, msg, attachments, audios) =>
-    dispatch(sendMessage(userId, chatId, msg, attachments, audios)),
+  sendMsg: (chatId, msg, attachments, audios) => dispatch(sendMessage(chatId, msg, attachments, audios)),
 })
 
 export default connect(

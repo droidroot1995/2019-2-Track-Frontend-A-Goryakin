@@ -18,25 +18,21 @@ const createNewChatFailure = (error) => ({
   },
 })
 
-export const createNewChat = (uid) => {
+export const createNewChat = () => {
   return (dispatch, getState) => {
     const contactId = prompt('Введите id контакта', 0)
+    const data = new FormData()
+    data.append('target_user_id', contactId)
 
-    if (contactId > 0 && contactId !== uid) {
-      const data = new FormData()
-      data.append('user_id', uid)
-      data.append('target_user_id', contactId)
+    dispatch(createNewChatStarted())
 
-      dispatch(createNewChatStarted())
-
-      fetch(`/chats/create_pers_chat`, { method: 'POST', body: data })
-        .then((resp) => resp.json())
-        .then((dat) => {
-          dispatch(createNewChatSuccess(dat))
-        })
-        .catch((err) => {
-          dispatch(createNewChatFailure(err.message))
-        })
-    }
+    fetch(`/chats/create_pers_chat`, { method: 'POST', body: data })
+      .then((resp) => resp.json())
+      .then((dat) => {
+        dispatch(createNewChatSuccess(dat))
+      })
+      .catch((err) => {
+        dispatch(createNewChatFailure(err.message))
+      })
   }
 }
