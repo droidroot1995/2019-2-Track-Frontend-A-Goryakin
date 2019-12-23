@@ -2,7 +2,6 @@ import { GET_GLOBAL_REQUEST, GET_GLOBAL_FAILURE, GET_GLOBAL_SUCCESS } from '../c
 
 const initialState = {
   loading: false,
-  userId: 0,
   selected: -1,
   error: null,
 }

@@ -18,11 +18,11 @@ const getProfileInfoFailure = (error) => ({
   },
 })
 
-export const getProfileInfo = (uid) => {
+export const getProfileInfo = () => {
   return (dispatch, getState) => {
     dispatch(getProfileInfoStarted())
 
-    fetch(`/users/profile?user_id=${uid}`)
+    fetch(`/users/profile`)
       .then((resp) => resp.json())
       .then((data) => {
         const uinfo = data['profile']

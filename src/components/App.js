@@ -15,9 +15,13 @@ import { Transition, animated } from 'react-spring'
 import { connect } from 'react-redux'
 import { getGlobal } from '../actions/global'
 import styles from '../styles/App.module.css'
+import AuthForm from './AuthForm'
 import ChatList from './ChatList'
+import ChatInfo from './ChatInfo'
+import GroupChatInfo from './GroupChatInfo'
 import MessageForm from './MessageForm'
 import Profile from './Profile'
+import Settings from './Settings'
 import Messenger from './Messenger.Context'
 
 const AnimatedRoute = ({ children }) => (
@@ -52,9 +56,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    const userId = prompt('Enter your id', 0)
+    // const userId = prompt('Enter your id', 0)
 
-    this.props.getGlobal(userId)
+    this.props.getGlobal(0) // userId)
   }
 
   componentWillUnmount() {
@@ -67,10 +71,14 @@ class App extends React.Component {
         <AnimatedRoute className={styles.container}>
           {(location) => (
             <Switch location={location}>
+              <Route path="/chat_info" render={(props) => <ChatInfo />} />
+              <Route path="/group_chat_info" render={(props) => <GroupChatInfo />} />
+              <Route path="/settings" render={(props) => <Settings />} />
               <Route path="/profile" render={(props) => <Profile />} />
               <Route path="/chat" render={(props) => <MessageForm />} />
               <Route path="/list" render={(props) => <ChatList />} />
-              <Redirect to="/list" />
+              <Route pathc="/login" render={(props) => <AuthForm />} />
+              <Redirect to="/login" />
             </Switch>
           )}
         </AnimatedRoute>

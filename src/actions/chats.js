@@ -18,45 +18,43 @@ const getChatsListFailure = (error) => ({
   },
 })
 
-export const getChats = (uid) => {
+export const getChats = () => {
   return (dispatch, getState) => {
-    if (uid > 0) {
-      dispatch(getChatsListStarted())
+    dispatch(getChatsListStarted())
 
-      fetch(`/chats/list_chats?user_id=${uid}`)
-        .then((resp) => resp.json())
-        .then((data) => {
-          const dat = data['chats']
-          const chats = []
-          for (let i = 0; i < dat.length; i += 1) {
-            let msgTime = ''
-            fetch(`/chats/chat_msg_list?chat_id=${dat[i].id}`)
-              .then((respMsg) => respMsg.json())
-              .then((msgData) => {
-                const msgs = msgData['messages'].reverse()
-                if (msgs.length !== 0) {
-                  const date = new Date(msgs[0].added_at)
-                  msgTime = `${date.getHours()}:${date.getMinutes()}`
-                }
-              })
+    fetch(`/chats/list_chats`)
+      .then((resp) => resp.json())
+      .then((data) => {
+        const dat = data['chats']
+        const chats = []
+        dat.forEach((ch) => {
+          let msgTime = ''
+          fetch(`/chats/chat_msg_list?chat_id=${ch.id}`)
+            .then((respMsg) => respMsg.json())
+            .then((msgData) => {
+              const msgs = msgData['messages'].reverse()
+              if (msgs.length !== 0) {
+                const date = new Date(msgs[0].added_at)
+                msgTime = `${date.getHours()}:${date.getMinutes()}`
+              }
+            })
 
-            const chat = {
-              id: dat[i].id,
-              avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
-              name: dat[i].topic,
-              time: msgTime,
-              message: dat[i].last_message,
-              isGroup: dat[i].is_group,
-              status: '',
-            }
-            chats.push(chat)
+          const chat = {
+            id: ch.id,
+            avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
+            name: ch.topic,
+            time: msgTime,
+            message: ch.last_message,
+            isGroup: ch.is_group,
+            status: '',
           }
+          chats.push(chat)
+        })
 
-          dispatch(getChatsListSuccess(chats))
-        })
-        .catch((err) => {
-          dispatch(getChatsListFailure(err.message))
-        })
-    }
+        dispatch(getChatsListSuccess(chats))
+      })
+      .catch((err) => {
+        dispatch(getChatsListFailure(err.message))
+      })
   }
 }

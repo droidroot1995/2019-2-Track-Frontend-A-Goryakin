@@ -4,10 +4,9 @@ const getGlobalStarted = () => ({
   type: GET_GLOBAL_REQUEST,
 })
 
-const getGlobalSuccess = (uid, selected) => ({
+const getGlobalSuccess = (selected) => ({
   type: GET_GLOBAL_SUCCESS,
   payload: {
-    uid,
     selected,
   },
 })
@@ -19,18 +18,13 @@ const getGlobalFailure = (error) => ({
   },
 })
 
-export const getGlobal = (uid, selected) => {
+export const getGlobal = (selected) => {
   return (dispatch, getState) => {
     dispatch(getGlobalStarted())
-
-    if (uid !== null && uid > 0) {
-      if (typeof selected !== 'undefined') {
-        dispatch(getGlobalSuccess(uid, selected))
-      } else {
-        dispatch(getGlobalSuccess(uid, -1))
-      }
+    if (typeof selected !== 'undefined') {
+      dispatch(getGlobalSuccess(selected))
     } else {
-      dispatch(getGlobalFailure('Invalid user id'))
+      dispatch(getGlobalFailure(-1))
     }
   }
 }

@@ -22,7 +22,7 @@ const getChatMessagesFailure = (error) => ({
   },
 })
 
-export const getChatMessages = (uid, chatId) => {
+export const getChatMessages = (chatId) => {
   return (dispatch, getState) => {
     dispatch(getChatMessagesStarted())
     fetch(`/chats/chat_msg_list?chat_id=${chatId}`)
@@ -30,22 +30,25 @@ export const getChatMessages = (uid, chatId) => {
       .then((msgData) => {
         const msgDat = msgData['messages'].reverse()
         const chatMsgs = []
-        for (let j = 0; j < msgDat.length; j += 1) {
-          const date = new Date(msgDat[j].added_at)
+        msgDat.forEach((msgd, idx) => {
+          const date = new Date(msgd.added_at)
+
+          const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+
           const msg = {
-            name: uid == msgDat[j].user_id ? '' : '',
+            name: '',
             msg: {
               attachments: [],
-              msg: msgDat[j].content,
+              msg: msgd.content,
               audios: [],
             },
             status: 'sent',
-            self: uid == msgDat[j].user_id,
-            time: `${date.getHours()}:${date.getMinutes()}`,
+            self: msgd.self,
+            time: `${date.getHours()}:${minutes}`,
           }
 
           chatMsgs.push(msg)
-        }
+        })
         dispatch(getChatMessagesSuccess(chatMsgs))
       })
       .catch((err) => {
