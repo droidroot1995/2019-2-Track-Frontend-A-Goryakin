@@ -35,8 +35,6 @@ const CityList = (props) => {
     </div>
   )
 
-  console.log(citiesList)
-
   if (citiesList.length > 0) {
     let i = 0
     citiesList.forEach((city) => {

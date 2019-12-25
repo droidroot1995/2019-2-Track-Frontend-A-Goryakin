@@ -41,10 +41,10 @@ const getForecastWeatherFailure = (error) => ({
 export const addNewLocation = () => {
   return (dispatch, getState) => {
     const location = prompt('Enter location name, id or (lat;long): ', 0)
-    if (location !== 0) {
+    if (location !== 0 && location !== undefined && location !== null) {
       if (!isNaN(location)) {
         dispatch(getWeatherStarted())
-        fetch(`${WEATHER_API_URL}id=${parseInt(location)}&appid=${API_KEY}`)
+        fetch(`${WEATHER_API_URL}?id=${parseInt(location)}&appid=${API_KEY}`)
           .then((resp) => resp.json())
           .then((data) => {
             //console.log(data)
@@ -71,7 +71,7 @@ export const addNewLocation = () => {
 
         if (loc.length === 1) {
           dispatch(getWeatherStarted())
-          fetch(`${WEATHER_API_URL}q=${loc}&appid=${API_KEY}`)
+          fetch(`${WEATHER_API_URL}?q=${loc}&appid=${API_KEY}`)
             .then((resp) => resp.json())
             .then((data) => {
               //console.log(data)
@@ -93,7 +93,7 @@ export const addNewLocation = () => {
             .catch((err) => dispatch(getWeatherFailure(err)))
         } else if (loc.length === 2) {
           dispatch(getWeatherStarted())
-          fetch(`${WEATHER_API_URL}lat=${parseFloat(loc[0])}&lon=${parseFloat(loc[1])}&appid=${API_KEY}`)
+          fetch(`${WEATHER_API_URL}?lat=${parseFloat(loc[0])}&lon=${parseFloat(loc[1])}&appid=${API_KEY}`)
             .then((resp) => resp.json())
             .then((data) => {
               //console.log(data)
