@@ -5,23 +5,29 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
-//import { getGlobal } from '../actions/global'
+import { addLocationByGPS } from '../actions/location'
+import { setLocation } from '../actions/global'
 import styles from '../styles/CityList.module.css'
 import CityListItem from './CityListItem'
+import CityListHeader from './CityListHeader'
 import AddLocationButton from './AddLocationButton'
 
 const CityList = (props) => {
-  const { citiesList, getCitiesList, setGState } = props
+  const { citiesList, addByGPS, setLoc } = props
 
   const cities = []
 
-  /* useEffect(() => {
-    const interval = setInterval(() => getCitiesList(), 500)
-
-    return () => {
-      clearInterval(interval)
+  useEffect(() => {
+    if (citiesList.length === 0) {
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition((position) => {
+          const lat = position.coords.latitude
+          const lon = position.coords.longitude
+          addByGPS(lat, lon)
+        })
+      }
     }
-  }, [getCitiesList]) */
+  }, [])
 
   let list = (
     <div className={styles.cities_list}>
@@ -29,12 +35,14 @@ const CityList = (props) => {
     </div>
   )
 
-  /*if (citiesList.length > 0) {
+  console.log(citiesList)
+
+  if (citiesList.length > 0) {
     let i = 0
     citiesList.forEach((city) => {
       const cty = (
-        <Link to={`/city?id=${city.id}`} key={i} onClick={() => setGState(city.coord)}>
-          <CityListItem chatInfo={city} />
+        <Link to={`/info`} key={i} onClick={() => setLoc(city.coord)}>
+          <CityListItem cityInfo={city} />
         </Link>
       )
       i += 1
@@ -42,10 +50,11 @@ const CityList = (props) => {
     })
 
     list = <div className={styles.cities_list}>{cities}</div>
-  } */
+  }
 
   return (
-    <div className={styles.chat_list}>
+    <div className={styles.city_list}>
+      <CityListHeader />
       {list}
       <AddLocationButton />
     </div>
@@ -53,15 +62,12 @@ const CityList = (props) => {
 }
 
 const mapStateToProps = (state) => ({
-  // chatsList: state.chats.cities,
+  citiesList: state.global.locations,
 })
 
-/* const mapDispatchToProps = (dispatch) => ({
-  getCitiesList: () => dispatch(getCities()),
-  setGState: (city) => dispatch(getGlobal(city)),
-}) */
+const mapDispatchToProps = (dispatch) => ({
+  addByGPS: (lat, lon) => dispatch(addLocationByGPS(lat, lon)),
+  setLoc: (coords) => dispatch(setLocation(coords)),
+})
 
-export default connect(
-  null, //mapStateToProps,
-  // mapDispatchToProps,
-)(CityList)
+export default connect(mapStateToProps, mapDispatchToProps)(CityList)

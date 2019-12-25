@@ -1,8 +1,7 @@
 import React from 'react'
 import { Switch, Route, Redirect } from 'react-router-dom'
-import { connect } from 'react-redux'
 import CityList from './CityList'
-// import { CityWeather} from './CityWeather'
+import CityWeather from './CityWeather'
 
 class App extends React.Component {
   constructor(props) {
@@ -13,7 +12,9 @@ class App extends React.Component {
   render() {
     return (
       <Switch>
-        <Route path="/info"></Route>
+        <Route path="/info">
+          <CityWeather />
+        </Route>
         <Route path="/list">
           <CityList />
         </Route>
@@ -23,6 +24,4 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({})
-
-export default connect(null)(App)
+export default App

@@ -9,20 +9,16 @@
   flex-direction: column;
   top: 0;
 
-  background: #fff;
+  background: rgb(224, 222, 222);
   overflow-x: hidden;
   overflow-y: hidden;
-
-  animation-duration: 0.5s;
-  animation-timing-function: ease-in-out;
-  animation-fill-mode: forwards;
 }
 
 .cities_list {
   padding: 0.5em;
 
   flex: 1 1 auto;
-  background: #fff;
+  background: rgb(224, 222, 222);
 
   display: flex;
 
