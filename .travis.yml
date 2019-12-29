@@ -4,18 +4,21 @@ node_js:
 cache:
   directories:
     - node_modules
+
+before_install:
+  - cd exam
 script:
-  - npm run lint
-  - npm run test
+  #  - npm run lint
+  #  - npm run test
   - npm run build
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: build
+  local_dir: exam/build
   on:
     branch:
       - master
       - devel
-      - frontend_lesson_10
+      - exam

@@ -1,0 +1,187 @@
+.item {
+  flex: 1 1 10%;
+  border: 1px solid grey;
+  margin: 10px;
+  background: #fbfbfb;
+
+  min-height: 150px;
+  max-height: 150px;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+  color: black;
+}
+
+.city_info {
+  display: block;
+  height: 60%;
+  width: 100%;
+  border-bottom: 1px solid grey;
+  padding: 10px;
+}
+
+.city {
+  display: inline-block;
+  width: 70%;
+  height: 100%;
+}
+
+.city_name {
+  display: inline-block;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.country_name {
+  font-size: 20px;
+  font-weight: lighter;
+}
+
+.weather {
+  display: inline-block;
+  width: 30%;
+  vertical-align: top;
+  height: 100%;
+}
+
+.icon {
+  display: inline-block;
+  height: 50px;
+  vertical-align: middle;
+}
+
+.location {
+  display: inline-block;
+  height: 30px;
+  fill: #87d3f7;
+  padding: 5px;
+}
+
+.temperature {
+  display: inline-block;
+  font-size: 30px;
+  font-weight: lighter;
+}
+
+.weather_info {
+  display: block;
+  height: 40%;
+  padding: 10px;
+}
+
+.weather_info_item {
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+  font-weight: lighter;
+}
+
+.temp_info_item {
+  display: inline-block;
+  width: 20%;
+  height: 100%;
+  font-weight: lighter;
+}
+
+@media screen and (max-width: 320px) {
+  .city {
+    width: 65%;
+  }
+
+  .weather {
+    width: 35%;
+  }
+
+  .weather_info_item {
+    width: 75%;
+  }
+
+  .temp_info_item {
+    width: 25%;
+  }
+}
+
+@media screen and (min-width: 321px) and (max-width: 389px) {
+  .city {
+    width: 60%;
+  }
+
+  .weather {
+    width: 40%;
+  }
+}
+
+@media screen and (min-width: 390px) and (max-width: 480px) {
+  .city {
+    width: 70%;
+  }
+
+  .weather {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .city {
+    width: 70%;
+  }
+
+  .weather {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 991px) {
+  .city {
+    width: 85%;
+  }
+
+  .weather {
+    width: 15%;
+  }
+
+  .weather_info_item {
+    width: 90%;
+  }
+
+  .temp_info_item {
+    width: 10%;
+  }
+}
+
+@media screen and (min-width: 992px) and (max-width: 1199px) {
+  .city {
+    width: 87%;
+  }
+
+  .weather {
+    width: 13%;
+  }
+
+  .weather_info_item {
+    width: 90%;
+  }
+
+  .temp_info_item {
+    width: 10%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .city {
+    width: 90%;
+  }
+
+  .weather {
+    width: 10%;
+  }
+
+  .weather_info_item {
+    width: 95%;
+  }
+
+  .temp_info_item {
+    width: 5%;
+  }
+}
