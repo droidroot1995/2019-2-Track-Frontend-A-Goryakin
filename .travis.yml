@@ -5,20 +5,20 @@ cache:
   directories:
     - node_modules
 
-before_install:
-  - cd exam
+# before_install:
+#  - cd exam
 script:
-  #  - npm run lint
-  #  - npm run test
+  - npm run lint
+  - npm run test
   - npm run build
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: exam/build
+  local_dir: build
   on:
     branch:
       - master
       - devel
-      - exam
+      - frontend_lesson_2_1
