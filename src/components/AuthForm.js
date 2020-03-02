@@ -16,7 +16,11 @@ const AuthForm = (props) => {
         <a href={`${API_URL}/social_auth/login/facebook`} className={`${styles.authButton} ${styles.authFacebook}`}>
           <span className={styles.authText}>Log in with Facebook</span>
         </a>
-        <a href={`${API_URL}/social_auth/login/vk-oauth2/`} className={`${styles.authButton} ${styles.authVK}`}>
+        <a
+          href={`${API_URL}/social_auth/login/vk-oauth2/`}
+          className={`${styles.authButton} ${styles.authVK}`}
+          name="authVK"
+        >
           <span className={styles.authText}>Log in with VK</span>
         </a>
         <a href={`${API_URL}/social_auth/login/twitter/`} className={`${styles.authButton} ${styles.authTwitter}`}>

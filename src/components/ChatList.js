@@ -35,7 +35,7 @@ const ChatList = (props) => {
     let i = 0
     chatsList.forEach((chatInfo) => {
       const chat = (
-        <Link to={`/chat?id=${chatInfo.id}`} key={i} onClick={() => setGState(chatInfo.id)}>
+        <Link to={`/chat?id=${chatInfo.id}`} key={i} name={`${chatInfo.id}`} onClick={() => setGState(chatInfo.id)}>
           <ChatListItem chatInfo={chatInfo} />
         </Link>
       )
@@ -64,7 +64,4 @@ const mapDispatchToProps = (dispatch) => ({
   setGState: (chatId) => dispatch(getGlobal(chatId)),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ChatList)
+export default connect(mapStateToProps, mapDispatchToProps)(ChatList)
