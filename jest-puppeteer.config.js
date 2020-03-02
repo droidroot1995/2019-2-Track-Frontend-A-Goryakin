@@ -1,8 +1,6 @@
 module.exports = {
   launch: {
-    headless: false, // для отображения в клиенте
     ignoreHTTPSErrors: true,
-    debugger: true,
   },
   server: {
     command: `npm start`,
