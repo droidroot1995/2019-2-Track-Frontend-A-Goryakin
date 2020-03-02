@@ -1,5 +1,6 @@
 module.exports = {
   launch: {
+    headless: true, // для отображения в клиенте
     ignoreHTTPSErrors: true,
   },
   server: {
