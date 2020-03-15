@@ -10,7 +10,7 @@
   border: 0;
   outline: none;
   width: calc(100% - 2px);
-  flex: 1 1 95%;
+  flex: 1 1 90%;
 
   resize: none;
   align-items: center;
@@ -49,6 +49,12 @@
 }
 
 .file_upload_container {
+  flex: 1 1 5%;
+  display: flex;
+  position: relative;
+}
+
+.emoji_button_container {
   flex: 1 1 5%;
   display: flex;
   position: relative;
@@ -140,6 +146,10 @@
   transform-origin: 50% 50%;
 }
 
+.path_emoji {
+  transform-origin: 50% 50%;
+}
+
 .file_upload:active {
   background: #c0c0c0;
   transition: all 0.1s ease-out;
@@ -152,10 +162,14 @@
 
 @media screen and (max-width: 389px) {
   .text_input {
-    flex: 1 1 80%;
+    flex: 1 1 75%;
   }
 
   .file_upload_container {
+    flex: 1 1 25%;
+  }
+
+  .emoji_button_container {
     flex: 1 1 20%;
   }
 
@@ -187,10 +201,14 @@
 
 @media screen and (min-width: 390px) and (max-width: 480px) {
   .text_input {
-    flex: 1 1 85%;
+    flex: 1 1 80%;
   }
 
   .file_upload_container {
+    flex: 1 1 20%;
+  }
+
+  .emoji_button_container {
     flex: 1 1 15%;
   }
 
@@ -222,10 +240,14 @@
 
 @media screen and (min-width: 481px) and (max-width: 767px) {
   .text_input {
-    flex: 1 1 85%;
+    flex: 1 1 80%;
   }
 
   .file_upload_container {
+    flex: 1 1 15%;
+  }
+
+  .emoji_button_container {
     flex: 1 1 15%;
   }
 
@@ -235,6 +257,11 @@
 
   .audio_upload_container {
     flex: 1 1 15%;
+  }
+
+  .menu {
+    right: 2%;
+    bottom: 60px;
   }
 
   .record {
@@ -252,10 +279,14 @@
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .text_input {
-    flex: 1 1 90%;
+    flex: 1 1 85%;
   }
 
   .file_upload_container {
+    flex: 1 1 15%;
+  }
+
+  .emoji_button_container {
     flex: 1 1 15%;
   }
 
@@ -287,10 +318,14 @@
 
 @media screen and (min-width: 992px) and (max-width: 1199px) {
   .text_input {
-    flex: 1 1 85%;
+    flex: 1 1 80%;
   }
 
   .file_upload_container {
+    flex: 1 1 15%;
+  }
+
+  .emoji_button_container {
     flex: 1 1 15%;
   }
 

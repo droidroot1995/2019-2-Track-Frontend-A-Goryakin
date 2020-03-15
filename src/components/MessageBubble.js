@@ -1,10 +1,35 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/media-has-caption */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import Substring from 'react-substring'
+import {
+  Smile,
+  Angry,
+  Alien,
+  Screaming,
+  Kiss,
+  Fear,
+  RollingEyes,
+  Adult,
+  Tongue,
+  WithThermometer,
+  Monocle,
+  OpenMouth,
+  Eyebrow,
+  Flushed,
+  Confused,
+  Clown,
+  Crying,
+  Expressionless,
+  Dizzy,
+  Vomiting,
+} from './Emoji.js'
 import styles from '../styles/MessageBubble.module.css'
+import emojiStyles from '../styles/Emoji.module.css'
 
 const MessageBubble = (props) => {
   const { msgInfo } = props
@@ -38,7 +63,217 @@ const MessageBubble = (props) => {
     padding: '10px',
   }
 
-  let tmp = msg.msg
+  let tmp = (
+    <Substring
+      className={styles.message}
+      outerTagName="p"
+      substrings={[
+        {
+          match: ':smile:',
+          component: 'span', // Smile
+          props: {
+            className: emojiStyles.smile,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':angry:',
+          component: 'span', // Angry
+          props: {
+            className: emojiStyles.angry,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':alien:',
+          component: 'span', // Alien
+          props: {
+            className: emojiStyles.alien,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':screaming:',
+          component: 'span', // Screaming
+          props: {
+            className: emojiStyles.screaming,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':kiss:',
+          component: 'span', // Kiss
+          props: {
+            className: emojiStyles.kiss,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':fear:',
+          component: 'span', // Fear
+          props: {
+            className: emojiStyles.fear,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':rolling_eyes:',
+          component: 'span', // RollingEyes
+          props: {
+            className: emojiStyles.roling_eyes,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':adult:',
+          component: 'span', // Adult
+          props: {
+            className: emojiStyles.adult,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':tongue:',
+          component: 'span', // Tongue
+          props: {
+            className: emojiStyles.tongue,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':with_thermometer:',
+          component: 'span', // WithThermometer
+          props: {
+            className: emojiStyles.with_thermometer,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':monocle:',
+          component: 'span', // Monocle
+          props: {
+            className: emojiStyles.monocle,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':open_mouth:',
+          component: 'span', // OpenMouth
+          props: {
+            className: emojiStyles.open_mouth,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':eyebrow:',
+          component: 'span', // Eyebrow
+          props: {
+            className: emojiStyles.eyebrow,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':flushed:',
+          component: 'span', // Flushed
+          props: {
+            className: emojiStyles.flushed,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':confused:',
+          component: 'span', // Confused
+          props: {
+            className: emojiStyles.confused,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':clown:',
+          component: 'span', // Clown
+          props: {
+            className: emojiStyles.clown,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':crying:',
+          component: 'span', // Crying
+          props: {
+            className: emojiStyles.crying,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':expressionless:',
+          component: 'span', // Expressionless
+          props: {
+            className: emojiStyles.expressionless,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':dizzy:',
+          component: 'span', // Dizzy
+          props: {
+            className: emojiStyles.dizzy,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+        {
+          match: ':vomiting:',
+          component: 'span', // Vomiting
+          props: {
+            className: emojiStyles.vomiting,
+            style: {
+              fontSize: '0px',
+            },
+          },
+        },
+      ]}
+    >
+      {msg.msg}
+    </Substring>
+  )
+
   msgContent.push(tmp)
 
   let key = 0
@@ -86,12 +321,14 @@ const MessageBubble = (props) => {
     messageClass = styles.me
   }
 
+  // <p className={styles.message}>{msgContent}</p>
+
   return (
     <div className={`${styles.message_bubble_container} ${messageClass}`}>
       <div className={`${styles.message_bubble} ${messageClass}`}>
         <div className={styles.txt}>
           <p className={`${styles.name} ${messageClass}`}>{name}</p>
-          <p className={styles.message}>{msgContent}</p>
+          {msgContent}
           <p className={styles.message_info}>
             <span className={`${styles.time}`}>{time}</span>
             {msgStatus}
