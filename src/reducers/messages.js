@@ -2,6 +2,8 @@ import {
   GET_MESSAGES_LIST_REQUEST,
   GET_MESSAGES_LIST_SUCCESS,
   GET_MESSAGES_LIST_FAILURE,
+  GET_MESSAGE_SUCCESS,
+  SOCKET_DISCONNECTED,
 } from '../constants/ActionTypes'
 
 const initialState = {
@@ -28,6 +30,18 @@ export default (state = initialState, action) => {
         ...state,
         loading: false,
         error: action.payload.error,
+      }
+    case GET_MESSAGE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        messages: [...state.messages, action.payload],
+      }
+    case SOCKET_DISCONNECTED:
+      return {
+        ...state,
+        loading: false,
+        messages: action.payload,
       }
     default:
       return state

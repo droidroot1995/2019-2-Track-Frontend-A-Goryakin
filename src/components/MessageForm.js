@@ -6,7 +6,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getChatMessages } from '../actions/messages'
+import { getChatMessages, openWebSocket, closeWebSocket } from '../actions/messages'
 import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
@@ -21,13 +21,20 @@ const MessageForm = (props) => {
   const [chatMessages, setChatMessages] = useState([])
 
   useEffect(() => {
-    const abortController = new AbortController()
+    /* const abortController = new AbortController()
     setTimeout(() => props.getChatMessages(selected), 400)
-    const interval = setInterval(() => props.getChatMessages(selected), 500)
+    const interval = setInterval(() => props.getChatMessages(selected), 500) */
+
+    if (typeof messages !== 'undefined' && messages !== null && messages.length === 0) {
+      props.getChatMessages(selected)
+    }
+    props.openWebSocket(selected)
 
     return () => {
-      abortController.abort()
-      clearInterval(interval)
+      /* abortController.abort()
+      clearInterval(interval) */
+
+      props.closeWebSocket(selected)
     }
   }, [props, selected])
 
@@ -98,7 +105,4 @@ const mapStateToProps = (state) => ({
   selected: state.global.selected,
   messages: state.messages.messages,
 })
-export default connect(
-  mapStateToProps,
-  { getChatMessages },
-)(MessageForm)
+export default connect(mapStateToProps, { getChatMessages, openWebSocket, closeWebSocket })(MessageForm)

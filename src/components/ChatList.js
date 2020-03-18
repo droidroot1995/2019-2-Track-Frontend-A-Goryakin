@@ -18,8 +18,8 @@ const ChatList = (props) => {
   const chats = []
 
   useEffect(() => {
+    // getChatsList()
     const interval = setInterval(() => getChatsList(), 500)
-
     return () => {
       clearInterval(interval)
     }
