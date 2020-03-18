@@ -3,6 +3,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/smiling-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -11,6 +12,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/angry-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -19,6 +21,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/alien.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -27,6 +30,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-screaming-in-fear.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -35,6 +39,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-blowing-a-kiss.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -43,6 +48,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/fearful-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -51,6 +57,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-with-rolling-eyes.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -59,6 +66,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/adult.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -67,6 +75,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-with-tongue.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -75,6 +84,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-with-thermometer.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -83,6 +93,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-with-monocle.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -92,6 +103,7 @@
   height: 32px;
   border: none;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-with-open-mouth.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -100,6 +112,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-with-raised-eyebrow.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -108,6 +121,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/flushed-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -116,6 +130,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/confused-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -124,6 +139,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/clown-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -132,6 +148,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/crying-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -140,6 +157,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/expressionless-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -148,6 +166,7 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/dizzy-face.png?sprite&retina@2x&retina@4x') no-repeat;
 }
 
@@ -156,5 +175,6 @@
   width: 32px;
   height: 32px;
   margin: 3px;
+  vertical-align: middle;
   background: url('../assets/emoji/face-vomiting.png?sprite&retina@2x&retina@4x') no-repeat;
 }

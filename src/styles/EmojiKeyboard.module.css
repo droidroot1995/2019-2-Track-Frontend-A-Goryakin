@@ -1,9 +1,9 @@
 .container {
   display: block;
-  min-height: 172px;
-  min-width: 200px;
-  max-width: 200px;
-  max-height: 172px;
+  min-height: 160px;
+  min-width: 195px;
+  max-width: 195px;
+  max-height: 160px;
 
   background-color: #f6f6f6;
 
