@@ -10,25 +10,25 @@ export default {
 
 export const Smiling = () => (
   <Provider store={store}>
-    <Emoji name=":smile:" />
-    <Emoji name=":angry:" />
-    <Emoji name=":alien:" />
-    <Emoji name=":screaming:" />
-    <Emoji name=":kiss:" />
-    <Emoji name=":fear:" />
-    <Emoji name=":rolling_eyes:" />
-    <Emoji name=":adult:" />
-    <Emoji name=":tongue:" />
-    <Emoji name=":with_thermometer:" />
-    <Emoji name=":monocle:" />
-    <Emoji name=":open_mouth:" />
-    <Emoji name=":eyebrow:" />
-    <Emoji name=":flushed:" />
-    <Emoji name=":confused:" />
-    <Emoji name=":clown:" />
-    <Emoji name=":crying:" />
-    <Emoji name=":expressionless:" />
-    <Emoji name=":dizzy:" />
-    <Emoji name=":vomiting:" />
+    <Emoji etype="msg" name=":smile:" />
+    <Emoji etype="msg" name=":angry:" />
+    <Emoji etype="msg" name=":alien:" />
+    <Emoji etype="msg" name=":screaming:" />
+    <Emoji etype="msg" name=":kiss:" />
+    <Emoji etype="msg" name=":fear:" />
+    <Emoji etype="msg" name=":rolling_eyes:" />
+    <Emoji etype="msg" name=":adult:" />
+    <Emoji etype="msg" name=":tongue:" />
+    <Emoji etype="msg" name=":with_thermometer:" />
+    <Emoji etype="msg" name=":monocle:" />
+    <Emoji etype="msg" name=":open_mouth:" />
+    <Emoji etype="msg" name=":eyebrow:" />
+    <Emoji etype="msg" name=":flushed:" />
+    <Emoji etype="msg" name=":confused:" />
+    <Emoji etype="msg" name=":clown:" />
+    <Emoji etype="msg" name=":crying:" />
+    <Emoji etype="msg" name=":expressionless:" />
+    <Emoji etype="msg" name=":dizzy:" />
+    <Emoji etype="msg" name=":vomiting:" />
   </Provider>
 )

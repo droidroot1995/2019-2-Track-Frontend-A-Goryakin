@@ -6,32 +6,32 @@ const EmojiKeyboard = () => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <Emoji name=":smile:" />
-        <Emoji name=":angry:" />
-        <Emoji name=":alien:" />
-        <Emoji name=":screaming:" />
-        <Emoji name=":kiss:" />
+        <Emoji etype="kbd" name=":smile:" />
+        <Emoji etype="kbd" name=":angry:" />
+        <Emoji etype="kbd" name=":alien:" />
+        <Emoji etype="kbd" name=":screaming:" />
+        <Emoji etype="kbd" name=":kiss:" />
       </div>
       <div className={styles.row}>
-        <Emoji name=":fear:" />
-        <Emoji name=":rolling_eyes:" />
-        <Emoji name=":adult:" />
-        <Emoji name=":tongue:" />
-        <Emoji name=":with_thermometer:" />
+        <Emoji etype="kbd" name=":fear:" />
+        <Emoji etype="kbd" name=":rolling_eyes:" />
+        <Emoji etype="kbd" name=":adult:" />
+        <Emoji etype="kbd" name=":tongue:" />
+        <Emoji etype="kbd" name=":with_thermometer:" />
       </div>
       <div className={styles.row}>
-        <Emoji name=":monocle:" />
-        <Emoji name=":open_mouth:" />
-        <Emoji name=":eyebrow:" />
-        <Emoji name=":flushed:" />
-        <Emoji name=":confused:" />
+        <Emoji etype="kbd" name=":monocle:" />
+        <Emoji etype="kbd" name=":open_mouth:" />
+        <Emoji etype="kbd" name=":eyebrow:" />
+        <Emoji etype="kbd" name=":flushed:" />
+        <Emoji etype="kbd" name=":confused:" />
       </div>
       <div className={styles.row}>
-        <Emoji name=":clown:" />
-        <Emoji name=":crying:" />
-        <Emoji name=":expressionless:" />
-        <Emoji name=":dizzy:" />
-        <Emoji name=":vomiting:" />
+        <Emoji etype="kbd" name=":clown:" />
+        <Emoji etype="kbd" name=":crying:" />
+        <Emoji etype="kbd" name=":expressionless:" />
+        <Emoji etype="kbd" name=":dizzy:" />
+        <Emoji etype="kbd" name=":vomiting:" />
       </div>
     </div>
   )

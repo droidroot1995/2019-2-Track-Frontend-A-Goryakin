@@ -8,7 +8,7 @@ import { setEmoji } from '../actions/emoji'
 import style from '../styles/Emoji.module.css'
 
 const Emoji = (props) => {
-  const { setEmji, name } = props
+  const { setEmji, name, etype } = props
 
   const match = name.match(/:(\w+):/g)
   let emName = name
@@ -106,7 +106,17 @@ const Emoji = (props) => {
       break
   }
 
-  return <span onClick={handleEmojiClick} className={emStyle} />
+  let emji = <span onClick={handleEmojiClick} className={emStyle} />
+
+  if (etype === 'msg') {
+    emji = <span className={emStyle} />
+  }
+
+  if (etype === 'kbd') {
+    emji = <span onClick={handleEmojiClick} className={emStyle} />
+  }
+
+  return emji
 }
 
 const mapDispatchToProps = (dispatch) => ({

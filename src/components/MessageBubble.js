@@ -41,7 +41,7 @@ const MessageBubble = (props) => {
   }
 
   let tmp = stringReplacer(msg.msg, /:(\w+):/g, (match, i) => {
-    return <Emoji name={match} />
+    return <Emoji etype="msg" name={match} />
   })
 
   msgContent.push(tmp)
