@@ -1,58 +1,37 @@
 import React from 'react'
-import {
-  Smile,
-  Angry,
-  Alien,
-  Screaming,
-  Kiss,
-  Fear,
-  RollingEyes,
-  Adult,
-  Tongue,
-  WithThermometer,
-  Monocle,
-  OpenMouth,
-  Eyebrow,
-  Flushed,
-  Confused,
-  Clown,
-  Crying,
-  Expressionless,
-  Dizzy,
-  Vomiting,
-} from './Emoji.js'
+import Emoji from './Emoji.js'
 import styles from '../styles/EmojiKeyboard.module.css'
 
 const EmojiKeyboard = () => {
   return (
     <div className={styles.container}>
       <div className={styles.row}>
-        <Smile name=":smile:" />
-        <Angry name=":angry:" />
-        <Alien name=":alien:" />
-        <Screaming name=":screaming:" />
-        <Kiss name=":kiss:" />
+        <Emoji name=":smile:" />
+        <Emoji name=":angry:" />
+        <Emoji name=":alien:" />
+        <Emoji name=":screaming:" />
+        <Emoji name=":kiss:" />
       </div>
       <div className={styles.row}>
-        <Fear name=":fear:" />
-        <RollingEyes name=":rolling_eyes:" />
-        <Adult name=":adult:" />
-        <Tongue name=":tongue:" />
-        <WithThermometer name=":with_thermometer:" />
+        <Emoji name=":fear:" />
+        <Emoji name=":rolling_eyes:" />
+        <Emoji name=":adult:" />
+        <Emoji name=":tongue:" />
+        <Emoji name=":with_thermometer:" />
       </div>
       <div className={styles.row}>
-        <Monocle name=":monocle:" />
-        <OpenMouth name=":open_mouth:" />
-        <Eyebrow name=":eyebrow:" />
-        <Flushed name=":flushed:" />
-        <Confused name=":confused:" />
+        <Emoji name=":monocle:" />
+        <Emoji name=":open_mouth:" />
+        <Emoji name=":eyebrow:" />
+        <Emoji name=":flushed:" />
+        <Emoji name=":confused:" />
       </div>
       <div className={styles.row}>
-        <Clown name=":clown:" />
-        <Crying name=":crying:" />
-        <Expressionless name=":expressionless:" />
-        <Dizzy name=":dizzy:" />
-        <Vomiting name=":vomiting:" />
+        <Emoji name=":clown:" />
+        <Emoji name=":crying:" />
+        <Emoji name=":expressionless:" />
+        <Emoji name=":dizzy:" />
+        <Emoji name=":vomiting:" />
       </div>
     </div>
   )
