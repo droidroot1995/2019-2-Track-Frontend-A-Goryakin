@@ -7,23 +7,29 @@ import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getChats } from '../actions/chats'
 import { getGlobal } from '../actions/global'
+import { getToken } from '../actions/centrifugo'
 import styles from '../styles/ChatList.module.css'
 import ChatListHeader from './ChatListHeader'
 import ChatListItem from './ChatListItem'
 import NewChatButton from './NewChatButton'
 
 const ChatList = (props) => {
-  const { chatsList, getChatsList, setGState } = props
+  const { chatsList, token, getChatsList, setGState, getCToken } = props
 
   const chats = []
 
   useEffect(() => {
     // getChatsList()
+
+    if (token === '') {
+      getCToken()
+    }
+
     const interval = setInterval(() => getChatsList(), 500)
     return () => {
       clearInterval(interval)
     }
-  }, [getChatsList])
+  }, [getChatsList, token])
 
   let list = (
     <div className={styles.chats_list}>
@@ -57,11 +63,13 @@ const ChatList = (props) => {
 
 const mapStateToProps = (state) => ({
   chatsList: state.chats.chats,
+  token: state.centrifugo.token,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   getChatsList: () => dispatch(getChats()),
   setGState: (chatId) => dispatch(getGlobal(chatId)),
+  getCToken: () => dispatch(getToken()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList)

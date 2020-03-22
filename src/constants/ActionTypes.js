@@ -27,3 +27,7 @@ export const GET_GLOBAL_FAILURE = '@@global/GET_GLOBAL_FAILURE'
 
 export const SET_EMOJI = '@@emoji/SET_EMOJI'
 export const CLEAR_EMOJI = '@@emoji/CLEAR_EMOJI'
+
+export const GET_CENT_TOKEN_REQUEST = '@@centrifugo/GET_CENT_TOKEN_REQUEST'
+export const GET_CENT_TOKEN_SUCCESS = '@@centrifugo/GET_CENT_TOKEN_SUCCESS'
+export const GET_CENT_TOKEN_FAILURE = '@@centrifugo/GET_CENT TOKEN_FAILURE'

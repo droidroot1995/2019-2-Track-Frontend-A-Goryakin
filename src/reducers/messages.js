@@ -9,6 +9,7 @@ import {
 const initialState = {
   loading: false,
   messages: [],
+  chatId: -1,
   error: null,
 }
 
@@ -23,7 +24,8 @@ export default (state = initialState, action) => {
       return {
         loading: false,
         error: null,
-        messages: action.payload,
+        messages: action.payload.messages,
+        chatId: action.payload.chatId,
       }
     case GET_MESSAGES_LIST_FAILURE:
       return {

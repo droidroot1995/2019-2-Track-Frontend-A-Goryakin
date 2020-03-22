@@ -7,7 +7,6 @@ import {
   GET_MESSAGES_LIST_SUCCESS,
   GET_MESSAGES_LIST_FAILURE,
   GET_MESSAGE_SUCCESS,
-  SOCKET_DISCONNECTED,
 } from '../constants/ActionTypes'
 
 let socket = null
@@ -18,19 +17,17 @@ const getChatMessagesStarted = () => ({
   type: GET_MESSAGES_LIST_REQUEST,
 })
 
-const getChatMessagesSuccess = (messages) => ({
+const getChatMessagesSuccess = (msgs, cid) => ({
   type: GET_MESSAGES_LIST_SUCCESS,
-  payload: messages,
+  payload: {
+    messages: msgs,
+    chatId: cid,
+  },
 })
 
 const getChatMessageSuccess = (messages) => ({
   type: GET_MESSAGE_SUCCESS,
   payload: messages,
-})
-
-const disconnectSocketSuccess = () => ({
-  type: SOCKET_DISCONNECTED,
-  payload: '',
 })
 
 const getChatMessagesFailure = (error) => ({
@@ -40,11 +37,11 @@ const getChatMessagesFailure = (error) => ({
   },
 })
 
-export const openWebSocket = (chatId) => {
+export const openWebSocket = (chatId, ctoken) => {
   return (dispatch, getState) => {
     if (connected === -1) {
       socket = new Centrifuge('ws://192.168.0.107:8080/connection/websocket')
-      socket.connect()
+      socket.setToken(ctoken)
 
       socket.on('connect', (context) => {
         connected = 1
@@ -78,6 +75,8 @@ export const openWebSocket = (chatId) => {
 
         dispatch(getChatMessageSuccess(msg))
       })
+
+      socket.connect()
     }
   }
 }
@@ -91,8 +90,6 @@ export const closeWebSocket = (chatId) => {
 
     subscription = null
     socket = null
-
-    // dispatch(disconnectSocketSuccess())
   }
 }
 
@@ -123,7 +120,7 @@ export const getChatMessages = (chatId) => {
 
           chatMsgs.push(msg)
         })
-        dispatch(getChatMessagesSuccess(chatMsgs))
+        dispatch(getChatMessagesSuccess(chatMsgs, chatId))
       })
       .catch((err) => {
         dispatch(getChatMessagesFailure(err.message))

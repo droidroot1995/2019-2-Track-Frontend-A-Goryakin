@@ -14,7 +14,7 @@ import MessageBubble from './MessageBubble'
 import Messenger from './Messenger.Context'
 
 const MessageForm = (props) => {
-  const { selected, messages, chatInfo } = props
+  const { selected, messages, chatId, chatInfo, token } = props
 
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
@@ -25,10 +25,10 @@ const MessageForm = (props) => {
     setTimeout(() => props.getChatMessages(selected), 400)
     const interval = setInterval(() => props.getChatMessages(selected), 500) */
 
-    if (typeof messages !== 'undefined' && messages !== null && messages.length === 0) {
+    if (chatId !== selected || (typeof messages !== 'undefined' && messages !== null && messages.length === 0)) {
       props.getChatMessages(selected)
     }
-    props.openWebSocket(selected)
+    props.openWebSocket(selected, token)
 
     return () => {
       /* abortController.abort()
@@ -36,7 +36,7 @@ const MessageForm = (props) => {
 
       props.closeWebSocket(selected)
     }
-  }, [props, selected])
+  }, [props, token, chatId, selected, messages])
 
   const msgList = []
 
@@ -104,5 +104,7 @@ const MessageForm = (props) => {
 const mapStateToProps = (state) => ({
   selected: state.global.selected,
   messages: state.messages.messages,
+  token: state.centrifugo.token,
+  chatId: state.messages.chatId,
 })
 export default connect(mapStateToProps, { getChatMessages, openWebSocket, closeWebSocket })(MessageForm)

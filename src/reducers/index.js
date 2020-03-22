@@ -6,6 +6,7 @@ import messages from './messages'
 import newChat from './newChat'
 import profile from './profile'
 import messageInput from './messageInput'
+import centrifugo from './centrifugo'
 
 const rootReducer = combineReducers({
   chats,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   newChat,
   profile,
   messageInput,
+  centrifugo,
 })
 
 export default rootReducer
