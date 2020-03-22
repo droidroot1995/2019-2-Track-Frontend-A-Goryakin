@@ -22,7 +22,6 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', '/docker/', '/scripts/', '/endtoend/'],
 
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
   setupFiles: ['react-app-polyfill/jsdom'],
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
   coverageThreshold: {
