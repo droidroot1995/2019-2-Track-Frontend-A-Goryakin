@@ -22,7 +22,7 @@ const getChatMessagesFailure = (error) => ({
   },
 })
 
-export const getChatMessages = (chatId) => {
+export const getChatMessages = (chatId, userId) => {
   return (dispatch, getState) => {
     dispatch(getChatMessagesStarted())
     fetch(`/chats/chat_msg_list?chat_id=${chatId}`)
@@ -32,7 +32,6 @@ export const getChatMessages = (chatId) => {
         const chatMsgs = []
         msgDat.forEach((msgd, idx) => {
           const date = new Date(msgd.added_at)
-
           const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
 
           const msg = {
@@ -43,7 +42,7 @@ export const getChatMessages = (chatId) => {
               audios: [],
             },
             status: 'sent',
-            self: msgd.self,
+            self: msgd.user_id === userId,
             time: `${date.getHours()}:${minutes}`,
           }
 

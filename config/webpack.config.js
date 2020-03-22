@@ -102,6 +102,9 @@ module.exports = function(webpackEnv) {
           sourceMap: isEnvProduction && shouldUseSourceMap,
         },
       },
+      {
+        loader: 'css-sprite-loader',
+      },
     ].filter(Boolean)
     if (preProcessor) {
       loaders.push(
@@ -405,13 +408,10 @@ module.exports = function(webpackEnv) {
             {
               test: cssRegex,
               exclude: cssModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 1,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                },
-                'css-sprite-loader',
-              ),
+              use: getStyleLoaders({
+                importLoaders: 1,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+              }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
@@ -422,16 +422,13 @@ module.exports = function(webpackEnv) {
             // using the extension .module.css
             {
               test: cssModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 1,
-                  sourceMap: isEnvProduction && shouldUseSourceMap,
-                  modules: {
-                    getLocalIdent: getCSSModuleLocalIdent,
-                  },
+              use: getStyleLoaders({
+                importLoaders: 1,
+                sourceMap: isEnvProduction && shouldUseSourceMap,
+                modules: {
+                  getLocalIdent: getCSSModuleLocalIdent,
                 },
-                'css-sprite-loader',
-              ),
+              }),
             },
             // Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the
@@ -445,7 +442,6 @@ module.exports = function(webpackEnv) {
                   sourceMap: isEnvProduction && shouldUseSourceMap,
                 },
                 'sass-loader',
-                'css-sprite-loader',
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -466,7 +462,6 @@ module.exports = function(webpackEnv) {
                   },
                 },
                 'sass-loader',
-                'css-sprite-loader',
               ),
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
@@ -519,7 +514,6 @@ module.exports = function(webpackEnv) {
         ),
       ),
 
-      new CSSSpritePlugin(),
       // Inlines the webpack runtime script. This script is too small to warrant
       // a network request.
       // https://github.com/facebook/create-react-app/issues/5358
@@ -557,6 +551,7 @@ module.exports = function(webpackEnv) {
           filename: 'static/css/[name].[contenthash:8].css',
           chunkFilename: 'static/css/[name].[contenthash:8].chunk.css',
         }),
+      new CSSSpritePlugin(),
       // Generate an asset manifest file with the following content:
       // - "files" key: Mapping of all asset filenames to their corresponding
       //   output file so that tools can pick it up without having to parse

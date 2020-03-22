@@ -5,18 +5,26 @@ module.exports = {
   // without this line rootDir will be `./tests`
   // 'rootDir': '..',
 
-  moduleFileExtensions: ['js', 'jsx', 'json'],
+  moduleFileExtensions: ['js', 'jsx', 'json', 'web.js', 'web.ts', 'ts', 'web.tsx', 'tsx', 'web.jsx', 'node'],
   transform: {
     '.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2|svg|svg\\?inline)$': 'jest-transform-stub',
     '^.+\\.jsx?$': 'babel-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.css$': '<rootDir>/config/jest/cssTransform.js',
+    '^(?!.*\\.(js|jsx|ts|tsx|css|json)$)': '<rootDir>/config/jest/fileTransform.js',
   },
   moduleNameMapper: {
     '^~/(.*)$': '<rootDir>/client/$1',
     '^@/(.*)$': '<rootDir>/tests/$1',
+    '^react-native$': 'react-native-web',
+    '^.+\\.module\\.(css|sass|scss)$': 'identity-obj-proxy',
   },
   testPathIgnorePatterns: ['/node_modules/', '/docker/', '/scripts/', '/endtoend/'],
 
   collectCoverage: true,
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+  setupFiles: ['react-app-polyfill/jsdom'],
+  watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
   coverageThreshold: {
     global: {
       branches: 40,
