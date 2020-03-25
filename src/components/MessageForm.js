@@ -11,11 +11,9 @@ import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
 import MessageBubble from './MessageBubble'
-import Messenger from './Messenger.Context'
+// import Messenger from './Messenger.Context'
 
-const MessageForm = (props) => {
-  const { selected, messages, chatId, chatInfo, token } = props
-
+const MessageForm = ({ selected, messages, token, chatId, userId, chatInfo, getChatMsgs, openWS, closeWS }) => {
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
@@ -26,17 +24,17 @@ const MessageForm = (props) => {
     const interval = setInterval(() => props.getChatMessages(selected), 500) */
 
     if (chatId !== selected || (typeof messages !== 'undefined' && messages !== null && messages.length === 0)) {
-      props.getChatMessages(selected)
+      getChatMsgs(selected, userId)
     }
-    props.openWebSocket(selected, token)
+    openWS(selected, token)
 
     return () => {
       /* abortController.abort()
       clearInterval(interval) */
 
-      props.closeWebSocket(selected)
+      closeWS(selected)
     }
-  }, [props, token, chatId, selected, messages])
+  }, [getChatMsgs, openWS, closeWS, selected, userId, token, chatId, messages])
 
   const msgList = []
 
@@ -106,5 +104,13 @@ const mapStateToProps = (state) => ({
   messages: state.messages.messages,
   token: state.centrifugo.token,
   chatId: state.messages.chatId,
+  userId: state.profile.profile.userId,
 })
-export default connect(mapStateToProps, { getChatMessages, openWebSocket, closeWebSocket })(MessageForm)
+
+const mapDispatchToProps = (dispatch) => ({
+  getChatMsgs: (sel, uid) => dispatch(getChatMessages(sel, uid)),
+  openWS: (sel, tok) => dispatch(openWebSocket(sel, tok)),
+  closeWS: (sel) => dispatch(closeWebSocket(sel)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageForm)

@@ -2,57 +2,72 @@
 
 exports[`renders correctly received message 1`] = `
 <div
-  className="undefined undefined"
+  className="message_bubble_container them"
 >
   <div
-    className="undefined undefined"
+    className="message_bubble them"
   >
-    <div>
+    <div
+      className="txt"
+    >
       <p
-        className="undefined undefined"
+        className="name them"
       >
         Alex
       </p>
-      <p>
+      <p
+        className="message"
+      >
         Hello
       </p>
-      <p>
+      <p
+        className="message_info"
+      >
         <span
-          className="undefined"
+          className="time"
         >
           00:00
         </span>
         
       </p>
     </div>
-    <div />
+    <div
+      className="bubble_arrow"
+    />
   </div>
 </div>
 `;
 
 exports[`renders correctly sent + read message 1`] = `
 <div
-  className="undefined undefined"
+  className="message_bubble_container me"
 >
   <div
-    className="undefined undefined"
+    className="message_bubble me"
   >
-    <div>
+    <div
+      className="txt"
+    >
       <p
-        className="undefined undefined"
+        className="name me"
       >
         Alex
       </p>
-      <p>
+      <p
+        className="message"
+      >
         Hello
       </p>
-      <p>
+      <p
+        className="message_info"
+      >
         <span
-          className="undefined"
+          className="time"
         >
           00:00
         </span>
         <svg
+          className="sent_read"
           viewBox="0 0 512 512"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -62,34 +77,43 @@ exports[`renders correctly sent + read message 1`] = `
         </svg>
       </p>
     </div>
-    <div />
+    <div
+      className="bubble_arrow"
+    />
   </div>
 </div>
 `;
 
 exports[`renders correctly sent message 1`] = `
 <div
-  className="undefined undefined"
+  className="message_bubble_container me"
 >
   <div
-    className="undefined undefined"
+    className="message_bubble me"
   >
-    <div>
+    <div
+      className="txt"
+    >
       <p
-        className="undefined undefined"
+        className="name me"
       >
         Alex
       </p>
-      <p>
+      <p
+        className="message"
+      >
         Hello
       </p>
-      <p>
+      <p
+        className="message_info"
+      >
         <span
-          className="undefined"
+          className="time"
         >
           00:00
         </span>
         <svg
+          className="sent"
           viewBox="0 0 512 512"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -99,7 +123,9 @@ exports[`renders correctly sent message 1`] = `
         </svg>
       </p>
     </div>
-    <div />
+    <div
+      className="bubble_arrow"
+    />
   </div>
 </div>
 `;

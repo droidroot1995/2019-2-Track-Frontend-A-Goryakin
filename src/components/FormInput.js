@@ -12,9 +12,7 @@ import { clearEmoji } from '../actions/emoji'
 import EmojiKeyboard from './EmojiKeyboard'
 import styles from '../styles/FormInput.module.css'
 
-const FormInput = (props) => {
-  const { placeholder, selected, emoji, sendMsg, clearEmji, filesDragAndDrop } = props
-
+const FormInput = ({ placeholder, selected, emoji, sendMsg, clearEmji, filesDragAndDrop }) => {
   const [filesDrag, setFilesDrag] = filesDragAndDrop
 
   const [hState, setHState] = useState({
@@ -423,11 +421,7 @@ const FormInput = (props) => {
     )
   }
 
-  if (isEmojiKOpened < 0) {
-    emojiKeyboard = null
-  } else {
-    emojiKeyboard = <EmojiKeyboard />
-  }
+  emojiKeyboard = isEmojiKOpened < 0 ? null : <EmojiKeyboard />
 
   if (fileDrag) {
     for (let i = 0; i < fileDrag.length; i += 1) {

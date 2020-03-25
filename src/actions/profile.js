@@ -27,6 +27,7 @@ export const getProfileInfo = () => {
       .then((data) => {
         const uinfo = data['profile']
         const user = {
+          userId: uinfo.id,
           avatar: uinfo.avatar,
           fullname: uinfo.first_name,
           username: uinfo.username,

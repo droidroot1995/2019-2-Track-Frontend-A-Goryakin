@@ -21,4 +21,4 @@ deploy:
     branch:
       - master
       - devel
-      - frontend_lesson_2_1
+      - frontend_lesson_2_3

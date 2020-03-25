@@ -3,6 +3,7 @@ import { GET_PROFILE_INFO_REQUEST, GET_PROFILE_INFO_SUCCESS, GET_PROFILE_INFO_FA
 const initialState = {
   loading: false,
   profile: {
+    userId: -1,
     avatar: '',
     fullname: '',
     username: '',

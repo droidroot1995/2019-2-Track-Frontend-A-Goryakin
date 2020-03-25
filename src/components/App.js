@@ -14,6 +14,7 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { Transition, animated } from 'react-spring'
 import { connect } from 'react-redux'
 import { getGlobal } from '../actions/global'
+import { getProfileInfo } from '../actions/profile'
 import styles from '../styles/App.module.css'
 import AuthForm from './AuthForm'
 import ChatList from './ChatList'
@@ -57,7 +58,7 @@ class App extends React.Component {
 
   componentDidMount() {
     // const userId = prompt('Enter your id', 0)
-
+    this.props.getProfileInfo()
     this.props.getGlobal(0) // userId)
   }
 
@@ -91,7 +92,4 @@ const mapStateToProps = (state) => ({
   userId: state.global.userId,
 })
 
-export default connect(
-  mapStateToProps,
-  { getGlobal },
-)(App)
+export default connect(mapStateToProps, { getGlobal, getProfileInfo })(App)
