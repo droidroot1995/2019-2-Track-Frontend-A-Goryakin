@@ -1,4 +1,5 @@
-/* eslint-disable no-plusplus */
+/* eslint-disable react/no-array-index-key */
+
 import React from 'react'
 import Emoji from './Emoji.js'
 import styles from '../styles/EmojiKeyboard.module.css'
@@ -27,12 +28,10 @@ const EmojiKeyboard = () => {
     ':vomiting:',
   ]
 
-  let k = 0
-
   return (
     <div className={styles.container}>
-      {emojis.map((entry) => (
-        <Emoji etype="kbd" key={k++} name={entry} />
+      {emojis.map((entry, idx) => (
+        <Emoji etype="kbd" key={idx} name={entry} />
       ))}
     </div>
   )

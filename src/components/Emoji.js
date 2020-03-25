@@ -7,14 +7,10 @@ import { connect } from 'react-redux'
 import { setEmoji } from '../actions/emoji'
 import style from '../styles/Emoji.module.css'
 
-const Emoji = (props) => {
-  const { setEmji, name, etype } = props
-
+const Emoji = ({ setEmji, name, etype }) => {
   const match = name.match(/:(\w+):/g)
-  let emName = name
-  if (match === null) {
-    emName = `:${name}:`
-  }
+
+  const emName = !match ? `:${name}:` : name
 
   const handleEmojiClick = () => {
     setEmji(emName)
@@ -26,10 +22,6 @@ const Emoji = (props) => {
 
   if (etype === 'msg') {
     emji = <span className={emStyle} />
-  }
-
-  if (etype === 'kbd') {
-    emji = <span onClick={handleEmojiClick} className={emStyle} />
   }
 
   return emji
