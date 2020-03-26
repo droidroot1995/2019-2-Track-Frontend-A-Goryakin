@@ -21,3 +21,6 @@ export const CREATE_NEW_CHAT_FAILURE = '@@chats/CREATE_NEW_CHAT_FAILURE'
 export const GET_GLOBAL_REQUEST = '@@global/GET_GLOBAL_REQUEST'
 export const GET_GLOBAL_SUCCESS = '@@global/GET_GLOBAL_SUCCESS'
 export const GET_GLOBAL_FAILURE = '@@global/GET_GLOBAL_FAILURE'
+
+export const SET_EMOJI = '@@emoji/SET_EMOJI'
+export const CLEAR_EMOJI = '@@emoji/CLEAR_EMOJI'

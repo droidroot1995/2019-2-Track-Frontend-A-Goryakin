@@ -8,16 +8,17 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { sendMessage } from '../actions/messageInput'
+import { clearEmoji } from '../actions/emoji'
+import EmojiKeyboard from './EmojiKeyboard'
 import styles from '../styles/FormInput.module.css'
 
-const FormInput = (props) => {
-  const { placeholder, selected, sendMsg, filesDragAndDrop } = props
-
+const FormInput = ({ placeholder, selected, emoji, sendMsg, clearEmji, filesDragAndDrop }) => {
   const [filesDrag, setFilesDrag] = filesDragAndDrop
 
   const [hState, setHState] = useState({
     isRecording: -1,
     isFUOpened: -1,
+    isEmojiKOpened: -1,
     attachments: [],
     audios: [],
     attachNum: null,
@@ -31,6 +32,7 @@ const FormInput = (props) => {
 
   const isRecording = hState.isRecording
   const isFUOpened = hState.isFUOpened
+  const isEmojiKOpened = hState.isEmojiKOpened
   const attachments = hState.attachments
   let attachNum = hState.attachNum
   const audios = hState.audios
@@ -46,6 +48,7 @@ const FormInput = (props) => {
     setHState({
       isRecording: isRecording,
       isFUOpened: isFUOpened,
+      isEmojiKOpened: isEmojiKOpened,
       attachments: attachments,
       audios: audios,
       attachNum: attachNum,
@@ -64,6 +67,8 @@ const FormInput = (props) => {
   let chunks = []
 
   let record = null
+
+  let emojiKeyboard = null
 
   if (stream === null && recorder === null) {
     if ('mediaDevices' in navigator) {
@@ -87,6 +92,7 @@ const FormInput = (props) => {
             setHState({
               isRecording: isRecording,
               isFUOpened: isFUOpened,
+              isEmojiKOpened: isEmojiKOpened,
               attachments: hState.attachments,
               audios: audios,
               attachNum: attachNum,
@@ -104,6 +110,7 @@ const FormInput = (props) => {
           setHState({
             isRecording: isRecording,
             isFUOpened: isFUOpened,
+            isEmojiKOpened: isEmojiKOpened,
             attachments: attachments,
             audios: audios,
             attachNum: attachNum,
@@ -120,6 +127,7 @@ const FormInput = (props) => {
           setHState({
             isRecording: isRecording,
             isFUOpened: isFUOpened,
+            isEmojiKOpened: isEmojiKOpened,
             attachments: attachments,
             audios: audios,
             attachNum: attachNum,
@@ -171,6 +179,7 @@ const FormInput = (props) => {
       setHState({
         isRecording: 1,
         isFUOpened: isFUOpened,
+        isEmojiKOpened: isEmojiKOpened,
         attachments: attachments,
         audios: audios,
         attachNum: attachNum,
@@ -200,6 +209,7 @@ const FormInput = (props) => {
       setHState({
         isRecording: -1,
         isFUOpened: isFUOpened,
+        isEmojiKOpened: isEmojiKOpened,
         attachments: attachments,
         audios: audios,
         attachNum: attachNum,
@@ -231,6 +241,7 @@ const FormInput = (props) => {
       setHState({
         isRecording: isRecording,
         isFUOpened: 1,
+        isEmojiKOpened: isEmojiKOpened,
         attachments: attachments,
         audios: audios,
         attachNum: attachNum,
@@ -243,6 +254,7 @@ const FormInput = (props) => {
       setHState({
         isRecording: isRecording,
         isFUOpened: -1,
+        isEmojiKOpened: isEmojiKOpened,
         attachments: attachments,
         audios: audios,
         attachNum: attachNum,
@@ -278,6 +290,7 @@ const FormInput = (props) => {
     setHState({
       isRecording: isRecording,
       isFUOpened: -1,
+      isEmojiKOpened: isEmojiKOpened,
       attachments: attachments,
       audios: audios,
       attachNum: attachNum,
@@ -323,6 +336,7 @@ const FormInput = (props) => {
       setHState({
         isRecording: isRecording,
         isFUOpened: -1,
+        isEmojiKOpened: isEmojiKOpened,
         attachments: attachments,
         audios: audios,
         attachNum: attachNum,
@@ -407,6 +421,8 @@ const FormInput = (props) => {
     )
   }
 
+  emojiKeyboard = isEmojiKOpened < 0 ? null : <EmojiKeyboard />
+
   if (fileDrag) {
     for (let i = 0; i < fileDrag.length; i += 1) {
       const tmp = {}
@@ -435,6 +451,7 @@ const FormInput = (props) => {
       setHState({
         isRecording: isRecording,
         isFUOpened: isFUOpened,
+        isEmojiKOpened: isEmojiKOpened,
         attachments: attachments,
         audios: audios,
         attachNum: attachNum,
@@ -442,6 +459,41 @@ const FormInput = (props) => {
         stream: stream,
         recorder: recorder,
         filesDrag: null,
+      })
+    }
+  }
+
+  if (emoji !== '') {
+    textarea.current.value += emoji.emoji
+    clearEmji()
+  }
+
+  const handleEmojiKClick = () => {
+    if (hState.isEmojiKOpened < 0) {
+      setHState({
+        isRecording: isRecording,
+        isFUOpened: isFUOpened,
+        isEmojiKOpened: 1,
+        attachments: attachments,
+        audios: audios,
+        attachNum: attachNum,
+        audiosNum: audiosNum,
+        stream: stream,
+        recorder: recorder,
+        filesDrag: undefined,
+      })
+    } else {
+      setHState({
+        isRecording: isRecording,
+        isFUOpened: isFUOpened,
+        isEmojiKOpened: -1,
+        attachments: attachments,
+        audios: audios,
+        attachNum: attachNum,
+        audiosNum: audiosNum,
+        stream: stream,
+        recorder: recorder,
+        filesDrag: undefined,
       })
     }
   }
@@ -455,6 +507,7 @@ const FormInput = (props) => {
         setHState({
           isRecording: isRecording,
           isFUOpened: isFUOpened,
+          isEmojiKOpened: isEmojiKOpened,
           attachments: [],
           audios: [],
           attachNum: null,
@@ -465,6 +518,7 @@ const FormInput = (props) => {
         })
 
         textarea.current.value = ''
+        clearEmji()
         sendMsg(selected, msg, attachments, audios)
       }
     }
@@ -480,6 +534,19 @@ const FormInput = (props) => {
         placeholder={placeholder}
         onKeyPress={handleKeyPress}
       />
+      <div className={styles.emoji_button_container}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className={styles.file_upload}
+          onClick={handleEmojiKClick}
+          viewBox="0 0 496 512"
+        >
+          <path
+            className={styles.path_emoji}
+            d="M248 8C111 8 0 119 0 256s111 248 248 248 248-111 248-248S385 8 248 8zm80 168c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm-160 0c17.7 0 32 14.3 32 32s-14.3 32-32 32-32-14.3-32-32 14.3-32 32-32zm194.8 170.2C334.3 380.4 292.5 400 248 400s-86.3-19.6-114.8-53.8c-13.6-16.3 11-36.7 24.6-20.5 22.4 26.9 55.2 42.2 90.2 42.2s67.8-15.4 90.2-42.2c13.4-16.2 38.1 4.2 24.6 20.5z"
+          />
+        </svg>
+      </div>
       <div className={styles.file_upload_container}>
         {attachNum}
         <svg
@@ -499,19 +566,19 @@ const FormInput = (props) => {
         {record}
       </div>
       {fileUploadMenu}
+      {emojiKeyboard}
     </div>
   )
 }
 
 const mapStateToProps = (state) => ({
   selected: state.global.selected,
+  emoji: state.emoji.emoji,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   sendMsg: (chatId, msg, attachments, audios) => dispatch(sendMessage(chatId, msg, attachments, audios)),
+  clearEmji: () => dispatch(clearEmoji()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(FormInput)
+export default connect(mapStateToProps, mapDispatchToProps)(FormInput)

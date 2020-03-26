@@ -4,6 +4,8 @@
 /* eslint-disable react/no-danger */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import Emoji from './Emoji'
+import { stringReplacer } from './replacer'
 import styles from '../styles/MessageBubble.module.css'
 
 const MessageBubble = (props) => {
@@ -38,7 +40,10 @@ const MessageBubble = (props) => {
     padding: '10px',
   }
 
-  let tmp = msg.msg
+  let tmp = stringReplacer(msg.msg, /:(\w+):/g, (match, i) => {
+    return <Emoji etype="msg" name={match} />
+  })
+
   msgContent.push(tmp)
 
   let key = 0

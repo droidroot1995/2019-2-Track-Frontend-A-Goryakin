@@ -11,25 +11,23 @@ import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
 import MessageBubble from './MessageBubble'
-import Messenger from './Messenger.Context'
+// import Messenger from './Messenger.Context'
 
-const MessageForm = (props) => {
-  const { selected, messages, chatInfo } = props
-
+const MessageForm = ({ selected, messages, userId, chatInfo, getChatMsgs }) => {
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
 
   useEffect(() => {
     const abortController = new AbortController()
-    setTimeout(() => props.getChatMessages(selected), 400)
-    const interval = setInterval(() => props.getChatMessages(selected), 500)
+    setTimeout(() => getChatMsgs(selected, userId), 400)
+    const interval = setInterval(() => getChatMsgs(selected, userId), 500)
 
     return () => {
       abortController.abort()
       clearInterval(interval)
     }
-  }, [props, selected])
+  }, [getChatMsgs, selected, userId])
 
   const msgList = []
 
@@ -97,8 +95,11 @@ const MessageForm = (props) => {
 const mapStateToProps = (state) => ({
   selected: state.global.selected,
   messages: state.messages.messages,
+  userId: state.profile.profile.userId,
 })
-export default connect(
-  mapStateToProps,
-  { getChatMessages },
-)(MessageForm)
+
+const mapDispatchToProps = (dispatch) => ({
+  getChatMsgs: (sel, uid) => dispatch(getChatMessages(sel, uid)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageForm)
