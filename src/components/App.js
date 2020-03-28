@@ -15,12 +15,14 @@ import { Transition, animated } from 'react-spring'
 import { connect } from 'react-redux'
 import { getGlobal } from '../actions/global'
 import { getProfileInfo } from '../actions/profile'
+import { openWebRtc, closeWebRtc } from '../actions/rtc'
 import styles from '../styles/App.module.css'
 import AuthForm from './AuthForm'
 import ChatList from './ChatList'
 import ChatInfo from './ChatInfo'
 import GroupChatInfo from './GroupChatInfo'
 import MessageForm from './MessageForm'
+import MessageFormRtc from './MessageFormRtc'
 import Profile from './Profile'
 import Settings from './Settings'
 import Messenger from './Messenger.Context'
@@ -54,16 +56,25 @@ class App extends React.Component {
     this.props = props
 
     this.abortController = new AbortController()
+
+    this.props.getProfileInfo()
   }
 
   componentDidMount() {
     // const userId = prompt('Enter your id', 0)
-    this.props.getProfileInfo()
+    this.props.getProfInf()
     this.props.getGlobal(0) // userId)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userId !== prevProps.userId) {
+      this.props.openWRtc(this.props.userId)
+    }
   }
 
   componentWillUnmount() {
     this.abortController.abort()
+    this.props.closeWRtc()
   }
 
   render() {
@@ -74,6 +85,7 @@ class App extends React.Component {
             <Switch location={location}>
               <Route path="/chat_info" render={(props) => <ChatInfo />} />
               <Route path="/group_chat_info" render={(props) => <GroupChatInfo />} />
+              <Route path="/rtc" render={(props) => <MessageFormRtc />} />
               <Route path="/settings" render={(props) => <Settings />} />
               <Route path="/profile" render={(props) => <Profile />} />
               <Route path="/chat" render={(props) => <MessageForm />} />
@@ -89,7 +101,14 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  userId: state.global.userId,
+  userId: state.profile.profile.userId,
 })
 
-export default connect(mapStateToProps, { getGlobal, getProfileInfo })(App)
+const mapDispatchToProps = (dispatch) => ({
+  getProfInf: () => dispatch(getProfileInfo()),
+  getGlob: (uid) => dispatch(getGlobal(uid)),
+  openWRtc: (uid) => dispatch(openWebRtc(uid)),
+  closeWRtc: () => dispatch(closeWebRtc()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

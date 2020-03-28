@@ -37,7 +37,7 @@ const getChatMessagesFailure = (error) => ({
   },
 })
 
-export const openWebSocket = (chatId, ctoken) => {
+export const openWebSocket = (chatId, ctoken, userId) => {
   return (dispatch, getState) => {
     if (connected === -1) {
       socket = new Centrifuge('ws://192.168.0.107:8080/connection/websocket')
@@ -45,15 +45,15 @@ export const openWebSocket = (chatId, ctoken) => {
 
       socket.on('connect', (context) => {
         connected = 1
-        console.log('connected')
+        // console.log('connected')
       })
 
       socket.on('disconnect', (context) => {
-        console.log('disconnected')
+        // console.log('disconnected')
       })
 
       subscription = socket.subscribe(`chat${chatId}`, (message) => {
-        console.log(message.data.message)
+        // console.log(message.data.message)
 
         const recvMsg = message.data.message
 
@@ -69,7 +69,7 @@ export const openWebSocket = (chatId, ctoken) => {
             audios: [],
           },
           status: 'sent',
-          self: recvMsg.self,
+          self: recvMsg.user_id === userId,
           time: `${date.getHours()}:${minutes}`,
         }
 
