@@ -56,14 +56,12 @@ class App extends React.Component {
     this.props = props
 
     this.abortController = new AbortController()
-
-    this.props.getProfileInfo()
   }
 
   componentDidMount() {
     // const userId = prompt('Enter your id', 0)
     this.props.getProfInf()
-    this.props.getGlobal(0) // userId)
+    this.props.getGlob(0) // userId)
   }
 
   componentDidUpdate(prevProps) {
@@ -101,7 +99,7 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  userId: state.profile.profile.userId,
+  userId: state.profile.profile.username,
 })
 
 const mapDispatchToProps = (dispatch) => ({

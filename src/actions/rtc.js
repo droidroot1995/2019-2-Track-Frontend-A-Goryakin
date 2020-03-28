@@ -55,58 +55,81 @@ export const clearRtcUserId = () => {
 export const openWebRtc = (userId) => {
   // (userId, connectId) => {
   return (dispatch, getState) => {
-    peer = new Peer(userId, {
+    peer = new Peer(userId.toString(), {
       host: '192.168.0.107',
       port: 9000,
       path: '/messenger',
       key: 'lwjd5qra8257b9',
-      iceTransportPolicy: 'relay',
-      debug: 3,
+      // debug: 3,
+      config: {
+        iceServers: [
+          { url: 'stun:stun.l.google.com:19302' },
+          {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com',
+          },
+        ],
+        sdpSemantics: 'unified-plan',
+        iceTransportPolicy: 'relay',
+      },
+    })
+
+    peer.on('open', (id) => {
+      // console.log(`ID: ${id}`)
     })
   }
 }
 
 export const connectWebRtc = (userId, connectId) => {
   return (dispatch, getState) => {
-    connection = peer.connect(connectId)
-
-    peer.on('connection', (conn) => {
-      conn.on('data', (data) => {
-        const recvMsg = data // data.data.message
-
-        const date = new Date()
-
-        const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
-
-        const msg = {
-          name: '',
-          msg: {
-            attachments: [],
-            msg: recvMsg.content,
-            audios: [],
-          },
-          status: 'sent',
-          self: recvMsg.user_id === userId,
-          time: `${date.getHours()}:${minutes}`,
-        }
-
-        dispatch(getChatMessageSuccess(msg))
+    if (connectId !== -1) {
+      connection = peer.connect(connectId.toString(), {
+        serialization: 'none',
+        reliable: true,
       })
-      conn.on('open', () => {
+
+      peer.on('connection', (conn) => {
+        // console.log(conn)
+        connection = conn
+        peer.connect(connection.peer)
+      })
+
+      connection.on('open', () => {
+        connection.on('data', (data) => {
+          // console.log(data)
+          const recvMsg = data // data.data.message
+
+          const date = new Date()
+
+          const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+
+          const msg = {
+            name: '',
+            msg: {
+              attachments: [],
+              msg: recvMsg.content,
+              audios: [],
+            },
+            status: 'sent',
+            self: recvMsg.user_id === userId,
+            time: `${date.getHours()}:${minutes}`,
+          }
+
+          dispatch(getChatMessageSuccess(msg))
+        })
+
         dispatch(setConnectedSuccess(true))
       })
-      conn.on('close', () => {
-        /* setTimeout(() => {
-            if(conn.partnerPeer) {
-              connection = peer.connect(connection.partnerPeer)
-            }
-            else {
-              connection = null
-            }
-          }, 2000)
-          connected = false */
+
+      connection.on('close', () => {
+        setTimeout(() => {
+          if (connection.partnerPeer) {
+            connection = peer.connect(connection.partnerPeer)
+          }
+        }, 2000)
       })
-    })
+    }
   }
 }
 

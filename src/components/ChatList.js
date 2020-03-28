@@ -24,10 +24,9 @@ const ChatList = (props) => {
       getChatsList()
     }
 
-    if (rtcUid !== -1) {
+    /* if (rtcUid !== -1) {
       closeWRtc()
-      // clearRtcUid()
-    }
+    } */
 
     if (token === '') {
       getCToken()

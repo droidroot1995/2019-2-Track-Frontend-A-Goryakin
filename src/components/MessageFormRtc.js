@@ -94,7 +94,7 @@ const mapStateToProps = (state) => ({
   selected: state.rtc.userId,
   messages: state.rtc.messages,
   connected: state.rtc.connected,
-  userId: state.profile.profile.userId,
+  userId: state.profile.profile.username,
 })
 
 const mapDispatchToProps = (dispatch) => ({
