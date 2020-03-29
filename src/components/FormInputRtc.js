@@ -12,7 +12,7 @@ import { clearEmoji } from '../actions/emoji'
 import EmojiKeyboard from './EmojiKeyboard'
 import styles from '../styles/FormInput.module.css'
 
-const FormInputRtc = ({ placeholder, selected, emoji, sendMsg, clearEmji, filesDragAndDrop }) => {
+const FormInputRtc = ({ placeholder, connection, emoji, sendMsg, clearEmji, filesDragAndDrop }) => {
   const [filesDrag, setFilesDrag] = filesDragAndDrop
 
   const [hState, setHState] = useState({
@@ -519,7 +519,7 @@ const FormInputRtc = ({ placeholder, selected, emoji, sendMsg, clearEmji, filesD
 
         textarea.current.value = ''
         clearEmji()
-        sendMsg(msg, attachments, audios)
+        sendMsg(msg, attachments, audios, connection)
       }
     }
   }
@@ -572,12 +572,12 @@ const FormInputRtc = ({ placeholder, selected, emoji, sendMsg, clearEmji, filesD
 }
 
 const mapStateToProps = (state) => ({
-  selected: state.global.selected,
   emoji: state.emoji.emoji,
+  connection: state.rtc.connection,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  sendMsg: (msg, attachments, audios) => dispatch(sendMessage(msg, attachments, audios)),
+  sendMsg: (msg, attachments, audios, conn) => dispatch(sendMessage(msg, attachments, audios, conn)),
   clearEmji: () => dispatch(clearEmoji()),
 })
 

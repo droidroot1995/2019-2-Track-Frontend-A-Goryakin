@@ -1,7 +1,5 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable dot-notation */
-
-import Centrifuge from 'centrifuge'
 import {
   GET_MESSAGES_LIST_REQUEST,
   GET_MESSAGES_LIST_SUCCESS,
@@ -9,8 +7,6 @@ import {
   GET_MESSAGE_SUCCESS,
 } from '../constants/ActionTypes'
 
-let socket = null
-let connected = -1
 let subscription = null
 
 const getChatMessagesStarted = () => ({
@@ -37,59 +33,43 @@ const getChatMessagesFailure = (error) => ({
   },
 })
 
-export const openWebSocket = (chatId, ctoken, userId) => {
+export const subscribeChannel = (name, wsocket) => {
   return (dispatch, getState) => {
-    if (connected === -1) {
-      socket = new Centrifuge('ws://192.168.0.107:8080/connection/websocket')
-      socket.setToken(ctoken)
+    const state = getState()
 
-      socket.on('connect', (context) => {
-        connected = 1
-        // console.log('connected')
-      })
+    const { userId } = state.profile.profile
 
-      socket.on('disconnect', (context) => {
-        // console.log('disconnected')
-      })
+    subscription = wsocket.socket.subscribe(name, (message) => {
+      // console.log(message.data.message)
 
-      subscription = socket.subscribe(`chat${chatId}`, (message) => {
-        // console.log(message.data.message)
+      const recvMsg = message.data.message
 
-        const recvMsg = message.data.message
+      const date = new Date()
 
-        const date = new Date()
+      const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
 
-        const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+      const msg = {
+        name: '',
+        msg: {
+          attachments: [],
+          msg: recvMsg.content,
+          audios: [],
+        },
+        status: 'sent',
+        self: recvMsg.user_id === userId,
+        time: `${date.getHours()}:${minutes}`,
+      }
 
-        const msg = {
-          name: '',
-          msg: {
-            attachments: [],
-            msg: recvMsg.content,
-            audios: [],
-          },
-          status: 'sent',
-          self: recvMsg.user_id === userId,
-          time: `${date.getHours()}:${minutes}`,
-        }
-
-        dispatch(getChatMessageSuccess(msg))
-      })
-
-      socket.connect()
-    }
+      dispatch(getChatMessageSuccess(msg))
+    })
   }
 }
 
-export const closeWebSocket = (chatId) => {
+export const unsubscribeChannel = () => {
   return (dispatch, getState) => {
-    connected = -1
     subscription.unsubscribe()
     subscription.removeAllListeners()
-    socket.disconnect()
-
     subscription = null
-    socket = null
   }
 }
 

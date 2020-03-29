@@ -8,14 +8,13 @@ import { connect } from 'react-redux'
 import { getChats } from '../actions/chats'
 import { getGlobal } from '../actions/global'
 import { getToken } from '../actions/centrifugo'
-import { clearRtcUserId, closeWebRtc } from '../actions/rtc'
 import styles from '../styles/ChatList.module.css'
 import ChatListHeader from './ChatListHeader'
 import ChatListItem from './ChatListItem'
 import NewChatButton from './NewChatButton'
 
 const ChatList = (props) => {
-  const { chatsList, token, rtcUid, getChatsList, setGState, getCToken, clearRtcUid, closeWRtc } = props
+  const { chatsList, token, getChatsList, setGState, getCToken, clearRtcUid, closeWRtc } = props
 
   const chats = []
 
@@ -23,10 +22,6 @@ const ChatList = (props) => {
     if (chatsList.length === 0) {
       getChatsList()
     }
-
-    /* if (rtcUid !== -1) {
-      closeWRtc()
-    } */
 
     if (token === '') {
       getCToken()
@@ -36,7 +31,7 @@ const ChatList = (props) => {
     return () => {
       clearInterval(interval)
     }
-  }, [getChatsList, clearRtcUid, closeWRtc, token, rtcUid])
+  }, [getChatsList, clearRtcUid, closeWRtc, token])
 
   let list = (
     <div className={styles.chats_list}>
@@ -71,7 +66,6 @@ const ChatList = (props) => {
 const mapStateToProps = (state) => ({
   chatsList: state.chats.chats,
   token: state.centrifugo.token,
-  rtcUid: state.rtc.userId,
   userId: state.profile.userId,
 })
 
@@ -79,8 +73,6 @@ const mapDispatchToProps = (dispatch) => ({
   getChatsList: () => dispatch(getChats()),
   setGState: (chatId) => dispatch(getGlobal(chatId)),
   getCToken: () => dispatch(getToken()),
-  clearRtcUid: () => dispatch(clearRtcUserId()),
-  closeWRtc: () => dispatch(closeWebRtc()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatList)

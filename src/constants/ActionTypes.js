@@ -32,6 +32,9 @@ export const GET_CENT_TOKEN_REQUEST = '@@centrifugo/GET_CENT_TOKEN_REQUEST'
 export const GET_CENT_TOKEN_SUCCESS = '@@centrifugo/GET_CENT_TOKEN_SUCCESS'
 export const GET_CENT_TOKEN_FAILURE = '@@centrifugo/GET_CENT TOKEN_FAILURE'
 
+export const OPEN_CENT_WS_SUCCESS = '@@centrifugo/OPEN_CENT_WS_SUCCESS'
+export const CLOSE_CENT_WS_SUCCESS = '@@centrifugo/CLOSE_CENT_WS_SUCCESS'
+
 export const SET_RTC_UID_SUCCESS = '@@rtc/SET_RTC_UID_SUCCESS'
 export const GET_RTC_MESSAGE_SUCCESS = '@@rtc/GET_RTC_MESSAGE_SUCCESS'
 export const RTC_CONNECT_SUCCESS = '@@rtc/RTC_CONNECT_SUCCESS'

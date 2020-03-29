@@ -6,14 +6,25 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getChatMessages, openWebSocket, closeWebSocket } from '../actions/messages'
+import { getChatMessages, subscribeChannel, unsubscribeChannel } from '../actions/messages'
 import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
 import MessageBubble from './MessageBubble'
 // import Messenger from './Messenger.Context'
 
-const MessageForm = ({ selected, messages, token, chatId, userId, chatInfo, getChatMsgs, openWS, closeWS }) => {
+const MessageForm = ({
+  selected,
+  messages,
+  token,
+  socket,
+  chatId,
+  userId,
+  chatInfo,
+  getChatMsgs,
+  subChannel,
+  unsubChannel,
+}) => {
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
@@ -26,15 +37,15 @@ const MessageForm = ({ selected, messages, token, chatId, userId, chatInfo, getC
     if (chatId !== selected || (typeof messages !== 'undefined' && messages !== null && messages.length === 0)) {
       getChatMsgs(selected, userId)
     }
-    openWS(selected, token, userId)
+    subChannel(`chat${chatId}`, socket)
 
     return () => {
       /* abortController.abort()
       clearInterval(interval) */
 
-      closeWS(selected)
+      unsubChannel()
     }
-  }, [getChatMsgs, openWS, closeWS, selected, userId, token, chatId, messages])
+  }, [getChatMsgs, subChannel, unsubChannel, selected, userId, token, chatId, messages, socket])
 
   const msgList = []
 
@@ -105,12 +116,13 @@ const mapStateToProps = (state) => ({
   token: state.centrifugo.token,
   chatId: state.messages.chatId,
   userId: state.profile.profile.userId,
+  socket: state.centrifugo.socket,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   getChatMsgs: (sel, uid) => dispatch(getChatMessages(sel, uid)),
-  openWS: (sel, tok, uid) => dispatch(openWebSocket(sel, tok, uid)),
-  closeWS: (sel) => dispatch(closeWebSocket(sel)),
+  subChannel: (cname, sock) => dispatch(subscribeChannel(cname, sock)),
+  unsubChannel: () => dispatch(unsubscribeChannel()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageForm)

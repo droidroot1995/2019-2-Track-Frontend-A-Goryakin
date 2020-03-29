@@ -16,6 +16,7 @@ import { connect } from 'react-redux'
 import { getGlobal } from '../actions/global'
 import { getProfileInfo } from '../actions/profile'
 import { openWebRtc, closeWebRtc } from '../actions/rtc'
+import { openWebSocket, closeWebSocket, getToken } from '../actions/centrifugo'
 import styles from '../styles/App.module.css'
 import AuthForm from './AuthForm'
 import ChatList from './ChatList'
@@ -65,14 +66,27 @@ class App extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.userId !== prevProps.userId) {
+    if (this.props.userId !== prevProps.userId && this.props.connection === null) {
       this.props.openWRtc(this.props.userId)
+    }
+
+    if (this.props.userId !== prevProps.userId && this.props.socket === null) {
+      this.props.getWSToken()
+    }
+
+    /* if(this.props.userId !== prevProps.userId && this.props.socket === null) {
+      this.props.getWSToken()
+    } */
+
+    if (this.props.token !== prevProps.token) {
+      this.props.openWS(this.props.token)
     }
   }
 
   componentWillUnmount() {
     this.abortController.abort()
-    this.props.closeWRtc()
+    this.props.closeWRtc(this.props.connection)
+    this.props.closeWS(this.props.socket)
   }
 
   render() {
@@ -100,13 +114,19 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => ({
   userId: state.profile.profile.username,
+  connection: state.rtc.connection,
+  socket: state.centrifugo.socket,
+  token: state.centrifugo.token,
 })
 
 const mapDispatchToProps = (dispatch) => ({
   getProfInf: () => dispatch(getProfileInfo()),
   getGlob: (uid) => dispatch(getGlobal(uid)),
   openWRtc: (uid) => dispatch(openWebRtc(uid)),
-  closeWRtc: () => dispatch(closeWebRtc()),
+  closeWRtc: (conn) => dispatch(closeWebRtc(conn)),
+  openWS: (tok) => dispatch(openWebSocket(tok)),
+  closeWS: (sock) => dispatch(closeWebSocket(sock)),
+  getWSToken: () => dispatch(getToken()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)

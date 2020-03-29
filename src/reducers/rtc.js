@@ -8,8 +8,10 @@ import {
 
 const initialState = {
   userId: -1,
+  connectId: -1,
   messages: [],
   connected: false,
+  connection: null,
   error: null,
 }
 

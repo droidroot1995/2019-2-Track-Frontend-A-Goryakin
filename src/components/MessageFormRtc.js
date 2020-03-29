@@ -12,20 +12,18 @@ import ChatHeader from './ChatHeader'
 import FormInputRtc from './FormInputRtc'
 import MessageBubble from './MessageBubble'
 
-const MessageFormRtc = ({ selected, messages, userId, connected, chatInfo, connWRtc, closeWRtc, setRtcUid }) => {
+const MessageFormRtc = ({ selected, messages, userId, connection, chatInfo, connWRtc, closeWRtc, setRtcUid }) => {
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
 
   useEffect(() => {
-    if (selected === -1) {
-      setRtcUid(userId)
+    if (connection) {
+      connWRtc(connection)
+    } else {
+      setRtcUid()
     }
-
-    if (!connected) {
-      connWRtc(userId, selected)
-    }
-  }, [connWRtc, closeWRtc, setRtcUid, selected, userId, messages, connected])
+  }, [connWRtc, closeWRtc, setRtcUid, selected, userId, messages, connection])
 
   const msgList = []
 
@@ -91,14 +89,14 @@ const MessageFormRtc = ({ selected, messages, userId, connected, chatInfo, connW
 }
 
 const mapStateToProps = (state) => ({
-  selected: state.rtc.userId,
+  selected: state.rtc.connectId,
   messages: state.rtc.messages,
-  connected: state.rtc.connected,
-  userId: state.profile.profile.username,
+  connection: state.rtc.connection,
+  userId: state.rtc.userId,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  connWRtc: (uid, sel) => dispatch(connectWebRtc(uid, sel)),
+  connWRtc: (conn) => dispatch(connectWebRtc(conn)),
   closeWRtc: (sel) => dispatch(closeWebRtc(sel)),
   setRtcUid: (uid) => dispatch(setRtcUserId(uid)),
 })
