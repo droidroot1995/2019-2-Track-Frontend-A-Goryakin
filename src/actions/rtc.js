@@ -94,33 +94,6 @@ export const openWebRtc = (userId) => {
 
     peer.on('connection', (conn) => {
       state.rtc.connection = conn
-
-      conn.on('open', () => {
-        conn.on('data', (data) => {
-          // console.log(data)
-          const recvMsg = data // data.data.message
-
-          const date = new Date()
-
-          const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
-
-          const msg = {
-            name: '',
-            msg: {
-              attachments: [],
-              msg: recvMsg,
-              audios: [],
-            },
-            status: 'sent',
-            self: false,
-            time: `${date.getHours()}:${minutes}`,
-          }
-
-          dispatch(getChatMessageSuccess(msg))
-        })
-
-        dispatch(setConnectedSuccess(true))
-      })
     })
   }
 }

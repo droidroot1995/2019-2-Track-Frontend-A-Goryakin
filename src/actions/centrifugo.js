@@ -53,7 +53,10 @@ export const getToken = () => {
 
 export const openWebSocket = (ctoken) => {
   return (dispatch, getState) => {
-    const socket = new Centrifuge('ws://192.168.0.107:8080/connection/websocket')
+    const socket = new Centrifuge('ws://192.168.0.107:8080/connection/websocket', {
+      retry: true,
+      resubscribe: true,
+    })
     socket.setToken(ctoken)
 
     socket.on('connect', (context) => {
@@ -69,8 +72,8 @@ export const openWebSocket = (ctoken) => {
 
 export const closeWebSocket = (socket) => {
   return (dispatch, getState) => {
-    if (socket !== undefined && socket !== null) {
-      socket.disconnect()
+    if (socket.socket !== undefined && socket.socket !== null) {
+      socket.socket.disconnect()
       dispatch(closeWSSuccess(null))
     }
   }

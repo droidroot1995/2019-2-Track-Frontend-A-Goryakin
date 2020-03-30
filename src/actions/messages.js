@@ -7,7 +7,7 @@ import {
   GET_MESSAGE_SUCCESS,
 } from '../constants/ActionTypes'
 
-let subscription = null
+// let subscription = null
 
 const getChatMessagesStarted = () => ({
   type: GET_MESSAGES_LIST_REQUEST,
@@ -35,41 +35,39 @@ const getChatMessagesFailure = (error) => ({
 
 export const subscribeChannel = (name, wsocket) => {
   return (dispatch, getState) => {
-    const state = getState()
+    // eslint-disable-next-line no-underscore-dangle
+    if (!(name in wsocket.socket._subs)) {
+      wsocket.socket.subscribe(name, (message) => {
+        const state = getState()
+        const { userId } = state.profile.profile
 
-    const { userId } = state.profile.profile
+        const recvMsg = message.data.message
 
-    subscription = wsocket.socket.subscribe(name, (message) => {
-      // console.log(message.data.message)
+        const date = new Date()
 
-      const recvMsg = message.data.message
+        const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
 
-      const date = new Date()
+        const msg = {
+          name: '',
+          msg: {
+            attachments: [],
+            msg: recvMsg.content,
+            audios: [],
+          },
+          status: 'sent',
+          self: recvMsg.user_id === userId,
+          time: `${date.getHours()}:${minutes}`,
+        }
 
-      const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+        const currChatId = Number(name.slice(4))
+        // eslint-disable-next-line prefer-destructuring
+        const chatId = state.messages.chatId
 
-      const msg = {
-        name: '',
-        msg: {
-          attachments: [],
-          msg: recvMsg.content,
-          audios: [],
-        },
-        status: 'sent',
-        self: recvMsg.user_id === userId,
-        time: `${date.getHours()}:${minutes}`,
-      }
-
-      dispatch(getChatMessageSuccess(msg))
-    })
-  }
-}
-
-export const unsubscribeChannel = () => {
-  return (dispatch, getState) => {
-    subscription.unsubscribe()
-    subscription.removeAllListeners()
-    subscription = null
+        if (currChatId === chatId) {
+          dispatch(getChatMessageSuccess(msg))
+        }
+      })
+    }
   }
 }
 

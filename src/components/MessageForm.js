@@ -6,25 +6,14 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getChatMessages, subscribeChannel, unsubscribeChannel } from '../actions/messages'
+import { getChatMessages, subscribeChannel } from '../actions/messages'
 import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
 import MessageBubble from './MessageBubble'
 // import Messenger from './Messenger.Context'
 
-const MessageForm = ({
-  selected,
-  messages,
-  token,
-  socket,
-  chatId,
-  userId,
-  chatInfo,
-  getChatMsgs,
-  subChannel,
-  unsubChannel,
-}) => {
+const MessageForm = ({ selected, messages, token, socket, chatId, userId, chatInfo, getChatMsgs, subChannel }) => {
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
@@ -37,15 +26,9 @@ const MessageForm = ({
     if (chatId !== selected || (typeof messages !== 'undefined' && messages !== null && messages.length === 0)) {
       getChatMsgs(selected, userId)
     }
+
     subChannel(`chat${chatId}`, socket)
-
-    return () => {
-      /* abortController.abort()
-      clearInterval(interval) */
-
-      unsubChannel()
-    }
-  }, [getChatMsgs, subChannel, unsubChannel, selected, userId, token, chatId, messages, socket])
+  }, [getChatMsgs, subChannel, selected, userId, token, chatId, messages, socket])
 
   const msgList = []
 
@@ -122,7 +105,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getChatMsgs: (sel, uid) => dispatch(getChatMessages(sel, uid)),
   subChannel: (cname, sock) => dispatch(subscribeChannel(cname, sock)),
-  unsubChannel: () => dispatch(unsubscribeChannel()),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageForm)
