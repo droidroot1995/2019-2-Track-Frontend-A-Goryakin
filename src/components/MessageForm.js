@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable eqeqeq */
 /* eslint-disable consistent-return */
 /* eslint-disable dot-notation */
@@ -30,20 +31,13 @@ const MessageForm = ({ selected, messages, token, socket, chatId, userId, chatIn
     subChannel(`chat${chatId}`, socket)
   }, [getChatMsgs, subChannel, selected, userId, token, chatId, messages, socket])
 
-  const msgList = []
+  let msgList = []
 
   const resultEnd = React.useRef(null)
 
-  if (typeof messages !== 'undefined' && messages !== null && messages.length > 0) {
-    let i = 0
-    messages.forEach((msg) => {
-      let bubble = <MessageBubble className={styles.message_bubble.them} key={i} msgInfo={msg} />
-      if (msg.self) {
-        bubble = <MessageBubble className={styles.message_bubble.me} key={i} msgInfo={msg} />
-      }
-
-      i += 1
-      msgList.push(bubble)
+  if (messages && messages.length > 0) {
+    msgList = messages.map((msg, idx) => {
+      return <MessageBubble className={styles[msg.self ? 'me' : 'them']} key={idx} msgInfo={msg} />
     })
   }
 
