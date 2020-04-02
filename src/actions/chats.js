@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable dot-notation */
 import { GET_CHATS_LIST_REQUEST, GET_CHATS_LIST_SUCCESS, GET_CHATS_LIST_FAILURE } from '../constants/ActionTypes'
+import { API_URL } from '../constants/constans'
 
 const getChatsListStarted = () => ({
   type: GET_CHATS_LIST_REQUEST,
@@ -22,7 +23,7 @@ export const getChats = () => {
   return (dispatch, getState) => {
     dispatch(getChatsListStarted())
 
-    fetch(`/chats/list_chats`)
+    fetch(`${API_URL}/chats/list_chats`)
       .then((resp) => resp.json())
       .then((data) => {
         const dat = data['chats']

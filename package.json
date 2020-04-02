@@ -124,7 +124,7 @@
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
-    "start": "BROWSER=none node scripts/start.js",
+    "start": "BROWSER=none HTTPS=true node scripts/start.js",
     "build": "CI=false node scripts/build.js",
     "format": "prettier --write '**/*.{js,jsx,json,md}'",
     "format:changed": "pretty-quick",
@@ -146,7 +146,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public"
   },
-  "proxy": "https://localhost:8000/",
+  "proxy": "https://alexander-goryakin.droidroot1995.tk",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"

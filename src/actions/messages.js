@@ -6,6 +6,7 @@ import {
   GET_MESSAGES_LIST_FAILURE,
   GET_MESSAGE_SUCCESS,
 } from '../constants/ActionTypes'
+import { API_URL } from '../constants/constans'
 
 // let subscription = null
 
@@ -74,7 +75,7 @@ export const subscribeChannel = (name, wsocket) => {
 export const getChatMessages = (chatId, userId) => {
   return (dispatch, getState) => {
     dispatch(getChatMessagesStarted())
-    fetch(`/chats/chat_msg_list?chat_id=${chatId}`)
+    fetch(`${API_URL}/chats/chat_msg_list?chat_id=${chatId}`)
       .then((respMsg) => respMsg.json())
       .then((msgData) => {
         const msgDat = msgData['messages'].reverse()
