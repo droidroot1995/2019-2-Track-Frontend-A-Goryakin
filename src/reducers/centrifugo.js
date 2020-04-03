@@ -1,49 +1,50 @@
 import {
-  GET_MESSAGES_LIST_REQUEST,
-  GET_MESSAGES_LIST_SUCCESS,
-  GET_MESSAGES_LIST_FAILURE,
-  GET_MESSAGE_SUCCESS,
-  SOCKET_DISCONNECTED,
+  GET_CENT_TOKEN_REQUEST,
+  GET_CENT_TOKEN_SUCCESS,
+  GET_CENT_TOKEN_FAILURE,
+  OPEN_CENT_WS_SUCCESS,
+  CLOSE_CENT_WS_SUCCESS,
 } from '../constants/ActionTypes'
 
 const initialState = {
   loading: false,
-  messages: [],
-  chatId: -1,
+  token: '',
+  socket: null,
   error: null,
 }
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case GET_MESSAGES_LIST_REQUEST:
+    case GET_CENT_TOKEN_REQUEST:
       return {
         ...state,
         loading: true,
       }
-    case GET_MESSAGES_LIST_SUCCESS:
+    case GET_CENT_TOKEN_SUCCESS:
       return {
         loading: false,
         error: null,
-        messages: action.payload.messages,
-        chatId: action.payload.chatId,
+        token: action.payload,
       }
-    case GET_MESSAGES_LIST_FAILURE:
+    case GET_CENT_TOKEN_FAILURE:
       return {
         ...state,
         loading: false,
         error: action.payload.error,
       }
-    case GET_MESSAGE_SUCCESS:
+    case OPEN_CENT_WS_SUCCESS:
       return {
         ...state,
         loading: false,
-        messages: [...state.messages, action.payload],
+        error: null,
+        socket: action.payload,
       }
-    case SOCKET_DISCONNECTED:
+    case CLOSE_CENT_WS_SUCCESS:
       return {
         ...state,
         loading: false,
-        messages: action.payload,
+        error: null,
+        socket: action.payload,
       }
     default:
       return state

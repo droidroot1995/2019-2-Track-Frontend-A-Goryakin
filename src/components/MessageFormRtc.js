@@ -7,29 +7,24 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { getChatMessages, subscribeChannel } from '../actions/messages'
+import { closeWebRtc, setRtcUserId, connectWebRtc } from '../actions/rtc'
 import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
-import FormInput from './FormInput'
+import FormInputRtc from './FormInputRtc'
 import MessageBubble from './MessageBubble'
-// import Messenger from './Messenger.Context'
 
-const MessageForm = ({ selected, messages, token, socket, chatId, userId, chatInfo, getChatMsgs, subChannel }) => {
+const MessageFormRtc = ({ selected, messages, userId, connection, chatInfo, connWRtc, closeWRtc, setRtcUid }) => {
   const [dragActiveState, setDragActiveState] = useState(false)
   const [filesDrag, setFilesDrag] = useState(null)
   const [chatMessages, setChatMessages] = useState([])
 
   useEffect(() => {
-    /* const abortController = new AbortController()
-    setTimeout(() => props.getChatMessages(selected), 400)
-    const interval = setInterval(() => props.getChatMessages(selected), 500) */
-
-    if (chatId !== selected || (typeof messages !== 'undefined' && messages !== null && messages.length === 0)) {
-      getChatMsgs(selected, userId)
+    if (connection) {
+      connWRtc(connection)
+    } else {
+      setRtcUid()
     }
-
-    subChannel(`chat${chatId}`, socket)
-  }, [getChatMsgs, subChannel, selected, userId, token, chatId, messages, socket])
+  }, [connWRtc, closeWRtc, setRtcUid, selected, userId, messages, connection])
 
   let msgList = []
 
@@ -82,23 +77,22 @@ const MessageForm = ({ selected, messages, token, socket, chatId, userId, chatIn
         {msgList}
         <div ref={resultEnd} />
       </div>
-      <FormInput placeholder="Введите сообщение" filesDragAndDrop={[filesDrag, setFilesDrag]} />
+      <FormInputRtc placeholder="Введите сообщение" filesDragAndDrop={[filesDrag, setFilesDrag]} />
     </form>
   )
 }
 
 const mapStateToProps = (state) => ({
-  selected: state.global.selected,
-  messages: state.messages.messages,
-  token: state.centrifugo.token,
-  chatId: state.messages.chatId,
-  userId: state.profile.profile.userId,
-  socket: state.centrifugo.socket,
+  selected: state.rtc.connectId,
+  messages: state.rtc.messages,
+  connection: state.rtc.connection,
+  userId: state.rtc.userId,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  getChatMsgs: (sel, uid) => dispatch(getChatMessages(sel, uid)),
-  subChannel: (cname, sock) => dispatch(subscribeChannel(cname, sock)),
+  connWRtc: (conn) => dispatch(connectWebRtc(conn)),
+  closeWRtc: (sel) => dispatch(closeWebRtc(sel)),
+  setRtcUid: (uid) => dispatch(setRtcUserId(uid)),
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(MessageForm)
+export default connect(mapStateToProps, mapDispatchToProps)(MessageFormRtc)

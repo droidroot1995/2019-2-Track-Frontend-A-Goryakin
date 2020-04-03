@@ -15,12 +15,15 @@ import { Transition, animated } from 'react-spring'
 import { connect } from 'react-redux'
 import { getGlobal } from '../actions/global'
 import { getProfileInfo } from '../actions/profile'
+import { openWebRtc, closeWebRtc } from '../actions/rtc'
+import { openWebSocket, closeWebSocket, getToken } from '../actions/centrifugo'
 import styles from '../styles/App.module.css'
 import AuthForm from './AuthForm'
 import ChatList from './ChatList'
 import ChatInfo from './ChatInfo'
 import GroupChatInfo from './GroupChatInfo'
 import MessageForm from './MessageForm'
+import MessageFormRtc from './MessageFormRtc'
 import Profile from './Profile'
 import Settings from './Settings'
 import Messenger from './Messenger.Context'
@@ -58,12 +61,32 @@ class App extends React.Component {
 
   componentDidMount() {
     // const userId = prompt('Enter your id', 0)
-    this.props.getProfileInfo()
-    this.props.getGlobal(0) // userId)
+    this.props.getProfInf()
+    this.props.getGlob(0) // userId)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userId !== prevProps.userId && this.props.connection === null) {
+      this.props.openWRtc(this.props.userId)
+    }
+
+    if (this.props.userId !== prevProps.userId && this.props.socket === null) {
+      this.props.getWSToken()
+    }
+
+    /* if(this.props.userId !== prevProps.userId && this.props.socket === null) {
+      this.props.getWSToken()
+    } */
+
+    if (this.props.token !== prevProps.token) {
+      this.props.openWS(this.props.token)
+    }
   }
 
   componentWillUnmount() {
     this.abortController.abort()
+    this.props.closeWRtc(this.props.connection)
+    this.props.closeWS(this.props.socket)
   }
 
   render() {
@@ -74,6 +97,7 @@ class App extends React.Component {
             <Switch location={location}>
               <Route path="/chat_info" render={(props) => <ChatInfo />} />
               <Route path="/group_chat_info" render={(props) => <GroupChatInfo />} />
+              <Route path="/rtc" render={(props) => <MessageFormRtc />} />
               <Route path="/settings" render={(props) => <Settings />} />
               <Route path="/profile" render={(props) => <Profile />} />
               <Route path="/chat" render={(props) => <MessageForm />} />
@@ -89,7 +113,20 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
-  userId: state.global.userId,
+  userId: state.profile.profile.username,
+  connection: state.rtc.connection,
+  socket: state.centrifugo.socket,
+  token: state.centrifugo.token,
 })
 
-export default connect(mapStateToProps, { getGlobal, getProfileInfo })(App)
+const mapDispatchToProps = (dispatch) => ({
+  getProfInf: () => dispatch(getProfileInfo()),
+  getGlob: (uid) => dispatch(getGlobal(uid)),
+  openWRtc: (uid) => dispatch(openWebRtc(uid)),
+  closeWRtc: (conn) => dispatch(closeWebRtc(conn)),
+  openWS: (tok) => dispatch(openWebSocket(tok)),
+  closeWS: (sock) => dispatch(closeWebSocket(sock)),
+  getWSToken: () => dispatch(getToken()),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
