@@ -18,6 +18,20 @@ const isLocalhost = Boolean(
     window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/),
 )
 
+const CACHE_NAME = 'droidroot-messenger-pwa'
+const urlsToCache = [
+  '/',
+  '/chat_info',
+  '/group_chat_info',
+  '/rtc',
+  '/settings',
+  '/profile',
+  '/chat',
+  '/list',
+  '/login',
+  '/**/*.*',
+]
+
 export function register(config) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
@@ -80,6 +94,11 @@ function registerValidSW(swUrl, config) {
               // At this point, everything has been precached.
               // It's the perfect time to display a
               // "Content is cached for offline use." message.
+
+              caches.open(CACHE_NAME).then((cache) => {
+                return cache.addAll(urlsToCache)
+              })
+
               console.log('Content is cached for offline use.')
 
               // Execute callback
