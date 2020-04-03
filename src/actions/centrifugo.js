@@ -8,6 +8,8 @@ import {
   CLOSE_CENT_WS_SUCCESS,
 } from '../constants/ActionTypes'
 
+import { API_URL } from '../constants/constans'
+
 const sendTokenStarted = () => ({
   type: GET_CENT_TOKEN_REQUEST,
 })
@@ -42,7 +44,7 @@ export const getToken = () => {
   return (dispatch, getState) => {
     dispatch(sendTokenStarted())
 
-    fetch('/centrifugo/', { method: 'GET' })
+    fetch(`${API_URL}/centrifugo/`, { method: 'GET' })
       .then((resp) => resp.json())
       .then((dat) => {
         dispatch(sendTokenSuccess(dat.token))
