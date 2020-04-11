@@ -146,4 +146,5 @@ docs/_book/
 jest_*/
 .jscpd/
 
+./ts/utils/*.js
 messenger.code-workspace

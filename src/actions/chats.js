@@ -23,7 +23,7 @@ export const getChats = () => {
   return (dispatch, getState) => {
     dispatch(getChatsListStarted())
 
-    fetch(`${API_URL}/chats/list_chats`)
+    fetch(`${API_URL}/chats/list_chats`, { credentials: 'include' })
       .then((resp) => resp.json())
       .then((data) => {
         const dat = data['chats']
