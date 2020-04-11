@@ -74,7 +74,7 @@ export const subscribeChannel = (name, wsocket) => {
 export const getChatMessages = (chatId, userId) => {
   return (dispatch, getState) => {
     dispatch(getChatMessagesStarted())
-    fetch(`${API_URL}/chats/chat_msg_list?chat_id=${chatId}`)
+    fetch(`${API_URL}/chats/chat_msg_list?chat_id=${chatId}`, { credentials: 'include' })
       .then((respMsg) => respMsg.json())
       .then((msgData) => {
         const msgDat = msgData['messages'].reverse()

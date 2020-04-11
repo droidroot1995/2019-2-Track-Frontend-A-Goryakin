@@ -44,7 +44,7 @@ export const getToken = () => {
   return (dispatch, getState) => {
     dispatch(sendTokenStarted())
 
-    fetch(`${API_URL}/centrifugo/`, { method: 'GET' })
+    fetch(`${API_URL}/centrifugo/`, { method: 'GET', credentials: 'include' })
       .then((resp) => resp.json())
       .then((dat) => {
         dispatch(sendTokenSuccess(dat.token))

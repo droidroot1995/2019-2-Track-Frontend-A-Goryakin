@@ -23,14 +23,14 @@ export const getChats = () => {
   return (dispatch, getState) => {
     dispatch(getChatsListStarted())
 
-    fetch(`${API_URL}/chats/list_chats`)
+    fetch(`${API_URL}/chats/list_chats`, { credentials: 'include' })
       .then((resp) => resp.json())
       .then((data) => {
         const dat = data['chats']
         const chats = []
         dat.forEach((ch) => {
           let msgTime = ''
-          fetch(`${API_URL}/chats/chat_msg_list?chat_id=${ch.id}`)
+          fetch(`${API_URL}/chats/chat_msg_list?chat_id=${ch.id}`, { credentials: 'include' })
             .then((respMsg) => respMsg.json())
             .then((msgData) => {
               const msgs = msgData['messages'].reverse()
