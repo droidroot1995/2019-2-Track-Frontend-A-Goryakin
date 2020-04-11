@@ -6,9 +6,8 @@ import {
   GET_MESSAGES_LIST_FAILURE,
   GET_MESSAGE_SUCCESS,
 } from '../constants/ActionTypes'
+import { getMinutes } from '../utils/date'
 import { API_URL } from '../constants/constans'
-
-// let subscription = null
 
 const getChatMessagesStarted = () => ({
   type: GET_MESSAGES_LIST_REQUEST,
@@ -46,7 +45,7 @@ export const subscribeChannel = (name, wsocket) => {
 
         const date = new Date()
 
-        const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+        const minutes = getMinutes(date)
 
         const msg = {
           name: '',
@@ -61,8 +60,8 @@ export const subscribeChannel = (name, wsocket) => {
         }
 
         const currChatId = Number(name.slice(4))
-        // eslint-disable-next-line prefer-destructuring
-        const chatId = state.messages.chatId
+
+        const { chatId } = state.messages
 
         if (currChatId === chatId) {
           dispatch(getChatMessageSuccess(msg))
@@ -82,7 +81,7 @@ export const getChatMessages = (chatId, userId) => {
         const chatMsgs = []
         msgDat.forEach((msgd, idx) => {
           const date = new Date(msgd.added_at)
-          const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+          const minutes = getMinutes(date)
 
           const msg = {
             name: '',

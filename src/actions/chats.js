@@ -30,7 +30,7 @@ export const getChats = () => {
         const chats = []
         dat.forEach((ch) => {
           let msgTime = ''
-          fetch(`/chats/chat_msg_list?chat_id=${ch.id}`)
+          fetch(`${API_URL}/chats/chat_msg_list?chat_id=${ch.id}`)
             .then((respMsg) => respMsg.json())
             .then((msgData) => {
               const msgs = msgData['messages'].reverse()
