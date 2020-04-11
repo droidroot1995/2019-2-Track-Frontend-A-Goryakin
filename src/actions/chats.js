@@ -42,7 +42,7 @@ export const getChats = () => {
 
           const chat = {
             id: ch.id,
-            avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
+            avatar: 'https://avotar.ru/avatar/krutye/64/76.jpg',
             name: ch.topic,
             time: msgTime,
             message: ch.last_message,
