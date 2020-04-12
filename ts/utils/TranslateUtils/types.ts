@@ -9,7 +9,9 @@ export interface IDetectAPIResponse {
 }
 
 export interface ITranslateAPIResponse {
-  text: string
+  code: number
+  lang: string
+  text: string[]
 }
 
 export interface IAPIResponseError {
@@ -17,17 +19,11 @@ export interface IAPIResponseError {
   message: string
 }
 
-export interface ILangListDict {
-  [ind: string]: ILangListAPIResponse
+export interface ICacheDict {
+  [ind: string]: ICacheItem
 }
 
-export interface ILangDetectDict {
-  [ind: string]: IDetectAPIResponse
-}
-
-export interface ITranslatedDict {
-  [ind: string]: ITranslateAPIResponse
-}
+export type ICacheItem = ILangListAPIResponse | IDetectAPIResponse | ITranslateAPIResponse
 
 export type LangListAPIResponse = ILangListAPIResponse | IAPIResponseError
 export type DetectAPIResponse = IDetectAPIResponse | IAPIResponseError
