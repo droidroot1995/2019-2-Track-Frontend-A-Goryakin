@@ -30,7 +30,7 @@ export const getChats = () => {
         const chats = []
         dat.forEach((ch) => {
           let msgTime = ''
-          fetch(`/chats/chat_msg_list?chat_id=${ch.id}`)
+          fetch(`${API_URL}/chats/chat_msg_list?chat_id=${ch.id}`, { credentials: 'include' })
             .then((respMsg) => respMsg.json())
             .then((msgData) => {
               const msgs = msgData['messages'].reverse()
@@ -42,7 +42,7 @@ export const getChats = () => {
 
           const chat = {
             id: ch.id,
-            avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
+            avatar: 'https://avotar.ru/avatar/krutye/64/76.jpg',
             name: ch.topic,
             time: msgTime,
             message: ch.last_message,

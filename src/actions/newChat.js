@@ -27,7 +27,7 @@ export const createNewChat = () => {
 
     dispatch(createNewChatStarted())
 
-    fetch(`${API_URL}/chats/create_pers_chat`, { method: 'POST', body: data })
+    fetch(`${API_URL}/chats/create_pers_chat`, { method: 'POST', body: data, credentials: 'include' })
       .then((resp) => resp.json())
       .then((dat) => {
         dispatch(createNewChatSuccess(dat))

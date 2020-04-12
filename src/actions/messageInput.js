@@ -26,7 +26,7 @@ export const sendMessage = (chatId, message, attachments, audios) => {
 
     dispatch(sendMessageStarted())
 
-    fetch(`${API_URL}/chats/send_msg`, { method: 'POST', body: data })
+    fetch(`${API_URL}/chats/send_msg`, { method: 'POST', body: data, credentials: 'include' })
       .then((resp) => resp.json())
       .then((dat) => {
         attachments.forEach((att) => {
@@ -36,7 +36,9 @@ export const sendMessage = (chatId, message, attachments, audios) => {
             attData.append('message', dat['message']['id'])
             attData.append('att_type', att.type)
             attData.append('url', att.src)
-            fetch(`${API_URL}/chats/upload`, { method: 'POST', body: attData }).then((resp) => resp.json())
+            fetch(`${API_URL}/chats/upload`, { method: 'POST', body: attData, credentials: 'include' }).then((resp) =>
+              resp.json(),
+            )
           }
         })
 
@@ -46,7 +48,9 @@ export const sendMessage = (chatId, message, attachments, audios) => {
           audioData.append('message', dat['message']['id'])
           audioData.append('att_type', aud.type)
           audioData.append('url', aud.src)
-          fetch(`${API_URL}/chats/upload`, { method: 'POST', body: audioData }).then((resp) => resp.json())
+          fetch(`${API_URL}/chats/upload`, { method: 'POST', body: audioData, credentials: 'include' }).then((resp) =>
+            resp.json(),
+          )
         })
 
         dispatch(sendMessageSuccess(dat))
