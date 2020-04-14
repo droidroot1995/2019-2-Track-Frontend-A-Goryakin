@@ -58,7 +58,8 @@ const ChatList = (props) => {
     <div className={styles.chat_list}>
       <ChatListHeader className={styles.header} />
       {list}
-      <NewChatButton />
+      <NewChatButton name="rtc" />
+      <NewChatButton name="new_chat" />
     </div>
   )
 }

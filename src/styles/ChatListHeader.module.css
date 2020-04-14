@@ -17,14 +17,6 @@
   align-content: center;
 }
 
-.open_rtc {
-  flex: 1 1 auto;
-  margin: 2%;
-  height: 50%;
-  align-self: center;
-  align-content: center;
-}
-
 .menu {
   margin-left: 25%;
   fill: #fff;
@@ -53,7 +45,7 @@
 
   fill: #fff;
   margin: 2%;
-  height: 90%;
+  height: 50%;
   align-self: center;
 }
 
@@ -169,18 +161,13 @@
   }
 
   .search {
-    height: 150%;
+    padding: 10px;
+    border-radius: 20px;
   }
 
   .menu:hover {
     fill: #d3d3d3;
     transition: all 0.1s ease-out;
-  }
-
-  .open_rtc {
-    padding: 10px;
-    border-radius: 20px;
-    padding-bottom: 20px;
   }
 
   .open_profile {
