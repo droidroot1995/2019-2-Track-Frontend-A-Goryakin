@@ -21,4 +21,5 @@ deploy:
     branch:
       - master
       - devel
-      - frontend_lesson_2_5
+      - elasticsearch_support
+      #- frontend_lesson_2_5
