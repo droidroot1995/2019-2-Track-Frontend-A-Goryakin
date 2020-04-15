@@ -24,7 +24,7 @@ const Search = ({ placeholder, name, chatId, chats, messages, users, searchMsgs,
     })
   }
 
-  const debouncedSearchTerm = useDebounce(searchTerm.curr, 1000)
+  const debouncedSearchTerm = useDebounce(searchTerm.curr, 500)
 
   useEffect(() => {
     if (debouncedSearchTerm && searchTerm.prev !== searchTerm.curr) {
