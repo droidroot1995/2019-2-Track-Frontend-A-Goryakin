@@ -74,7 +74,7 @@
   }
 
   .msg_form_input {
-    flex: 1 1 35%;
+    flex: 1 1 95%;
     margin: 5px;
   }
 
@@ -93,7 +93,7 @@
   }
 
   .msg_form_input {
-    flex: 1 1 60%;
+    flex: 1 1 90%;
     margin: 5px;
   }
 
@@ -123,7 +123,7 @@
   }
 
   .msg_form_input {
-    flex: 1 1 65%;
+    flex: 1 1 70%;
     margin: 5px;
   }
 
@@ -144,7 +144,7 @@
   }
 
   .msg_form_input {
-    flex: 1 1 65%;
+    flex: 1 1 80%;
     margin: 5px;
   }
 
