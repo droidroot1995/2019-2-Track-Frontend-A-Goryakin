@@ -3,7 +3,7 @@ const path = require('path')
 describe('app', () => {
   beforeAll(async () => {
     // await page.goto('https://localhost:3000/2019-2-Track-Frontend-A-Goryakin')
-    await page.goto('http://localhost:3000/2019-2-Track-Frontend-A-Goryakin')
+    await page.goto('https://localhost:3000/2019-2-Track-Frontend-A-Goryakin')
   }, 30000)
 
   it('should login, create new chat, open chat, send message', async () => {

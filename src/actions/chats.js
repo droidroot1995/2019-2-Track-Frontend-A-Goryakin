@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable dot-notation */
 import { GET_CHATS_LIST_REQUEST, GET_CHATS_LIST_SUCCESS, GET_CHATS_LIST_FAILURE } from '../constants/ActionTypes'
+import { API_URL } from '../constants/constans'
 
 const getChatsListStarted = () => ({
   type: GET_CHATS_LIST_REQUEST,
@@ -22,14 +23,14 @@ export const getChats = () => {
   return (dispatch, getState) => {
     dispatch(getChatsListStarted())
 
-    fetch(`/chats/list_chats`)
+    fetch(`${API_URL}/chats/list_chats`, { credentials: 'include' })
       .then((resp) => resp.json())
       .then((data) => {
         const dat = data['chats']
         const chats = []
         dat.forEach((ch) => {
           let msgTime = ''
-          fetch(`/chats/chat_msg_list?chat_id=${ch.id}`)
+          fetch(`${API_URL}/chats/chat_msg_list?chat_id=${ch.id}`, { credentials: 'include' })
             .then((respMsg) => respMsg.json())
             .then((msgData) => {
               const msgs = msgData['messages'].reverse()
@@ -41,7 +42,7 @@ export const getChats = () => {
 
           const chat = {
             id: ch.id,
-            avatar: 'http://pikchyriki.net/avatar/krutye/64/76.jpg',
+            avatar: 'https://avotar.ru/avatar/krutye/64/76.jpg',
             name: ch.topic,
             time: msgTime,
             message: ch.last_message,

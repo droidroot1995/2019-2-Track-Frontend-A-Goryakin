@@ -1,6 +1,7 @@
 /* eslint-disable no-alert */
 /* eslint-disable dot-notation */
 import { CREATE_NEW_CHAT_REQUEST, CREATE_NEW_CHAT_SUCCESS, CREATE_NEW_CHAT_FAILURE } from '../constants/ActionTypes'
+import { API_URL } from '../constants/constans'
 
 const createNewChatStarted = () => ({
   type: CREATE_NEW_CHAT_REQUEST,
@@ -26,7 +27,7 @@ export const createNewChat = () => {
 
     dispatch(createNewChatStarted())
 
-    fetch(`/chats/create_pers_chat`, { method: 'POST', body: data })
+    fetch(`${API_URL}/chats/create_pers_chat`, { method: 'POST', body: data, credentials: 'include' })
       .then((resp) => resp.json())
       .then((dat) => {
         dispatch(createNewChatSuccess(dat))

@@ -8,6 +8,8 @@ import {
   CLOSE_CENT_WS_SUCCESS,
 } from '../constants/ActionTypes'
 
+import { API_URL } from '../constants/constans'
+
 const sendTokenStarted = () => ({
   type: GET_CENT_TOKEN_REQUEST,
 })
@@ -42,7 +44,7 @@ export const getToken = () => {
   return (dispatch, getState) => {
     dispatch(sendTokenStarted())
 
-    fetch('/centrifugo/', { method: 'GET' })
+    fetch(`${API_URL}/centrifugo/`, { method: 'GET', credentials: 'include' })
       .then((resp) => resp.json())
       .then((dat) => {
         dispatch(sendTokenSuccess(dat.token))
@@ -53,7 +55,7 @@ export const getToken = () => {
 
 export const openWebSocket = (ctoken) => {
   return (dispatch, getState) => {
-    const socket = new Centrifuge('ws://192.168.0.107:8080/connection/websocket', {
+    const socket = new Centrifuge('wss://alexander-goryakin.droidroot1995.tk/centrifugo/connection/websocket', {
       retry: true,
       resubscribe: true,
     })

@@ -2,6 +2,7 @@
 /* eslint-disable dot-notation */
 
 import Peer from 'peerjs'
+import { getMinutes } from '../utils/date'
 import {
   GET_RTC_MESSAGE_SUCCESS,
   SET_RTC_UID_SUCCESS,
@@ -107,7 +108,7 @@ export const connectWebRtc = (conn) => {
 
         const date = new Date()
 
-        const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+        const minutes = getMinutes(date)
 
         const msg = {
           name: '',
@@ -145,7 +146,7 @@ export const sendMessage = (message, attachments, audios, connection) => {
     connection.send(message)
 
     const date = new Date()
-    const minutes = date.getMinutes() < 10 ? `0${date.getMinutes()}` : `${date.getMinutes()}`
+    const minutes = getMinutes(date)
 
     const msg1 = {
       name: '',

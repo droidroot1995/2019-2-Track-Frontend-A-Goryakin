@@ -1,6 +1,7 @@
 /* eslint-disable eqeqeq */
 /* eslint-disable dot-notation */
 import { GET_PROFILE_INFO_REQUEST, GET_PROFILE_INFO_SUCCESS, GET_PROFILE_INFO_FAILURE } from '../constants/ActionTypes'
+import { API_URL } from '../constants/constans'
 
 const getProfileInfoStarted = () => ({
   type: GET_PROFILE_INFO_REQUEST,
@@ -22,7 +23,7 @@ export const getProfileInfo = () => {
   return (dispatch, getState) => {
     dispatch(getProfileInfoStarted())
 
-    fetch(`/users/profile`)
+    fetch(`${API_URL}/users/profile`, { credentials: 'include' })
       .then((resp) => resp.json())
       .then((data) => {
         const uinfo = data['profile']
