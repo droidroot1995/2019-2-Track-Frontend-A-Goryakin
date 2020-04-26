@@ -55,9 +55,7 @@ export async function getSupportedLangList(ui: string): Promise<T.LangListAPIRes
 
   let api_url = `${API}/getLangs?key=${API_KEY}&ui=${ui}`
 
-  let result: T.LangListAPIResponse = await getLangList(api_url, ui)
-
-  return result
+  return getLangList(api_url, ui)
 }
 
 export async function languageDetect(text: string, hint?: string[]): Promise<T.DetectAPIResponse> {
@@ -71,9 +69,7 @@ export async function languageDetect(text: string, hint?: string[]): Promise<T.D
     api_url = `${API}/detect?key=${API_KEY}&text=${text}&hint=${hint.join(',')}`
   }
 
-  let result: T.DetectAPIResponse = await langDetect(api_url, text)
-
-  return result
+  return langDetect(api_url, text)
 }
 
 export async function translate(text: string, lang: string, format?: string): Promise<T.TranslateAPIResponse> {
@@ -87,7 +83,5 @@ export async function translate(text: string, lang: string, format?: string): Pr
     api_url = `${API}/translate?key=${API_KEY}&text=${text}&lang=${lang}&format=${format}`
   }
 
-  let result: T.TranslateAPIResponse = await textTranslate(api_url, text, lang)
-
-  return result
+  return textTranslate(api_url, text, lang)
 }

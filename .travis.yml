@@ -5,11 +5,12 @@ cache:
   directories:
     - node_modules
 
-# before_install:
+before_install:
+  - cd ts2
 #  - cd exam
 script:
-  - npm run lint
-  - npm run test
+  # - npm run lint
+  # - npm run test
   - npm run build
 
 deploy:
@@ -21,5 +22,5 @@ deploy:
     branch:
       - master
       - devel
-      - elasticsearch_support
-      #- frontend_lesson_2_5
+      # - elasticsearch_support
+      - frontend_lesson_2_7
