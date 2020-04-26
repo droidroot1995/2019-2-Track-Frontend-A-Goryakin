@@ -24,7 +24,7 @@ function App() {
         path="/stats"
         render={() => (
           <D3Graph
-            filename="covid19.csv"
+            filename="/2019-2-Track-Frontend-A-Goryakin/covid19.csv"
             filterField="Region_ID"
             filterValue={50}
             width={windowWidth}
@@ -36,7 +36,7 @@ function App() {
         path="/stats_msk"
         render={() => (
           <D3Graph
-            filename="covid19.csv"
+            filename="/2019-2-Track-Frontend-A-Goryakin/covid19.csv"
             filterField="Region_ID"
             filterValue={77}
             width={windowWidth}
