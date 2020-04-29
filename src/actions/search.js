@@ -63,7 +63,7 @@ export const searchMessages = (text, chatId) => {
         if (!text) {
           dispatch(getSearchListSuccess([], [], []))
         } else {
-          dispatch(getSearchListSuccess([], messages === undefined ? [] : messages, []))
+          dispatch(getSearchListSuccess([], messages || [], []))
         }
       })
       .catch((err) => {
