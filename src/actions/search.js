@@ -41,7 +41,7 @@ export const searchChatsAndUsers = (text) => {
             if (!text) {
               dispatch(getSearchListSuccess([], [], []))
             } else {
-              dispatch(getSearchListSuccess(chats === undefined ? [] : chats, [], users === undefined ? [] : users))
+              dispatch(getSearchListSuccess(chats || [], [], users || []))
             }
           })
       })
