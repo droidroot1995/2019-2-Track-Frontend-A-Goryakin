@@ -14,6 +14,22 @@
   z-index: 1;
 }
 
+.rtc {
+  position: absolute;
+
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+
+  background: #00d684;
+
+  bottom: 9em;
+  right: 3em;
+
+  padding: 20px;
+  z-index: 1;
+}
+
 .new_chat_svg {
   fill: #756124;
 }
@@ -21,6 +37,13 @@
 @media screen and (max-width: 389px) {
   .new_chat {
     bottom: 0.5em;
+    right: 0.5em;
+    width: 4em;
+    height: 4em;
+  }
+
+  .rtc {
+    bottom: 5em;
     right: 0.5em;
     width: 4em;
     height: 4em;
@@ -34,6 +57,13 @@
     width: 4em;
     height: 4em;
   }
+
+  .rtc {
+    bottom: 5em;
+    right: 0.5em;
+    width: 4em;
+    height: 4em;
+  }
 }
 
 @media screen and (min-width: 481px) and (max-width: 767px) {
@@ -43,11 +73,25 @@
     width: 4em;
     height: 4em;
   }
+
+  .rtc {
+    bottom: 5em;
+    right: 0.5em;
+    width: 4em;
+    height: 4em;
+  }
 }
 
 @media screen and (min-width: 768px) and (max-width: 991px) {
   .new_chat {
     bottom: 0.5em;
+    right: 0.5em;
+    width: 4em;
+    height: 4em;
+  }
+
+  .rtc {
+    bottom: 5em;
     right: 0.5em;
     width: 4em;
     height: 4em;
@@ -62,10 +106,19 @@
     height: 6em;
     padding: 1.5em;
   }
+
+  .rtc {
+    bottom: 7em;
+    right: 0.5em;
+    width: 6em;
+    height: 6em;
+    padding: 1.5em;
+  }
 }
 
 @media screen and (min-width: 1200px) {
-  .new_chat:hover {
+  .new_chat:hover,
+  .rtc:hover {
     animation-name: flip;
     animation-duration: 0.5s;
     animation-timing-function: ease-out;
@@ -94,7 +147,8 @@
   }
 }
 
-.new_chat:active {
+.new_chat:active,
+.rtc:active {
   animation: pulse 0.5s infinite;
 }
 

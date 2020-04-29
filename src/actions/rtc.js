@@ -66,8 +66,27 @@ export const openWebRtc = (userId) => {
   // (userId, connectId) => {
   return (dispatch, getState) => {
     const state = getState()
-    peer = new Peer(userId.toString(), {
+    /* peer = new Peer(userId.toString(), {
       host: '192.168.0.107',
+      port: 9000,
+      path: '/messenger',
+      key: 'lwjd5qra8257b9',
+      config: {
+        iceServers: [
+          { url: 'stun:stun.l.google.com:19302' },
+          {
+            url: 'turn:numb.viagenie.ca',
+            credential: 'muazkh',
+            username: 'webrtc@live.com',
+          },
+        ],
+        sdpSemantics: 'unified-plan',
+        iceTransportPolicy: 'relay',
+      },
+    }) */
+
+    peer = new Peer(userId.toString(), {
+      host: 'https://alexander-goryakin.droidroot1995.tk/rtc',
       port: 9000,
       path: '/messenger',
       key: 'lwjd5qra8257b9',
