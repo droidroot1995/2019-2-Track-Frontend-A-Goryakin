@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Emoji from './Emoji.js'
+import ErrorBoundary from './ErrorBoundary'
 import styles from '../styles/EmojiKeyboard.module.css'
 
 const EmojiKeyboard = () => {
@@ -29,11 +30,13 @@ const EmojiKeyboard = () => {
   ]
 
   return (
-    <div className={styles.container}>
-      {emojis.map((entry, idx) => (
-        <Emoji etype="kbd" key={idx} name={entry} />
-      ))}
-    </div>
+    <ErrorBoundary>
+      <div className={styles.container}>
+        {emojis.map((entry, idx) => (
+          <Emoji etype="kbd" key={idx} name={entry} />
+        ))}
+      </div>
+    </ErrorBoundary>
   )
 }
 

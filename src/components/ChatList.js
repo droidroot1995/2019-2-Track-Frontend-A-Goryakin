@@ -12,6 +12,7 @@ import styles from '../styles/ChatList.module.css'
 import ChatListHeader from './ChatListHeader'
 import ChatListItem from './ChatListItem'
 import NewChatButton from './NewChatButton'
+import ErrorBoundary from './ErrorBoundary'
 
 const ChatList = (props) => {
   const { chatsList, token, getChatsList, setGState, getCToken, clearRtcUid, closeWRtc } = props
@@ -55,12 +56,14 @@ const ChatList = (props) => {
   }
 
   return (
-    <div className={styles.chat_list}>
-      <ChatListHeader className={styles.header} />
-      {list}
-      <NewChatButton name="rtc" />
-      <NewChatButton name="new_chat" />
-    </div>
+    <ErrorBoundary>
+      <div className={styles.chat_list}>
+        <ChatListHeader className={styles.header} />
+        {list}
+        <NewChatButton name="rtc" />
+        <NewChatButton name="new_chat" />
+      </div>
+    </ErrorBoundary>
   )
 }
 

@@ -1,26 +1,27 @@
 language: node_js
 node_js:
   - 'stable'
-#cache:
-#  directories:
-#    - node_modules
+cache:
+  directories:
+    - node_modules
 
-before_install:
-  - cd ts2
+# before_install:
+#  - cd ts2
 #  - cd exam
 script:
-  # - npm run lint
-  # - npm run test
+  - npm run lint
+  - npm run test
   - npm run build
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: ts2/build
+  local_dir: build
+  # local_dir: ts2/build
   on:
     branch:
       - master
       - devel
       # - elasticsearch_support
-      - frontend_lesson_2_7
+      - frontend_lesson_2_8

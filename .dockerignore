@@ -125,3 +125,9 @@ typings/
 **/node_modules
 **/bower_components
 *.log
+
+compose/
+exam/
+ts/
+ts2/
+nginx/

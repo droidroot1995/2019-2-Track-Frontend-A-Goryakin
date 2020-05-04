@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import { searchChatsAndUsers, searchMessages, clearSearchResults } from '../actions/search'
 import { useDebounce } from '../utils/debounce'
 import SearchItem from './SearchItem'
+import ErrorBoundary from './ErrorBoundary'
 import styles from '../styles/Search.module.css'
 
 const Search = ({ placeholder, name, chatId, chats, messages, users, searchMsgs, searchCaU, clearResults }) => {
@@ -59,27 +60,29 @@ const Search = ({ placeholder, name, chatId, chats, messages, users, searchMsgs,
       : null
 
   return (
-    <div className={style}>
-      <textarea
-        id="message_input"
-        type="text"
-        className={styles.text_input}
-        ref={textarea}
-        placeholder={placeholder}
-        onChange={(e) => handleInputChange(e)}
-      />
+    <ErrorBoundary>
+      <div className={style}>
+        <textarea
+          id="message_input"
+          type="text"
+          className={styles.text_input}
+          ref={textarea}
+          placeholder={placeholder}
+          onChange={(e) => handleInputChange(e)}
+        />
 
-      <div className={styles.results_container}>
-        {chat}
-        {chts}
+        <div className={styles.results_container}>
+          {chat}
+          {chts}
 
-        {user}
-        {usrs}
+          {user}
+          {usrs}
 
-        {msg}
-        {msgs}
+          {msg}
+          {msgs}
+        </div>
       </div>
-    </div>
+    </ErrorBoundary>
   )
 }
 

@@ -5,6 +5,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 import Emoji from './Emoji'
+import ErrorBoundary from './ErrorBoundary'
 import { stringReplacer } from './replacer'
 import styles from '../styles/MessageBubble.module.css'
 
@@ -92,19 +93,21 @@ const MessageBubble = (props) => {
   }
 
   return (
-    <div className={`${styles.message_bubble_container} ${messageClass}`}>
-      <div className={`${styles.message_bubble} ${messageClass}`}>
-        <div className={styles.txt}>
-          <p className={`${styles.name} ${messageClass}`}>{name}</p>
-          <p className={styles.message}>{msgContent}</p>
-          <p className={styles.message_info}>
-            <span className={`${styles.time}`}>{time}</span>
-            {msgStatus}
-          </p>
+    <ErrorBoundary>
+      <div className={`${styles.message_bubble_container} ${messageClass}`}>
+        <div className={`${styles.message_bubble} ${messageClass}`}>
+          <div className={styles.txt}>
+            <p className={`${styles.name} ${messageClass}`}>{name}</p>
+            <p className={styles.message}>{msgContent}</p>
+            <p className={styles.message_info}>
+              <span className={`${styles.time}`}>{time}</span>
+              {msgStatus}
+            </p>
+          </div>
+          <div className={styles.bubble_arrow} />
         </div>
-        <div className={styles.bubble_arrow} />
       </div>
-    </div>
+    </ErrorBoundary>
   )
 }
 

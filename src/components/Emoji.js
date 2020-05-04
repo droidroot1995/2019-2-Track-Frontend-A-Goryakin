@@ -5,6 +5,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { setEmoji } from '../actions/emoji'
+import ErrorBoundary from './ErrorBoundary'
 import style from '../styles/Emoji.module.css'
 
 const Emoji = ({ setEmji, name, etype }) => {
@@ -24,7 +25,7 @@ const Emoji = ({ setEmji, name, etype }) => {
     emji = <span className={emStyle} />
   }
 
-  return emji
+  return <ErrorBoundary>{emji}</ErrorBoundary>
 }
 
 const mapDispatchToProps = (dispatch) => ({
