@@ -8,7 +8,7 @@ import styles from '../styles/TranslateForm.module.css'
 const TranslateForm = () => {
     const [state, setState] = useState({
         from: '',
-        to: 'en',
+        to: '',
         source: '',
         translated: '',
         languages: [],
