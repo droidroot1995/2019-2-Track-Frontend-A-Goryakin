@@ -1,15 +1,13 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react/button-has-type */
+/* eslint-disable react/state-in-constructor */
 import React, { Component } from 'react'
 import * as Sentry from '@sentry/browser'
 
 class ErrorBoundary extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      eventId: null,
-      hasError: false,
-    }
+  state = {
+    eventId: null,
+    hasError: false,
   }
 
   static getDerivedStateFromError(error) {
