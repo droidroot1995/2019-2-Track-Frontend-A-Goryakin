@@ -8,13 +8,13 @@
 }
 
 .from .to {
-    flex: 1 1 50%;
-    resize: none;
+    flex: 1 1 auto;
     /* min-width: 50%;
     max-width: 50%; */
 }
 
 .input .output {
+    resize: none;
     min-width: 100%;
     max-width: 100%;
 }

@@ -44,10 +44,6 @@ async function textTranslate(api_url: string, text: string, lang: string): Promi
 }
 
 export async function getSupportedLangList(ui: string): Promise<T.LangListAPIResponse> {
-  let error: T.IAPIResponseError = {
-    code: 401,
-    message: 'Network problem',
-  }
 
   if (langLst[ui]) {
     return langLst[ui] as T.ILangListAPIResponse
