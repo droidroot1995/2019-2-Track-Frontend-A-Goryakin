@@ -151,3 +151,5 @@ ts/utils/TranslateUtils/*.js
 ts/utils/tests/*.js
 messenger.code-workspace
 .git-old
+compose/
+compose/*

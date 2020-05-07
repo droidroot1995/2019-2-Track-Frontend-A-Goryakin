@@ -5,6 +5,7 @@
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import ErrorBoundary from './ErrorBoundary'
 import styles from '../styles/ChatListItem.module.css'
 
 const ChatListItem = (props) => {
@@ -43,19 +44,21 @@ const ChatListItem = (props) => {
   }
 
   return (
-    <div className={styles.item}>
-      <img className={styles.avatar} src={avatar} />
-      <div className={styles.message_info}>
-        <div className={styles.info}>
-          <p className={styles.contact_name}>{name}</p>
-          <span className={styles.time}>{time}</span>
+    <ErrorBoundary>
+      <div className={styles.item}>
+        <img className={styles.avatar} src={avatar} />
+        <div className={styles.message_info}>
+          <div className={styles.info}>
+            <p className={styles.contact_name}>{name}</p>
+            <span className={styles.time}>{time}</span>
+          </div>
+          <div className={styles.message}>
+            <p className={styles.msg}>{msg}</p>
+          </div>
+          {msgStatus}
         </div>
-        <div className={styles.message}>
-          <p className={styles.msg}>{msg}</p>
-        </div>
-        {msgStatus}
       </div>
-    </div>
+    </ErrorBoundary>
   )
 }
 

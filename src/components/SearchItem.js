@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable react/prop-types */
 import React from 'react'
+import ErrorBoundary from './ErrorBoundary'
 import styles from '../styles/SearchItem.module.css'
 
 const SearchItem = ({ name, content }) => {
@@ -33,7 +34,7 @@ const SearchItem = ({ name, content }) => {
     )
   }
 
-  return item
+  return <ErrorBoundary>{item}</ErrorBoundary>
 }
 
 export default SearchItem

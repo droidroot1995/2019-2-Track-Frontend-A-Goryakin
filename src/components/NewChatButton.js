@@ -5,6 +5,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { createNewChat } from '../actions/newChat'
+import ErrorBoundary from './ErrorBoundary'
 import styles from '../styles/NewChatButton.module.css'
 
 const NewChatButton = ({ createChat, name }) => {
@@ -25,9 +26,11 @@ const NewChatButton = ({ createChat, name }) => {
     )
   }
   return (
-    <div className={style} onClick={name === 'new_chat' ? () => createChat() : null}>
-      {inner}
-    </div>
+    <ErrorBoundary>
+      <div className={style} onClick={name === 'new_chat' ? () => createChat() : null}>
+        {inner}
+      </div>
+    </ErrorBoundary>
   )
 }
 

@@ -12,6 +12,7 @@ import styles from '../styles/MessageForm.module.css'
 import ChatHeader from './ChatHeader'
 import FormInput from './FormInput'
 import MessageBubble from './MessageBubble'
+import ErrorBoundary from './ErrorBoundary'
 // import Messenger from './Messenger.Context'
 
 const MessageForm = ({ selected, messages, token, socket, chatId, userId, chatInfo, getChatMsgs, subChannel }) => {
@@ -68,22 +69,24 @@ const MessageForm = ({ selected, messages, token, socket, chatId, userId, chatIn
   }
 
   return (
-    <form className={styles.msform} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
-      <div className={`${styles.drag_n_drop_wrapper} ${dragActiveState && styles.drag_n_drop_active}`}>
-        <div className={styles.drag_n_drop}>
-          <svg className={styles.file_upload_image} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z" />
-          </svg>
-          <span className={styles.drag_n_drop_text}>Переместите изображение для загрузки</span>
+    <ErrorBoundary>
+      <form className={styles.msform} onDragOver={handleDragOver} onDragLeave={handleDragLeave} onDrop={handleDrop}>
+        <div className={`${styles.drag_n_drop_wrapper} ${dragActiveState && styles.drag_n_drop_active}`}>
+          <div className={styles.drag_n_drop}>
+            <svg className={styles.file_upload_image} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path d="M464 448H48c-26.51 0-48-21.49-48-48V112c0-26.51 21.49-48 48-48h416c26.51 0 48 21.49 48 48v288c0 26.51-21.49 48-48 48zM112 120c-30.928 0-56 25.072-56 56s25.072 56 56 56 56-25.072 56-56-25.072-56-56-56zM64 384h384V272l-87.515-87.515c-4.686-4.686-12.284-4.686-16.971 0L208 320l-55.515-55.515c-4.686-4.686-12.284-4.686-16.971 0L64 336v48z" />
+            </svg>
+            <span className={styles.drag_n_drop_text}>Переместите изображение для загрузки</span>
+          </div>
         </div>
-      </div>
-      <ChatHeader className={styles.header} chatInfo={chatInfo} />
-      <div className={styles.result}>
-        {msgList}
-        <div ref={resultEnd} />
-      </div>
-      <FormInput placeholder="Введите сообщение" filesDragAndDrop={[filesDrag, setFilesDrag]} />
-    </form>
+        <ChatHeader className={styles.header} chatInfo={chatInfo} />
+        <div className={styles.result}>
+          {msgList}
+          <div ref={resultEnd} />
+        </div>
+        <FormInput placeholder="Введите сообщение" filesDragAndDrop={[filesDrag, setFilesDrag]} />
+      </form>
+    </ErrorBoundary>
   )
 }
 

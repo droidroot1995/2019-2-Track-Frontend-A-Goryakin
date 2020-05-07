@@ -1,41 +1,16 @@
-FROM node:alpine
+FROM node:12-alpine as build-stage
 
-ARG NODE_ENV
-ENV NODE_ENV "$NODE_ENV"
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY . ./
+RUN npm i
+RUN npm run build
 
-# System deps:
+FROM nginx:stable-alpine
+COPY --from=build-stage /app/build/*.html /usr/share/nginx/html/
+COPY --from=build-stage /app/build/*.json /app/build/*.js /app/build/*.png /app/build/*.ico /app/build/*.css /usr/share/nginx/html/2019-2-Track-Frontend-A-Goryakin/
+COPY --from=build-stage /app/build/static /usr/share/nginx/html/2019-2-Track-Frontend-A-Goryakin/static
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+EXPOSE 80
+CMD ["nginx","-g","daemon off;"]
 
-RUN npm --version && apk add --no-cache \
-    autoconf \
-    automake \
-    bash \
-    build-base \
-    ca-certificates \
-    curl \
-    file \
-    g++ \
-    gcc \
-    git \
-    lcms2-dev \
-    libjpeg-turbo-dev \
-    libpng-dev \
-    make \
-    nasm \
-    wget \
-    zlib-dev
-
-
-# Installing dependencies:
-WORKDIR /code
-COPY package.json package-lock.json /code/
-
-# We do not need to tweak this command, `$NODE_ENV` does it for us.
-RUN npm install
-
-
-# Creating folders, and files for a project:
-COPY . /code
-
-
-# Project initialization:
-EXPOSE 4000

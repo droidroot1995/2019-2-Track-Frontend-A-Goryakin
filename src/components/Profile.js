@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { getProfileInfo } from '../actions/profile'
 import ProfileHeader from './ProfileHeader'
+import ErrorBoundary from './ErrorBoundary'
 import styles from '../styles/Profile.module.css'
 
 const Profile = (props) => {
@@ -37,45 +38,47 @@ const Profile = (props) => {
   }, [getInfo])
 
   return (
-    <div className={styles.profile}>
-      <ProfileHeader userInfo={userInfo} />
-      <div className={styles.profile_info}>
-        <img className={styles.avatar} src={userInfo.avatar} />
-        <div className={styles.name_info}>
-          <h6>Полное имя</h6>
-          <input
-            className={styles.name_input}
-            placeholder="Имя и Фамилия"
-            value={userInfo.fullname}
-            onChange={(event) => setUserFullName(event.target.value)}
-          />
-        </div>
-        <div className={styles.username_info}>
-          <div className={styles.username}>
-            <h6>Имя пользователя</h6>
+    <ErrorBoundary>
+      <div className={styles.profile}>
+        <ProfileHeader userInfo={userInfo} />
+        <div className={styles.profile_info}>
+          <img className={styles.avatar} src={userInfo.avatar} />
+          <div className={styles.name_info}>
+            <h6>Полное имя</h6>
             <input
-              className={styles.username_input}
-              placeholder="Имя пользователя"
-              value={userInfo.username}
-              onChange={(event) => setUserUsername(event.target.value)}
+              className={styles.name_input}
+              placeholder="Имя и Фамилия"
+              value={userInfo.fullname}
+              onChange={(event) => setUserFullName(event.target.value)}
             />
           </div>
-          <h6 className={styles.hint}>Минимальная длина 5 символов</h6>
-        </div>
-        <div className={styles.bio_info}>
-          <div className={styles.bio}>
-            <h6>Информация о себе</h6>
-            <textarea
-              className={styles.bio_input}
-              placeholder="Информация о себе"
-              value={userInfo.bio}
-              onChange={(event) => setUserBio(event.target.value)}
-            />
+          <div className={styles.username_info}>
+            <div className={styles.username}>
+              <h6>Имя пользователя</h6>
+              <input
+                className={styles.username_input}
+                placeholder="Имя пользователя"
+                value={userInfo.username}
+                onChange={(event) => setUserUsername(event.target.value)}
+              />
+            </div>
+            <h6 className={styles.hint}>Минимальная длина 5 символов</h6>
           </div>
-          <h6 className={styles.hint}>Любая информация о себе</h6>
+          <div className={styles.bio_info}>
+            <div className={styles.bio}>
+              <h6>Информация о себе</h6>
+              <textarea
+                className={styles.bio_input}
+                placeholder="Информация о себе"
+                value={userInfo.bio}
+                onChange={(event) => setUserBio(event.target.value)}
+              />
+            </div>
+            <h6 className={styles.hint}>Любая информация о себе</h6>
+          </div>
         </div>
       </div>
-    </div>
+    </ErrorBoundary>
   )
 }
 
@@ -87,7 +90,4 @@ const mapDispatchToProps = (dispatch) => ({
   getInfo: () => dispatch(getProfileInfo()),
 })
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Profile)
+export default connect(mapStateToProps, mapDispatchToProps)(Profile)
