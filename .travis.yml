@@ -5,7 +5,8 @@ cache:
   directories:
     - node_modules
 
-# before_install:
+before_install:
+  - cd exam_2
 #  - cd ts2
 #  - cd exam
 script:
@@ -17,11 +18,12 @@ deploy:
   provider: pages
   skip_cleanup: true
   github_token: $repo_token
-  local_dir: build
+  local_dir: exam_2/build
+  # local_dir: build
   # local_dir: ts2/build
   on:
     branch:
       - master
       - devel
-      # - elasticsearch_support
-      - frontend_lesson_2_8
+      - exam_2
+      # - frontend_lesson_2_8
