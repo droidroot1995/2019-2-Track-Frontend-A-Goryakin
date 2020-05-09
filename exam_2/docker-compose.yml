@@ -1,0 +1,10 @@
+version: '3.7'
+
+services:
+  frontend:
+    container_name: translator
+    build:
+      context: .
+      dockerfile: ./docker/translator/Dockerfile
+    ports:
+      - '80:80'
