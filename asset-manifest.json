@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/2019-2-Track-Frontend-A-Goryakin/static/css/main.445765df.chunk.css",
+    "main.js": "/2019-2-Track-Frontend-A-Goryakin/static/js/main.c74e2fdb.chunk.js",
+    "main.js.map": "/2019-2-Track-Frontend-A-Goryakin/static/js/main.c74e2fdb.chunk.js.map",
+    "runtime-main.js": "/2019-2-Track-Frontend-A-Goryakin/static/js/runtime-main.c194fe93.js",
+    "runtime-main.js.map": "/2019-2-Track-Frontend-A-Goryakin/static/js/runtime-main.c194fe93.js.map",
+    "static/js/2.15e418f9.chunk.js": "/2019-2-Track-Frontend-A-Goryakin/static/js/2.15e418f9.chunk.js",
+    "static/js/2.15e418f9.chunk.js.map": "/2019-2-Track-Frontend-A-Goryakin/static/js/2.15e418f9.chunk.js.map",
+    "index.html": "/2019-2-Track-Frontend-A-Goryakin/index.html",
+    "precache-manifest.f1049d5af7e5ee1e13415bb41eefea1d.js": "/2019-2-Track-Frontend-A-Goryakin/precache-manifest.f1049d5af7e5ee1e13415bb41eefea1d.js",
+    "service-worker.js": "/2019-2-Track-Frontend-A-Goryakin/service-worker.js",
+    "static/css/main.445765df.chunk.css.map": "/2019-2-Track-Frontend-A-Goryakin/static/css/main.445765df.chunk.css.map",
+    "static/js/2.15e418f9.chunk.js.LICENSE.txt": "/2019-2-Track-Frontend-A-Goryakin/static/js/2.15e418f9.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c194fe93.js",
+    "static/js/2.15e418f9.chunk.js",
+    "static/css/main.445765df.chunk.css",
+    "static/js/main.c74e2fdb.chunk.js"
+  ]
+}
